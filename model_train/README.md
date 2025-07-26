@@ -78,6 +78,7 @@ For data whose total length (including system, conversation history, instruction
 llamafactory-cli train train_config/llama_long_config.yaml
 llamafactory-cli train train_config/qwen_long_config.yaml
 ```
+where we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumulation_steps`, `learning_rate`, and `packing`.
 
 ## About
 For more detailed usage of LLaMA-Factory, please refer to the [LLaMA-Factory documentation](https://llamafactory.readthedocs.io/en/latest/).
