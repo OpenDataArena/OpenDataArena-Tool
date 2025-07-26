@@ -4,6 +4,7 @@
 We use OpenCompass to evaluate the performance of our SFT models on the popular benchmarks.
 
 ## Installation
+We use version `v0.4.2` of OpenCompass to evaluate the performance of our SFT models.
 
 ```bash
 # Create a virtual environment
@@ -28,7 +29,12 @@ pip install tree-sitter==0.21.3
 ```
 
 ## Evaluation
-To evaluate the performance of the model on the benchmarks, you can pass the model path, model name, and benchmark file (as shown in the table below) to the evaluation script as follows:
+To evaluate the performance of the model on the benchmarks, run the following commands.
+You need to pass your model path, model name, and benchmark file (as shown in the table below) to the evaluation script.
+
+* `your_model_path`: The path to the model checkpoint.
+* `dataset_name`: The name of the dataset. It is used as a label to distinguish your evaluation results, which is for identification purposes only and does not affect the evaluation itself.
+* `benchmark_file`: The name of the benchmark file. For more details, please refer to the **Benchmarks** section below.
 
 ### Evaluate on a Single Benchmark
 ```bash
@@ -38,9 +44,6 @@ bash eval_script/test_llama.sh your_model_path dataset_name benchmark_file
 # evaluate sft model based on Qwen-2.5-7B
 bash eval_script/test_qwen.sh your_model_path dataset_name benchmark_file
 ```
-The `dataset_name` parameter is used as a label to distinguish your test results. Please note that this parameter is for identification purposes only and does not affect the test execution itself.
-
-The `benchmark_file` parameter specifies which benchmark you want to run. For more details on this, please refer to the **Benchmarks** section below.
 
 ### Evaluate on Benchmarks in a Specific Domain
 ```bash
@@ -50,7 +53,6 @@ bash eval_script/test_llama_math.sh your_model_path dataset_name
 # evaluate sft model based on Qwen-2.5-7B in code domain benchmarks 
 bash eval_script/test_llama_code.sh your_model_path dataset_name
 ```
-For more evaluation scripts, please refer to the `eval_script` folder.
 
 ### Evaluate on All Benchmarks
 
@@ -62,7 +64,10 @@ bash eval_script/test_llama_all_benchmarks.sh your_model_path dataset_name
 bash eval_script/test_qwen_all_benchmarks.sh your_model_path dataset_name
 ```
 
+For more evaluation scripts, please refer to the `eval_script` folder.
+
 ## Benchmarks
+We evaluate the performance of our SFT models on the following benchmarks.
 
 | Domain  | Benchmark  | Benchmark File | Evaluator |
 | :--- | :--- | :--- | :--- |
@@ -89,14 +94,19 @@ bash eval_script/test_qwen_all_benchmarks.sh your_model_path dataset_name
 
 ## Results Summary
 Run the following commands to summarize the evaluation scores of the model.
+
 ```bash
 # summarize Llama-3.1-8B evaluation scores
 python summary_scores/run_summary.py -s opencompass/outputs -d res_llama -m llama-3_1-8b-instruct-vllm
 # summarize Qwen-2.5-7B evaluation scores
 python summary_scores/run_summary.py -s opencompass/outputs -d res_qwen -m qwen2.5-7b-instruct-vllm
 ```
-`opencompass/outputs`: The directory where the raw test results and logs are saved.
 
-`res_llama` and `res_qwen`: The destination path for the final, summarized result file.
+* `opencompass/outputs`: The directory where the raw test results and logs are saved.
 
-`llama-3_1-8b-instruct-vllm` and `qwen-2.5-7b-instruct-vllm`: The identifier for the model is accelerated by `vllm`. This is a required argument.
+* `res_llama` and `res_qwen`: The destination path for the final, summarized result file.
+
+* `llama-3_1-8b-instruct-vllm` and `qwen-2.5-7b-instruct-vllm`: The identifier for the model is accelerated by `vllm`. This is a required argument.
+
+## About
+For more detailed usage of OpenCompass, please refer to the [OpenCompass documentation](https://opencompass.readthedocs.io/en/latest/).

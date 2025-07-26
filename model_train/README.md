@@ -33,7 +33,8 @@ If you want to use your own dataset, you can update `LLaMA-Factory/data/dataset_
 
 ## Supervised Fine-tuning
 Use the following commands to run full parameter SFT of [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) and [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B), respectively.
-Take `Llama-3.1-8B` as an example:
+Take `Llama-3.1-8B` base model as an example:
+
 ```bash
 export SEED=42
 export DATASET=your_dataset_name
@@ -73,14 +74,17 @@ llamafactory-cli train train_config/llama_config.yaml
 llamafactory-cli train train_config/qwen_config.yaml
 ```
 
+### Long CoT SFT
 For data whose total length (including system, conversation history, instructions, input, and output) exceeds 4096 tokens, we use the long CoT (Chain-of-Thought) setting as follows:
 
 ```bash
 llamafactory-cli train train_config/llama_long_config.yaml
 llamafactory-cli train train_config/qwen_long_config.yaml
 ```
-where we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumulation_steps`, `learning_rate`, and `packing`.
 
+The difference from the setting above is that we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumulation_steps`, `learning_rate`, and `packing`.
+
+The datasets in the following table are trained using above long CoT setting.
 
 | Dataset | Affiliation | HF Link |
 |---|---|---|
@@ -102,6 +106,6 @@ where we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumu
 | OpenThoughts3-1.2M | Stanford University | [Link](https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M) |
 | OpenMathReasoning-cot | Nvidia | [Link](https://huggingface.co/datasets/nvidia/OpenMathReasoning) |
 
-These datasets are trained using our long CoT (Chain-of-Thought) setting. This approach is necessary because a significant number of samples within these datasets far exceed the standard context length of 4096 tokens.
+
 ## About
 For more detailed usage of LLaMA-Factory, please refer to the [LLaMA-Factory documentation](https://llamafactory.readthedocs.io/en/latest/).
