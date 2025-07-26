@@ -9,14 +9,14 @@ finetuning_type: full
 deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
 
 ### dataset
-dataset: ${your_dataset_path}
+dataset: ${DATASET}
 template:  default
 cutoff_len: 32768
 overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/qwen2.5-7b/full/sft-${your_dataset_name}
+output_dir: saves/qwen2.5-7b/full/sft-${DATASET}/seed-${SEED}
 save_only_model: true
 logging_steps: 10
 save_strategy: epoch

@@ -10,3 +10,6 @@
 [submodule "model_train/LLaMA-Factory"]
 	path = model_train/LLaMA-Factory
 	url = https://github.com/OpenDataArena/LLaMA-Factory.git
+[submodule "opencompass"]
+	path = opencompass
+	url = https://github.com/OpenDataArena/opencompass.git

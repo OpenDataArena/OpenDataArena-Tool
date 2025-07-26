@@ -21,7 +21,7 @@ output_dir: saves/qwen2.5-7b/full/sft-${DATASET}/seed-${SEED}
 save_only_model: true
 logging_steps: 10
 save_strategy: epoch
-save_total_limit: 0
+save_total_limit: 1
 plot_loss: true
 overwrite_output_dir: true
 

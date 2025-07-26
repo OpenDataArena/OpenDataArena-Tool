@@ -5,6 +5,7 @@ We use LLaMA-Factory to fine-tune the base models, using datasets listed on [Ope
 ## Installation
 We use version `v0.9.2` of LLaMA-Factory to conduct supervised fine-tuning (SFT):
 ```
+git clone https://github.com/OpenDataArena/LLaMA-Factory.git
 cd LLaMA-Factory
 pip install -e ".[torch,metrics]"
 ```

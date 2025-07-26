@@ -33,8 +33,7 @@ models = [
 EOF
 echo "The model configuration file has been created successfully: $output_file"
 
-python replace_chat_template_to_default.py --model_path ${MODEL_PATH} 
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 opencompass \
+opencompass \
     -w outputs/${DATANAME}_${START_TIME}_${EXP_NAME} \
     --max-out-len 32768 \
     --datasets \
