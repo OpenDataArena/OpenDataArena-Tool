@@ -182,10 +182,13 @@ TASKS_TABLE = [TASK]
         
         lighteval_split_id = split_id + 1
         results_split_dir = os.path.join(results_dir, f"results_split_{lighteval_split_id}")
-        model_name = self.config['model']
         
-        parquet_pattern = os.path.join(results_split_dir, "details", model_name, "*", f"details_community|my_math_dataset_eval_{lighteval_split_id}|0_*.parquet")
+        parquet_pattern = os.path.join(results_split_dir, "details", "*", "*", f"details_community|my_math_dataset_eval_{lighteval_split_id}|0_*.parquet")
         parquet_files = glob.glob(parquet_pattern)
+        
+        if not parquet_files:
+            parquet_pattern = os.path.join(results_split_dir, "details", "*", "*", "*", f"details_community|my_math_dataset_eval_{lighteval_split_id}|0_*.parquet")
+            parquet_files = glob.glob(parquet_pattern)
         
         if not parquet_files:
             print(f'No parquet files found for split {split_id}')
@@ -266,10 +269,7 @@ TASKS_TABLE = [TASK]
         env = os.environ.copy()
         if 'CONDA_DEFAULT_ENV' not in env:
             env['CONDA_DEFAULT_ENV'] = 'oda'
-        
-        env['HF_DATASETS_OFFLINE'] = '1'
-        env['TRANSFORMERS_OFFLINE'] = '1'
-        
+                
         results_dir = self._run_lighteval(dataset_path, num_splits, work_dir, env)
         
         fail_rates = self._extract_fail_rates(results_dir, num_splits, dataset_path)
