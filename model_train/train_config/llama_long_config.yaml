@@ -23,7 +23,6 @@ save_strategy: epoch
 save_total_limit: 1
 plot_loss: true
 overwrite_output_dir: true
-save_only_model: true
 
 ### train
 per_device_train_batch_size: 1

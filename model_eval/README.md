@@ -1,5 +1,8 @@
 # OpenDataArena Model Evaluation with OpenCompass
 
+**[OpenCompass](https://github.com/OpenCompass/OpenCompass)** is an all-in-one platform designed for the comprehensive evaluation of LLMs, which provides a fair, transparent, and reproducible benchmarking framework.
+We use OpenCompass to evaluate the performance of our SFT models on the popular benchmarks.
+
 ## Installation
 
 ```bash
@@ -34,9 +37,9 @@ bash eval_script/test_llama.sh your_model_path your_model_name benchmark_file
 
 # evaluate sft model based on Qwen-2.5-7B
 bash eval_script/test_qwen.sh your_model_path your_model_name benchmark_file
-
 ```
-### Evaluate on benchmarks for a specific domain
+
+### Evaluate on Benchmarks in a Specific Domain
 ```bash
 # evaluate sft model based on Llama-3.1-8B in math domain benchmarks
 bash eval_script/test_llama_math.sh your_model_path your_model_name
@@ -46,7 +49,7 @@ bash eval_script/test_llama_code.sh your_model_path your_model_name
 ```
 For more evaluation scripts, please refer to the `eval_script` folder.
 
-### Evaluate on all benchmarks
+### Evaluate on All Benchmarks
 
 ```bash
 cd opencompass
