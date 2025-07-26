@@ -73,7 +73,7 @@ llamafactory-cli train train_config/llama_config.yaml
 llamafactory-cli train train_config/qwen_config.yaml
 ```
 
-For data whose total length (including system, conversation history, instructions, input, and output) exceeds 4096 tokens, we use the long cot training setting as follows:
+For data whose total length (including system, conversation history, instructions, input, and output) exceeds 4096 tokens, we use the long CoT (Chain-of-Thought) setting as follows:
 
 ```bash
 llamafactory-cli train train_config/llama_long_config.yaml
@@ -81,5 +81,27 @@ llamafactory-cli train train_config/qwen_long_config.yaml
 ```
 where we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumulation_steps`, `learning_rate`, and `packing`.
 
+
+| Dataset | Affiliation | HF Link |
+|---|---|---|
+| OpenR1-Math-220k | Huggingface | [Link](https://huggingface.co/datasets/open-r1/OpenR1-Math-220k) |
+| QwQ-LongCoT-130K | Guijin Son | [Link](https://huggingface.co/datasets/amphora/QwQ-LongCoT-130K) |
+| QwQ-LongCoT-130K-2 | Guijin Son | [Link](https://huggingface.co/datasets/amphora/QwQ-LongCoT-130K-2) |
+| Bespoke-Stratos-17k | Bespoke Labs | [Link](https://huggingface.co/datasets/bespokelabs/Bespoke-Stratos-17k) |
+| OpenThoughts-114k | Stanford University | [Link](https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k) |
+| R1-Distill-SFT | ServiceNow-AI | [Link](https://huggingface.co/datasets/ServiceNow-AI/R1-Distill-SFT) |
+| OpenO1-SFT | GAIR | [Link](https://huggingface.co/datasets/O1-OPEN/OpenO1-SFT) |
+| DeepMath-103K | Tencent & SJTU | [Link](https://huggingface.co/datasets/zwhe99/DeepMath-103K) |
+| Raiden-DeepSeek-R1 | sequelbox | [Link](https://huggingface.co/datasets/sequelbox/Raiden-DeepSeek-R1) |
+| Magpie-Reasoning-V2-250K-CoT-Deepseek-R1-Llama-70B | Allen AI | [Link](https://huggingface.co/datasets/Magpie-Align/Magpie-Reasoning-V2-250K-CoT-Deepseek-R1-Llama-70B) |
+| Magpie-Reasoning-V2-250K-CoT-QwQ | Allen AI | [Link](https://huggingface.co/datasets/Magpie-Align/Magpie-Reasoning-V2-250K-CoT-QwQ) |
+| AM-Thinking-v1-Distilled-code | a-m-team | [Link](https://huggingface.co/datasets/a-m-team/AM-Thinking-v1-Distilled/blob/main/code.jsonl) |
+| AM-Thinking-v1-Distilled-math | a-m-team | [Link](https://huggingface.co/datasets/a-m-team/AM-Thinking-v1-Distilled/blob/main/math.jsonl) |
+| Light-R1-SFTData | Qiyuan Tech | [Link](https://huggingface.co/datasets/qihoo360/Light-R1-SFTData) |
+| Fast-Math-R1-SFT | University of Tokyo | [Link](https://huggingface.co/datasets/RabotniKuma/Fast-Math-R1-SFT) |
+| OpenThoughts3-1.2M | Stanford University | [Link](https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M) |
+| OpenMathReasoning-cot | Nvidia | [Link](https://huggingface.co/datasets/nvidia/OpenMathReasoning) |
+
+These datasets are trained using our long CoT (Chain-of-Thought) setting. This approach is necessary because a significant number of samples within these datasets far exceed the standard context length of 4096 tokens.
 ## About
 For more detailed usage of LLaMA-Factory, please refer to the [LLaMA-Factory documentation](https://llamafactory.readthedocs.io/en/latest/).
