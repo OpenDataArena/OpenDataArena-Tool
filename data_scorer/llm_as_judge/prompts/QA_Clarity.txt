@@ -1,0 +1,29 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction-output pair'.
+
+## goal
+- For the given 'instruction-output pair', you need to evaluate its **Clarity**.
+
+## rule
+- **Clarity**: whether the 'instruction-output pair' is clear and understandable, and whether it uses concise language and structure so that the user can easily understand it. Your score should strictly follow the rules below:
+
+    - **Score 9-10 (Excellent)**: The instruction is exceptionally clear, specific, and well-formulated, leaving no room for ambiguity. The output directly, accurately, and comprehensively addresses all aspects of the instruction. The language in both is precise and concise, and the output's structure is logical and easy to follow. The pair as a whole is perfectly coherent and instantly understandable.
+
+    - **Score 7-8 (Good)**: The instruction is clear and easily understood. The output is also clear, relevant, and effectively addresses the main points of the instruction. The overall meaning of the instruction-output pair is grasped without significant effort. There might be minor opportunities for improvement, such as slightly more concise phrasing or better organization, but these do not hinder overall comprehension.
+
+    - **Score 5-6 (Acceptable)**: The instruction-output pair is generally understandable but requires some effort from the reader. The instruction might have minor ambiguities or be slightly broad, and/or the output might be somewhat unfocused, not perfectly organized, or contain minor inaccuracies. While the core intent is discernible, the user may need to re-read the pair to fully grasp its meaning.
+
+    - **Score 3-4 (Poor)**: The instruction-output pair is difficult to understand due to significant clarity issues. The instruction may be poorly phrased, vague, or ambiguous, making its intent unclear. Concurrently, or as a result, the output may be poorly structured, confusing, only partially relevant, or fail to directly address the assumed instruction. The reader must make significant assumptions to connect the instruction and output.
+
+    - **Score 1-2 (Very Poor)**: The instruction-output pair is unintelligible or fundamentally flawed. The instruction is nonsensical, completely ambiguous, or grammatically incorrect to the point of being incomprehensible. Alternatively, or in addition, the output is completely irrelevant to the instruction, nonsensical, self-contradictory, or factually incorrect. The pair fails to communicate any meaningful information.
+
+## output_format
+- Provide your evaluation in a JSON object with two keys: "score" (an integer from 1 to 10) and "reason" (a brief explanation for your score).
+
+Instruction:
+{instruction}
+
+Output:
+{output}
+
+Your JSON output:

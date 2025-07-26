@@ -1,0 +1,12 @@
+[submodule "model_eval/evalplus"]
+	path = model_eval/evalplus
+	url = https://github.com/OpenDataArena/evalplus.git
+[submodule "model_eval/opencompass"]
+	path = model_eval/opencompass
+	url = https://github.com/OpenDataArena/opencompass.git
+[submodule "model_eval/vllm"]
+	path = model_eval/vllm
+	url = https://github.com/OpenDataArena/vllm.git
+[submodule "model_train/LLaMA-Factory"]
+	path = model_train/LLaMA-Factory
+	url = https://github.com/OpenDataArena/LLaMA-Factory.git

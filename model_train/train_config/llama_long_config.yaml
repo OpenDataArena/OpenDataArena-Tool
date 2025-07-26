@@ -1,0 +1,38 @@
+model_name_or_path: meta-llama/Llama-3.1-8B 
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+seed: ${SEED}
+deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+
+### dataset
+dataset: ${DATASET}
+template: default
+cutoff_len: 32768
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/llama3.1-8b/full/sft-${DATASET}/seed-${SEED}
+save_only_model: true
+logging_steps: 10
+save_strategy: epoch
+save_total_limit: 1
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 3.0e-5
+use_liger_kernel: true
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+bf16: true
+packing: true
+ddp_timeout: 180000000

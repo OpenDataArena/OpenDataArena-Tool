@@ -1,0 +1,8 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/example_output_ThinkingProbScorer
+num_gpu: 2
+
+scorers:
+  - name: ThinkingProbScorer
+    model: THU-KEG/AdaptThink-7B-delta0.05
+    batch_size: 128

@@ -1,0 +1,85 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction-output pair'.
+
+## goal
+- For the given 'instruction-output pair', you need to evaluate it according to the following dimensions: **Clarity, Coherence, Completeness, Complexity, Correctness, Meaningfulness, and Relevance**.
+
+## rule
+
+### Clarity
+- **Clarity**: whether the 'instruction-output pair' is clear and understandable, and whether it uses concise language and structure so that the user can easily understand it. Your score should strictly follow the rules below:
+    - **Score 9-10 (Excellent)**: The instruction is exceptionally clear, specific, and well-formulated, leaving no room for ambiguity. The output directly, accurately, and comprehensively addresses all aspects of the instruction. The language in both is precise and concise, and the output's structure is logical and easy to follow. The pair as a whole is perfectly coherent and instantly understandable.
+    - **Score 7-8 (Good)**: The instruction is clear and easily understood. The output is also clear, relevant, and effectively addresses the main points of the instruction. The overall meaning of the instruction-output pair is grasped without significant effort. There might be minor opportunities for improvement, such as slightly more concise phrasing or better organization, but these do not hinder overall comprehension.
+    - **Score 5-6 (Acceptable)**: The instruction-output pair is generally understandable but requires some effort from the reader. The instruction might have minor ambiguities or be slightly broad, and/or the output might be somewhat unfocused, not perfectly organized, or contain minor inaccuracies. While the core intent is discernible, the user may need to re-read the pair to fully grasp its meaning.
+    - **Score 3-4 (Poor)**: The instruction-output pair is difficult to understand due to significant clarity issues. The instruction may be poorly phrased, vague, or ambiguous, making its intent unclear. Concurrently, or as a result, the output may be poorly structured, confusing, only partially relevant, or fail to directly address the assumed instruction. The reader must make significant assumptions to connect the instruction and output.
+    - **Score 1-2 (Very Poor)**: The instruction-output pair is unintelligible or fundamentally flawed. The instruction is nonsensical, completely ambiguous, or grammatically incorrect to the point of being incomprehensible. Alternatively, or in addition, the output is completely irrelevant to the instruction, nonsensical, self-contradictory, or factually incorrect. The pair fails to communicate any meaningful information.
+
+### Coherence
+- **Coherence**: This evaluates the linguistic and logical consistency of the instruction-output pair as a whole. It assesses whether the output is a logical, relevant, and internally consistent output to the instruction, and whether the pair forms a rational and understandable unit. Your score should strictly follow the rules below:
+  - **Score 9-10 (Excellent)**: The instruction-output pair is perfectly coherent. The output directly, fully, and precisely addresses all aspects of the instruction. The reasoning within the output is logically sound, internally consistent, and maintains a clear, focused argument that directly corresponds to the instruction's premise. There are no contradictions or logical leaps. The entire pair reads as a single, seamless, and logical unit.
+  - **Score 7-8 (Good)**: The instruction-output pair is highly coherent. The output logically corresponds to the instruction and is well-structured and internally consistent. There may be very minor points where the connection between the instruction's details and the output's statements could be slightly more explicit, but these do not detract from the overall logical flow or relevance.
+  - **Score 5-6 (Acceptable)**: The instruction-output pair is generally coherent, but there are noticeable logical gaps or minor contradictions. The output is clearly related to the instruction but may drift slightly off-topic, fail to address a minor part of the instruction, or require the reader to make assumptions to connect the ideas. The overall logical structure is present but could be significantly improved for better alignment.
+  - **Score 3-4 (Poor)**: The instruction-output pair has significant coherence issues. The output is only tangentially related to the instruction, contains clear self-contradictions, or includes reasoning that conflicts with the premise of the instruction. The logical flow is difficult to follow, making the pair feel disjointed.
+  - **Score 1-2 (Very Poor)**: The instruction-output pair is incoherent. There is no discernible logical connection between the instruction and the output. The output may completely ignore the instruction, provide nonsensical reasoning, or be a jumble of contradictory statements that make it impossible to understand in the context of the instruction.
+
+### Completeness
+- **Completeness**: This evaluates the self-contained value and thoroughness of the instruction-output pair. A high-quality pair features a well-posed, substantial instruction and an output that fully and accurately addresses it. Your score should strictly follow the rules below:
+  - **Score 9-10 (Excellent)**: The instruction is well-formed, clear, and substantial. It is not trivial and may be complex or multi-faceted, providing sufficient context for a comprehensive output. The output is exemplary and exhaustive. It thoroughly addresses all explicit and implicit parts of the instruction, providing rich details, accurate information, sufficient context, and relevant examples where appropriate. The pair as a whole is highly informative and leaves no significant aspect unoutputed.
+  - **Score 7-8 (Good)**: The instruction is clear, well-posed, and meaningful. It is specific enough to be outputed effectively. The output is comprehensive and addresses all main points of the instruction effectively. It provides sufficient detail and explanation for a solid understanding. It might miss some minor, peripheral details but fully satisfies the core requirements of the instruction. The pair is solid and useful.
+  - **Score 5-6 (Acceptable)**: The instruction is understandable but may be somewhat simple, overly broad, or slightly ambiguous. It may lack some context needed for a truly in-depth output. The output addresses the primary aspects of the instruction but is somewhat incomplete. It may lack depth, omit some secondary details, or provide only basic explanations. The user gets a correct but not thorough output.
+  - **Score 3-4 (Poor)**: The instruction is poorly formulated, vague, ambiguous, or trivial. It lacks necessary context, making it difficult to provide a meaningful and complete output. The output is significantly incomplete. It only partially addresses the instruction, ignoring major components or misinterpreting the query. Key information required for a useful output is missing.
+  - **Score 1-2 (Very Poor)**: The instruction is fundamentally flawed, nonsensical, unoutputable, or consists of just a keyword with no clear intent. The output fails to address the core of the instruction, provides a minimal amount of relevant information, or is so superficial that it is not useful. The pair provides little to no value.
+
+### Complexity
+- **Complexity**: whether the 'instruction-output pair' addresses a complex topic that requires a certain depth of knowledge and reasoning. Your score should strictly follow the rules below:
+  - **Score 9-10 (Expert-Level)**: The instruction demands a deep understanding of a highly specialized and complex field, equivalent to professional or post-graduate academic expertise. The output involves creating new knowledge, conducting a deep, multi-faceted analysis of abstract/theoretical concepts, or demonstrating intricate, multi-step reasoning. The solution or explanation is primarily comprehensible only to other experts in that specific domain.
+  - **Score 7-8 (Advanced)**: The instruction addresses a complex subject that requires significant specialized knowledge beyond general education. It necessitates critical analysis, synthesis of information from multiple sources, or the application of a sophisticated, multi-step methodology. The output is detailed and requires a solid foundational understanding of the subject for full comprehension, even if it doesn't create new knowledge.
+  - **Score 5-6 (Intermediate)**: The instruction goes beyond simple fact-finding and demands some specific knowledge or reasoning to explain a process ("how"), a cause ("why"), or to summarize a multifaceted topic. The output involves organizing more than a single piece of information or following a procedure with several steps, and would be understandable to an educated non-expert willing to concentrate.
+  - **Score 3-4 (Simple)**: The instruction pertains to a straightforward topic that can be outputed using common knowledge or single-step reasoning. It typically involves retrieving a well-known fact, providing a simple definition, or performing a basic, single-pathway procedure. The pair is easily understood by most people with a general education.
+  - **Score 1-2 (Trivial)**: The instruction is about an extremely simple, common-sense topic, requiring virtually no specialized knowledge or reasoning. The output is self-evident, universally known, or involves a single elementary cognitive step that is obvious to almost anyone.
+
+### Correctness
+- **Correctness**: This evaluates the quality of the instruction-output pair as a whole. It assesses if the instruction is reasonable, factually sound, and outputable, and if the corresponding output is accurate, complete, and directly responds to the instruction. Your score should strictly follow the rules below:
+    - **Score 9-10 (Excellent)**: The instruction is clear, well-formed, and based on a factually correct premise. The output is completely accurate, verifiable, comprehensive, and directly and fully addresses all aspects of the instruction. The pair is an exemplary model of a high-quality, correct interaction.
+    - **Score 7-8 (Good)**: The instruction is clear and reasonable. The output is largely accurate and factually correct, with only minor inaccuracies or slightly outdated information that does not significantly undermine the pair's overall correctness. The output properly addresses the core of the instruction, though it might lack some minor detail or completeness.
+    - **Score 5-6 (Acceptable)**: The pair has noticeable flaws. The instruction might be slightly ambiguous or based on a partially incorrect premise. The output is generally correct but contains some factual inaccuracies, omits key information, or is not perfectly aligned with the instruction's intent. The core information is still somewhat useful, but requires careful interpretation.
+    - **Score 3-4 (Poor)**: The pair has significant flaws. The instruction may be poorly formed, highly ambiguous, or based on a false premise. The output contains significant factual errors, major omissions, or largely fails to address the actual instruction asked, making the pair misleading or unhelpful.
+    - **Score 1-2 (Very Poor)**: The pair is fundamentally incorrect. The instruction is nonsensical, unoutputable, or based on a completely false premise. The output is completely or almost completely factually incorrect, contains fabricated or dangerous misinformation, or is entirely irrelevant to the instruction. The pair provides no factual value.
+
+### Meaningfulness
+- **Meaningfulness**: The value and utility of the 'instruction-output pair' as a training example for an AI model. Your score should strictly follow the rules below:
+    - **Score 9-10 (Excellent/Highly Meaningful)**: The pair is exceptionally valuable for model training. The instruction is insightful, non-trivial, and represents a realistic and complex user need. The output is accurate, comprehensive, and provides deep insight, nuanced reasoning, or a creative/unique synthesis of information. Learning from this pair would significantly enhance the model's knowledge, reasoning, or helpfulness. It's a gold-standard example.
+    - **Score 7-8 (Good/Meaningful)**: The pair is useful and contributes positively to model training. The instruction is practical, well-posed, and reflects a common and valid user intent. The output is correct, helpful, and directly addresses the instruction in a satisfactory manner. While not exceptionally profound, the pair is a solid example that reinforces factual accuracy and helpful outputs.
+    - **Score 5-6 (Acceptable/Moderately Meaningful)**: The pair has some value but is not a high-priority training example. The instruction might be very simple, about common knowledge, or lack depth. The output is factually correct but may be basic, overly brief, or lack detail. The pair is not harmful but doesn't add significant new capability; its learning value is limited.
+    - **Score 3-4 (Poor/Low Meaningfulness)**: The pair has little to no value for training and could be slightly detrimental. The instruction might be ill-posed, based on a false premise, or nonsensical. The output might be factually incorrect, largely irrelevant to the instruction, or so generic that it's unhelpful (e.g., a refusal without proper reason). The pair offers no positive learning signal.
+    - **Score 1-2 (Very Poor/Harmful)**: The pair is actively harmful or useless. It may involve nonsensical content, promote dangerous or unethical behavior, contain significant misinformation, or represent a "jailbreak" attempt. The output is factually wrong in a harmful way, dangerous, or promotes hate speech/bias. This data pair would degrade the model's quality and must be excluded from training.
+
+### Relevance
+- **Relevance**: whether the 'output' directly and effectively addresses the 'instruction'. Your score should strictly follow the rules below:
+  - **Score 9-10 (Excellent)**: The output directly and comprehensively addresses all aspects of the instruction. It fully captures the user's intent without including any irrelevant information. The connection between the instruction and the output is explicit and perfectly aligned.
+  - **Score 7-8 (Good)**: The output directly addresses the main points of the instruction and is clearly on-topic. It might miss a very minor or nuanced aspect of the instruction, or include minimal, slightly off-topic information that doesn't detract from the overall quality.
+  - **Score 5-6 (Acceptable)**: The output is generally on-topic but only partially addresses the instruction. It might overlook significant parts of the instruction or provide a correct but incomplete output. The user's core intent is addressed, but not fully satisfied.
+  - **Score 3-4 (Poor)**: The output is only tangentially related to the instruction. It largely misunderstands the user's intent or provides information that is mostly irrelevant. The connection to the instruction is weak and requires significant interpretation from the reviewer.
+  - **Score 1-2 (Very Poor)**: The output is completely irrelevant to the instruction. It fails to address the instruction in any meaningful way, discusses a completely different topic, or is nonsensical in the context of the instruction.
+
+## output_format
+- Provide your evaluation in a JSON object with keys for each dimension. Each key's value should be an integer score from 1 to 10.
+- Do not provide any explanation.
+- The JSON object should look like this:
+{{
+  "Clarity": <score_integer>,
+  "Coherence": <score_integer>,
+  "Completeness": <score_integer>,
+  "Complexity": <score_integer>,
+  "Correctness": <score_integer>,
+  "Meaningfulness": <score_integer>,
+  "Relevance": <score_integer>
+}}
+
+Instruction:
+{instruction}
+
+Output:
+{output}
+
+Your JSON output: 

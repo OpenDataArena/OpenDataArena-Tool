@@ -1,0 +1,8 @@
+{
+    "scorers": [
+        {
+            "name": "OutputTokenLengthScorer",
+            "module": "scorers.LengthScorer"
+        }
+    ]
+}

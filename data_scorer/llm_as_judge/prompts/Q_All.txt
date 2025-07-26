@@ -1,0 +1,73 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction' of an instruction-output pair.
+
+## goal
+- For the given 'instruction', you need to evaluate it according to the following dimensions: **Clarity, Coherence, Completeness, Complexity, Correctness, and Meaningfulness**.
+
+## rule
+
+### Clarity
+- **Clarity**: whether the 'instruction' is clear and understandable, and whether it uses concise language and structure so that the user can easily understand it. Your score should strictly follow the rules below:
+  - **Score 9-10 (Excellent)**: The instruction is perfectly clear, concise, and unambiguous. It is well-structured, grammatically correct, and uses precise language, leaving no room for misinterpretation. It is an exemplary instruction that can be understood instantly.
+  - **Score 7-8 (Good)**: The instruction is clear and easy to understand. The core intent is perfectly understandable without significant effort. It may have very minor awkward phrasing or could be slightly more concise, but these issues do not affect comprehension.
+  - **Score 5-6 (Acceptable)**: The instruction is generally understandable, but a user might need to re-read it to grasp the full meaning. It may contain some ambiguity, vagueness, or minor grammatical errors that slightly obscure the intent but can be figured out.
+  - **Score 3-4 (Poor)**: The instruction is difficult to understand. It is poorly phrased, overly vague, or contains significant grammatical errors that make its meaning unclear. The reviewer has to make assumptions or guess the user's true intent.
+  - **Score 1-2 (Very Poor)**: The instruction is completely unclear, nonsensical, self-contradictory, or grammatically incorrect to the point of being unintelligible. It is impossible to determine what the user is asking.
+
+### Coherence
+- **Coherence**: whether the 'instruction' maintains overall consistency and logical coherence between different sections, avoiding self-contradiction. Your score should strictly follow the rules below:
+    - **Score 9-10 (Excellent)**: The instruction is perfectly coherent. All parts of the instruction are logically connected and entirely consistent with each other. It presents a clear, unified line of inquiry without any internal contradictions or flawed premises.
+    - **Score 7-8 (Good)**: The instruction is highly coherent and logically sound. There might be a minor awkward transition or a slightly imperfect connection between clauses, but these do not affect the overall logical integrity or create any confusion. The core inquiry is consistent.
+    - **Score 5-6 (Acceptable)**: The instruction is generally coherent, but may contain some minor logical gaps or inconsistencies that require the user to re-read to understand the connection between its parts. The overall intent is logically sound and not self-contradictory.
+    - **Score 3-4 (Poor)**: The instruction has significant coherence issues. It contains noticeable logical contradictions, inconsistencies between its parts, or is based on a shaky premise. The flow is disjointed, making it difficult to follow the intended line of reasoning.
+    - **Score 1-2 (Very Poor)**: The instruction is completely incoherent. It contains blatant self-contradictions, is a jumble of unrelated ideas, or is based on a fundamentally illogical premise, making it impossible to understand the user's intended logical query.
+
+### Completeness
+- **Completeness**: whether the 'instruction' is self-contained and provides sufficient background information. The scoring is as follows:
+  - **Score 9-10 (Excellent)**: The instruction is perfectly self-contained and can be fully understood without any external context or prior knowledge. It includes all necessary background information, definitions of specific terms, and constraints. There is no ambiguity; the user's intent is perfectly clear.
+  - **Score 7-8 (Good)**: The instruction is mostly self-contained and largely understandable on its own. It may omit very common knowledge or context that a general audience can reasonably be expected to know. Only minor clarification might be needed, but the core of the instruction is clear.
+  - **Score 5-6 (Average)**: The instruction is understandable but requires the reader to make some moderate assumptions or have specific prior knowledge that is not provided. Key context or definitions might be missing, leading to some uncertainty about the user's precise intent. The instruction might be outputable, but the output's relevance would depend on correctly guessing the missing context.
+  - **Score 3-4 (Poor)**: The instruction is vague and difficult to output definitively due to a significant lack of context or background information. It relies heavily on unstated assumptions or a shared context that is not included. Multiple interpretations are likely, making it hard to provide a single, accurate output.
+  - **Score 1-2 (Very Poor)**: The instruction is incomprehensible or impossible to output without specific, unprovided external information. It might be a fragment, use undefined private jargon, or refer to a preceding context that is completely missing.
+
+### Complexity
+- **Complexity**: whether the 'instruction' requires a certain depth of knowledge and reasoning to understand and output. Your score should strictly follow the rules below:
+    - **Score 9-10 (Excellent)**: The instruction requires expert-level knowledge and deep, multi-step reasoning, making it unoutputable without a profound and comprehensive understanding of the subject. It demands the synthesis of multiple complex concepts, potentially from different fields, to generate novel insights or solve new problems. Answering involves sophisticated analysis, abstract or creative thinking under significant constraints, or navigating complex scenarios with ambiguous conditions and interacting variables.
+    - **Score 7-8 (Good)**: The instruction is challenging, requiring specialized knowledge and significant reasoning that goes far beyond simple information retrieval. It demands the application of established principles to analyze complex situations, compare different approaches, or evaluate trade-offs. Answering necessitates following multi-step logical procedures or explaining intricate concepts and the relationships between multiple ideas in detail.
+    - **Score 5-6 (Acceptable)**: The instruction requires a degree of reasoning that extends beyond basic fact-finding, and the necessary knowledge is not trivial. Answering involves interpreting and organizing information from one or more sources, rather than just quoting them directly. This may include applying a well-known procedure to a straightforward problem or explaining facts that require some context to understand fully.
+    - **Score 3-4 (Poor)**: The instruction is simple and straightforward, requiring minimal reasoning or synthesis. The output is typically a single, easily searchable fact, a basic definition, or a direct piece of information that can be retrieved and stated with little to no manipulation or interpretation.
+    - **Score 1-2 (Very Poor)**: The instruction is trivial and requires almost no cognitive effort or specialized knowledge to output. It pertains to extremely common knowledge or is a simple closed-ended or subjective instruction whose output is obvious or un-falsifiable.
+
+### Correctness
+- **Correctness**: whether the information provided in the 'instruction' is accurate, based on reliable facts and data. Your score should strictly follow the rules below:
+    - **Score 9-10 (Excellent)**: The instruction is completely factually accurate. All information, data, and entities mentioned are correct, verifiable, and up-to-date. The premise of the instruction is sound and based on established facts.
+    - **Score 7-8 (Good)**: The instruction is largely accurate with only very minor factual errors that do not impact the core intent or understanding of the instruction. These might be trivial details, such as a slightly incorrect number or date that doesn't change the overall context.
+    - **Score 5-6 (Acceptable)**: The instruction contains noticeable factual inaccuracies or is based on a partially flawed premise. While the main topic is understandable, the errors are significant enough that they might mislead or require correction before an accurate output can be provided.
+    - **Score 3-4 (Poor)**: The instruction contains significant and fundamental factual errors. It is based on a distorted or largely incorrect premise, making it difficult to provide a direct and factual output without first refuting the claims in the instruction.
+    - **Score 1-2 (Very Poor)**: The instruction is entirely based on misinformation, debunked theories, or nonsensical claims. It is factually baseless, promoting false information and making it impossible to output truthfully.
+
+### Meaningfulness
+- **Meaningfulness**: whether the instruction is meaningful and valuable, and whether it is a qualified piece of data for LLM training.
+  - **Score 9-10 (Excellent)**: The instruction is highly insightful and valuable. It may involve deep reasoning, expert knowledge, or creativity. Answering it would significantly enhance the LLM's capabilities, teaching it complex concepts or novel skills. The instruction is of great value for training.
+  - **Score 7-8 (Good)**: The instruction is meaningful and has clear value. It might ask for non-trivial factual information, explanations of complex topics, or useful instructions. It is a solid piece of training data that contributes positively to the model's knowledge base.
+  - **Score 5-6 (Acceptable)**: The instruction is moderately meaningful but may be somewhat common or basic. The information it seeks is often simple, factual, and easily found. Its training value is limited but acceptable.
+  - **Score 3-4 (Poor)**: The instruction has very low meaningfulness. It might be trivial, overly simplistic, based on a false premise, or highly subjective with no objective output. It contributes little to no value as training data.
+  - **Score 1-2 (Very Poor)**: The instruction is completely meaningless, nonsensical, unoutputable, or harmful. It could be gibberish, promote misinformation, or be ethically problematic. Including this data would be detrimental to the LLM's training.
+
+## output_format
+- Provide your evaluation in a JSON object with keys for each dimension. Each key's value should be an integer score from 1 to 10.
+- Do not provide any explanation.
+- The JSON object should look like this:
+{{
+  "Clarity": <score_integer>,
+  "Coherence": <score_integer>,
+  "Completeness": <score_integer>,
+  "Complexity": <score_integer>,
+  "Correctness": <score_integer>,
+  "Meaningfulness": <score_integer>
+}}
+
+Instruction:
+{instruction}
+
+Your JSON output:

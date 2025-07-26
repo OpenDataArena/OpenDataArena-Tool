@@ -1,0 +1,12 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/DeitaCScorer
+num_gpu: 2
+
+scorers:
+  - name: DeitaCScorer
+    model: hkust-nlp/deita-complexity-scorer
+    max_length: 2048
+    batch_size: 32
+
+
+

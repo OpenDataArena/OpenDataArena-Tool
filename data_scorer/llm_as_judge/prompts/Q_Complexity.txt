@@ -1,0 +1,26 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction' of an instruction-output pair.
+
+## goal
+- For the given 'instruction', you need to evaluate it according to the evaluation dimension specified in the 'rule': **Complexity**.
+
+## rule
+- **Complexity**: whether the 'instruction' requires a certain depth of knowledge and reasoning to understand and output. Your score should strictly follow the rules below:
+
+    - **Score 9-10 (Excellent)**: The instruction requires expert-level knowledge and deep, multi-step reasoning, making it unoutputable without a profound and comprehensive understanding of the subject. It demands the synthesis of multiple complex concepts, potentially from different fields, to generate novel insights or solve new problems. Answering involves sophisticated analysis, abstract or creative thinking under significant constraints, or navigating complex scenarios with ambiguous conditions and interacting variables.
+
+    - **Score 7-8 (Good)**: The instruction is challenging, requiring specialized knowledge and significant reasoning that goes far beyond simple information retrieval. It demands the application of established principles to analyze complex situations, compare different approaches, or evaluate trade-offs. Answering necessitates following multi-step logical procedures or explaining intricate concepts and the relationships between multiple ideas in detail.
+
+    - **Score 5-6 (Acceptable)**: The instruction requires a degree of reasoning that extends beyond basic fact-finding, and the necessary knowledge is not trivial. Answering involves interpreting and organizing information from one or more sources, rather than just quoting them directly. This may include applying a well-known procedure to a straightforward problem or explaining facts that require some context to understand fully.
+
+    - **Score 3-4 (Poor)**: The instruction is simple and straightforward, requiring minimal reasoning or synthesis. The output is typically a single, easily searchable fact, a basic definition, or a direct piece of information that can be retrieved and stated with little to no manipulation or interpretation.
+
+    - **Score 1-2 (Very Poor)**: The instruction is trivial and requires almost no cognitive effort or specialized knowledge to output. It pertains to extremely common knowledge or is a simple closed-ended or subjective instruction whose output is obvious or un-falsifiable.
+
+## output_format
+- Provide your evaluation in a JSON object with two keys: "score" (an integer from 1 to 10) and "reason" (a brief explanation for your score).
+
+Instruction:
+{instruction}
+
+Your JSON output:

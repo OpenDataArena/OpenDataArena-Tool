@@ -1,0 +1,6 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/example_output_TokenLengthScorer
+
+scorers:
+  - name: OutputTokenLengthScorer
+    encoder: o200k_base

@@ -1,0 +1,29 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction-output pair'.
+
+## goal
+- For the given 'instruction-output pair', you need to evaluate its **Complexity**.
+
+## rule
+- **Complexity**: whether the 'instruction-output pair' addresses a complex topic that requires a certain depth of knowledge and reasoning. Your score should strictly follow the rules below:
+
+  - **Score 9-10 (Expert-Level)**: The instruction demands a deep understanding of a highly specialized and complex field, equivalent to professional or post-graduate academic expertise. The output involves creating new knowledge, conducting a deep, multi-faceted analysis of abstract/theoretical concepts, or demonstrating intricate, multi-step reasoning. The solution or explanation is primarily comprehensible only to other experts in that specific domain.
+
+  - **Score 7-8 (Advanced)**: The instruction addresses a complex subject that requires significant specialized knowledge beyond general education. It necessitates critical analysis, synthesis of information from multiple sources, or the application of a sophisticated, multi-step methodology. The output is detailed and requires a solid foundational understanding of the subject for full comprehension, even if it doesn't create new knowledge.
+
+  - **Score 5-6 (Intermediate)**: The instruction goes beyond simple fact-finding and demands some specific knowledge or reasoning to explain a process ("how"), a cause ("why"), or to summarize a multifaceted topic. The output involves organizing more than a single piece of information or following a procedure with several steps, and would be understandable to an educated non-expert willing to concentrate.
+
+  - **Score 3-4 (Simple)**: The instruction pertains to a straightforward topic that can be outputed using common knowledge or single-step reasoning. It typically involves retrieving a well-known fact, providing a simple definition, or performing a basic, single-pathway procedure. The pair is easily understood by most people with a general education.
+
+  - **Score 1-2 (Trivial)**: The instruction is about an extremely simple, common-sense topic, requiring virtually no specialized knowledge or reasoning. The output is self-evident, universally known, or involves a single elementary cognitive step that is obvious to almost anyone.
+
+## output_format
+- Provide your evaluation in a JSON object with two keys: "score" (an integer from 1 to 10) and "reason" (a brief explanation for your score).
+
+Instruction:
+{instruction}
+
+Output:
+{output}
+
+Your JSON output:

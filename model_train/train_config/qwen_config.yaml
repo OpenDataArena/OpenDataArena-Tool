@@ -1,0 +1,37 @@
+### model
+model_name_or_path: Qwen/Qwen2.5-7B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+seed: ${SEED}
+deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+
+### dataset
+dataset: ${DATASET}
+template:  default
+cutoff_len: 4096
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/qwen2.5-7b/full/sft-${DATASET}/seed-${SEED}
+save_only_model: true
+logging_steps: 10
+save_strategy: epoch
+save_total_limit: 0
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4
+learning_rate: 5.0e-6
+use_liger_kernel: true
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000

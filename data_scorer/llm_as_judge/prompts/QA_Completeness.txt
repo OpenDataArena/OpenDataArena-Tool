@@ -1,0 +1,39 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction-output pair'.
+
+## goal
+- For the given 'instruction-output pair', you need to evaluate its **Completeness**.
+
+## rule
+- **Completeness**: This evaluates the self-contained value and thoroughness of the instruction-output pair. A high-quality pair features a well-posed, substantial instruction and an output that fully and accurately addresses it. Your score should strictly follow the rules below:
+
+  - **Score 9-10 (Excellent)**:
+    - **Instruction**: The instruction is well-formed, clear, and substantial. It is not trivial and may be complex or multi-faceted, providing sufficient context for a comprehensive output.
+    - **Output**: The output is exemplary and exhaustive. It thoroughly addresses all explicit and implicit parts of the instruction, providing rich details, accurate information, sufficient context, and relevant examples where appropriate. The pair as a whole is highly informative and leaves no significant aspect unoutputed.
+
+  - **Score 7-8 (Good)**:
+    - **Instruction**: The instruction is clear, well-posed, and meaningful. It is specific enough to be outputed effectively.
+    - **Output**: The output is comprehensive and addresses all main points of the instruction effectively. It provides sufficient detail and explanation for a solid understanding. It might miss some minor, peripheral details but fully satisfies the core requirements of the instruction. The pair is solid and useful.
+
+  - **Score 5-6 (Acceptable)**:
+    - **Instruction**: The instruction is understandable but may be somewhat simple, overly broad, or slightly ambiguous. It may lack some context needed for a truly in-depth output.
+    - **Output**: The output addresses the primary aspects of the instruction but is somewhat incomplete. It may lack depth, omit some secondary details, or provide only basic explanations. The user gets a correct but not thorough output.
+
+  - **Score 3-4 (Poor)**:
+    - **Instruction**: The instruction is poorly formulated, vague, ambiguous, or trivial. It lacks necessary context, making it difficult to provide a meaningful and complete output.
+    - **Output**: The output is significantly incomplete. It only partially addresses the instruction, ignoring major components or misinterpreting the query. Key information required for a useful output is missing.
+
+  - **Score 1-2 (Very Poor)**:
+    - **Instruction**: The instruction is fundamentally flawed, nonsensical, unoutputable, or consists of just a keyword with no clear intent.
+    - **Output**: The output fails to address the core of the instruction, provides a minimal amount of relevant information, or is so superficial that it is not useful. The pair provides little to no value.
+
+## output_format
+- Provide your evaluation in a JSON object with two keys: "score" (an integer from 1 to 10) and "reason" (a brief explanation for your score).
+
+Instruction:
+{instruction}
+
+Output:
+{output}
+
+Your JSON output:

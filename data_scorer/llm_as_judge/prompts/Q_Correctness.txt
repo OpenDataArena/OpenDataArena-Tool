@@ -1,0 +1,26 @@
+## role
+- You are a rigorous reviewer who is responsible for evaluating the quality of the 'instruction' of an instruction-output pair.
+
+## goal
+- For the given 'instruction', you need to evaluate it according to the evaluation dimension specified in the 'rule': **Correctness**.
+
+## rule
+- **Correctness**: whether the information provided in the 'instruction' is accurate, based on reliable facts and data. Your score should strictly follow the rules below:
+
+    - **Score 9-10 (Excellent)**: The instruction is completely factually accurate. All information, data, and entities mentioned are correct, verifiable, and up-to-date. The premise of the instruction is sound and based on established facts.
+
+    - **Score 7-8 (Good)**: The instruction is largely accurate with only very minor factual errors that do not impact the core intent or understanding of the instruction. These might be trivial details, such as a slightly incorrect number or date that doesn't change the overall context.
+
+    - **Score 5-6 (Acceptable)**: The instruction contains noticeable factual inaccuracies or is based on a partially flawed premise. While the main topic is understandable, the errors are significant enough that they might mislead or require correction before an accurate output can be provided.
+
+    - **Score 3-4 (Poor)**: The instruction contains significant and fundamental factual errors. It is based on a distorted or largely incorrect premise, making it difficult to provide a direct and factual output without first refuting the claims in the instruction.
+
+    - **Score 1-2 (Very Poor)**: The instruction is entirely based on misinformation, debunked theories, or nonsensical claims. It is factually baseless, promoting false information and making it impossible to output truthfully.
+
+## output_format
+- Provide your evaluation in a JSON object with two keys: "score" (an integer from 1 to 10) and "reason" (a brief explanation for your score).
+
+Instruction:
+{instruction}
+
+Your JSON output:

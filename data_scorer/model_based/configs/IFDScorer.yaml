@@ -1,0 +1,8 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/example_output_IFDScorer
+num_gpu: 2
+
+scorers:
+  - name: IFDScorer
+    model: Qwen/Qwen2.5-3B-Instruct
+    max_length: 2048

@@ -1,0 +1,42 @@
+# API and Model Configuration
+openai:
+  api_key: "your_api_key" # or use "env:OPENAI_API_KEY" to read from environment variables
+  base_url: "your_base_url" # or your custom base url
+
+model: "gpt-4.1-nano"
+concurrency: 1024 # Number of concurrent requests to the API, 128 ~ 1024 is recommended
+timeout: 30 # Timeout for each API request in seconds
+retry: 3 # Number of retries for failed API calls
+chunk_size: 2048 # Number of items to read from the input file at once
+
+temperature: 0.1 # The sampling temperature, between 0 and 2
+top_p: 1.0 # The nucleus sampling probability
+
+# Directory Configuration
+input_path: "../data_process/example_input.jsonl"
+output_path: "output"
+prompts_dir: "prompts"
+id_track_file: "output/scored_ids.txt" # Add this line to enable ID tracking
+
+# Metrics Configuration
+# Define which metrics to run for each mode (Q or QA)
+# The names must correspond to the prompt files in `prompts_dir`
+# e.g., 'Correctness' for QA mode requires a 'QA_Correctness.txt' file.
+metrics:
+  Q: # Metrics for Question-only evaluation
+    - "All"
+    # - "Clarity"
+    # - "Coherence"
+    # - "Completeness"
+    # - "Complexity"
+    # - "Correctness"
+    # - "Meaningness"
+  QA: # Metrics for Question-Answer evaluation
+    - "All"
+    # - "Clarity"
+    # - "Coherence"
+    # - "Completeness"
+    # - "Complexity"
+    # - "Correctness"
+    # - "Meaningness"
+    # - "Relevance"

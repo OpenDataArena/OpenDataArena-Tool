@@ -1,0 +1,28 @@
+input_path: ../data_process/example_input_w_answer.jsonl
+output_path: results/example_output_MultiScorer
+num_gpu: 2
+
+scorers:
+  - name: DeitaCScorer
+    model: hkust-nlp/deita-complexity-scorer
+    max_length: 2048
+    batch_size: 32
+  - name: DeitaQScorer
+    model: hkust-nlp/deita-quality-scorer
+    max_length: 2048
+    batch_size: 2
+  - name: FailRateScorer
+    model: Qwen/Qwen3-8B
+    metrics_sample_size: 4
+    generation_size: 4096
+  - name: IFDScorer
+    model: Qwen/Qwen2.5-3B-Instruct
+    max_length: 2048
+  - name: ThinkingProbScorer
+    model: THU-KEG/AdaptThink-7B-delta0.05
+    batch_size: 128
+  - name: SkyworkRewardScorer
+    model: Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M
+    max_length: 4096
+    batch_size: 2
+  
