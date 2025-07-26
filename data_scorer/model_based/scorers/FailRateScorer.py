@@ -294,10 +294,19 @@ TASKS_TABLE = [TASK]
         print(f"Fail_rate evaluation completed. Processed {len(results)} samples.")
         
         try:
+            import re
+            match = re.search(r'data_part_(\d+)\.jsonl$', dataset_path)
+            if match:
+                split_id = int(match.group(1))
+            else:
+                split_id = 0
+            
+            lighteval_split_id = split_id + 1
+            
             temp_files_to_clean = [
                 os.path.join(work_dir, "tasks"),
-                os.path.join(work_dir, "dataset_split_1"),
-                os.path.join(work_dir, "run_lighteval_split_1.sh")
+                os.path.join(work_dir, f"dataset_split_{lighteval_split_id}"),
+                os.path.join(work_dir, f"run_lighteval_split_{lighteval_split_id}.sh")
             ]
             
             for temp_path in temp_files_to_clean:

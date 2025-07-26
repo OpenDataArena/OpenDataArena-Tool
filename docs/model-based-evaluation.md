@@ -252,6 +252,9 @@ metrics_sample_size: 4  # 1, 4, 8, 16, 32, 64
 generation_size: 4096
 ```
 
+**Note:** Currently, `metrics_sample_size` can only be set to 1, 4, 8, 16, 32, or 64, as these are the only preset options provided by the LightEval framework. If you need other metrics or custom evaluation methods, you can refer to the LightEval official documentation: [Adding a New Metric](https://huggingface.co/docs/lighteval/main/en/adding-a-new-metric) to add them yourself.
+
+
 ### Citation
 
 ```bibtex
