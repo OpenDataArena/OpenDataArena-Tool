@@ -3,6 +3,7 @@ data_scorer/model_based/results/
 check_file.py
 load_tmp.py
 data_scorer/model_based/configs/MultiScorer_local.yaml
+get_avatar.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
