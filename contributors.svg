@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="240" viewBox="0 0 800 240">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        .grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .item { margin: 8px; width: 60px; }
+        .item img { width: 100%; border-radius: 50%; display: block; }
+      </style>
+      <div class="grid">
+        <a class="item" href="https://github.com/gavinwxy" title="Xiaoyang Wang">
+          <img src="https://github.com/gavinwxy.png" alt="Xiaoyang Wang"/>
+        </a>
+        <a class="item" href="https://github.com/QizhiPei" title="Qizhi Pei">
+          <img src="https://github.com/QizhiPei.png" alt="Qizhi Pei"/>
+        </a>
+        <a class="item" href="https://github.com/orangeadegit" title="Mengzhang Cai">
+          <img src="https://github.com/orangeadegit.png" alt="Mengzhang Cai"/>
+        </a>
+        <a class="item" href="https://github.com/Word2VecT" title="Zinan Tang">
+          <img src="https://github.com/Word2VecT.png" alt="Zinan Tang"/>
+        </a>
+        <a class="item" href="https://github.com/Leey21" title="Yu Li">
+          <img src="https://github.com/Leey21.png" alt="Yu Li"/>
+        </a>
+        <a class="item" href="https://github.com/Bl404ue" title="Mengyuan Sun">
+          <img src="https://github.com/Bl404ue.png" alt="Mengyuan Sun"/>
+        </a>
+        <br />
+        <a class="item" href="https://github.com/LHL3341" title="Honglin Lin">
+          <img src="https://github.com/LHL3341.png" alt="Honglin Lin"/>
+        </a>
+        <a class="item" href="https://github.com/GX-XinGao" title="Xin Gao">
+          <img src="https://github.com/GX-XinGao.png" alt="Xin Gao"/>
+        </a>
+        <a class="item" href="https://github.com/apeterswu" title="Lijun Wu">
+          <img src="https://github.com/apeterswu.png" alt="Lijun Wu"/>
+        </a>
+        <a class="item" href="https://github.com/pzs19" title="Zhuoshi Pan">
+          <img src="https://github.com/pzs19.png" alt="Zhuoshi Pan"/>
+        </a>
+        <a class="item" href="https://github.com/ming-bot" title="Chenlin Ming">
+          <img src="https://github.com/ming-bot.png" alt="Chenlin Ming"/>
+        </a>
+        <a class="item" href="https://github.com/ChampionZhong" title="Zhanping Zhong">
+          <img src="https://github.com/ChampionZhong.png" alt="Zhanping Zhong"/>
+        </a>
+        <a class="item" href="https://github.com/conghui" title="Conghui He">
+          <img src="https://github.com/conghui.png" alt="Conghui He"/>
+        </a>
+      </div>
+    </div>
+  </foreignObject>
+</svg>

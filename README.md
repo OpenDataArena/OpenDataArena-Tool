@@ -39,7 +39,10 @@ Then, you can start to use the tools in ODA:
 
 ## Contributors
 We thank to these outstanding researchers and developers for their contributions to OpenDataArena project.
-<p align="center">
+<div align="center">
+  <img src="./contributors.svg" alt="Contributors" width="800"/>
+</div>
+<!-- <p align="center">
   <a href="https://github.com/gavinwxy" title="Xiaoyang Wang"><img src="https://github.com/gavinwxy.png" width="60" alt="Xiaoyang Wang" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/QizhiPei" title="Qizhi Pei"><img src="https://github.com/QizhiPei.png" width="60" alt="Qizhi Pei" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/orangeadegit" title="Mengzhang Cai"><img src="https://github.com/orangeadegit.png" width="60" alt="Mengzhang Cai" style="border-radius: 50%; margin: 4px;"></a>
@@ -54,7 +57,7 @@ We thank to these outstanding researchers and developers for their contributions
   <a href="https://github.com/ming-bot" title="Chenlin Ming"><img src="https://github.com/ming-bot.png" width="60" alt="Chenlin Ming" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/ChampionZhong" title="Zhanping Zhong"><img src="https://github.com/ChampionZhong.png" width="60" alt="Zhanping Zhong" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/conghui" title="Conghui He"><img src="https://github.com/conghui.png" width="60" alt="Conghui He" style="border-radius: 50%; margin: 4px;"></a>
-</p>
+</p> -->
 
 
 
