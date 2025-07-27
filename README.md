@@ -46,6 +46,7 @@ We thank to these outstanding researchers and developers for their contributions
   <a href="https://github.com/Word2VecT" title="Zinan Tang"><img src="https://github.com/Word2VecT.png" width="60" alt="Zinan Tang" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/Leey21" title="Yu Li"><img src="https://github.com/Leey21.png" width="60" alt="Yu Li" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/Bl404ue" title="Mengyuan Sun"><img src="https://github.com/Bl404ue.png" width="60" alt="Mengyuan Sun" style="border-radius: 50%; margin: 4px;"></a>
+  <br />
   <a href="https://github.com/LHL3341" title="Honglin Lin"><img src="https://github.com/LHL3341.png" width="60" alt="Honglin Lin" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/GX-XinGao" title="Xin Gao"><img src="https://github.com/GX-XinGao.png" width="60" alt="Xin Gao" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/apeterswu" title="Lijun Wu"><img src="https://github.com/apeterswu.png" width="60" alt="Lijun Wu" style="border-radius: 50%; margin: 4px;"></a>
