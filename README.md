@@ -38,7 +38,7 @@ Then, you can start to use the tools in ODA:
 * To evaluate the models on the benchmarks in ODA, please refer to [Benchmark Evaluation](./model_eval) for more details.
 
 ## Contributors
-We thank to these outstanding researchers and developers for their contributions to OpenDataArena project.
+We thank to these outstanding researchers and developers for their contributions to OpenDataArena project. Welcome to collaborate and contribute to the project!
 <p align="center">
   <a href="https://github.com/gavinwxy" title="Xiaoyang Wang"><img src="docs/avatars_circle/gavinwxy.png" width="60" alt="Xiaoyang Wang" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/QizhiPei" title="Qizhi Pei"><img src="docs/avatars_circle/QizhiPei.png" width="60" alt="Qizhi Pei" style="border-radius: 50%; margin: 4px;"></a>
