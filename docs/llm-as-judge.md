@@ -6,42 +6,44 @@ The LLM-as-Judge framework leverages the capabilities of a LLM to serve as an au
 
 ### Difficulty (Q)
 
-- `Q_ode_Difficulty`: Evaluates the complexity of code-related questions, considering algorithmic challenges, code structure, and implementation difficulty.
-- `Q_Math_Difficulty`: Evaluates the complexity of math-related questions, considering mathematical concepts, solution steps, and reasoning difficulty.
+The definition of difficulty here and the corresponding prompt are from the [OpenThoughts paper](https://arxiv.org/abs/2506.04178).
+
+- `Q_Code_Difficulty`: Evaluate the complexity of code-related questions, considering algorithmic challenges, code structure, and implementation difficulty.
+- `Q_Math_Difficulty`: Evaluate the complexity of math-related questions, considering mathematical concepts, solution steps, and reasoning difficulty.
 
 ### Relevance (QA)
 
-- `QA_Relevance`: Specifically evaluates whether the answer remains focused on the question, avoiding digressions or irrelevant information.
+- `QA_Relevance`: Specifically evaluate whether the answer remains focused on the question, avoiding digressions or irrelevant information.
 
 ### Clarity (Q & QA)
 
-- `Q_Clarity`: Evaluates whether the question is clearly expressed, free from ambiguity, and easy to comprehend.
-- `QA_Clarity`: Evaluates whether the answer is articulated with clarity, linguistic fluency, and logical structure.
+- `Q_Clarity`: Evaluate whether the question is clearly expressed, free from ambiguity, and easy to comprehend.
+- `QA_Clarity`: Evaluate whether the answer is articulated with clarity, linguistic fluency, and logical structure.
 
 ### Coherence (Q & QA)
 
-- `Q_Coherence`: Evaluates the internal logic of the question, ensuring it is coherent and devoid of contradictions.
-- `QA_Coherence`: Evaluates the relevance of the answer to the question, ensuring logical consistency in arguments and evidence.
+- `Q_Coherence`: Evaluate the internal logic of the question, ensuring it is coherent and devoid of contradictions.
+- `QA_Coherence`: Evaluate the relevance of the answer to the question, ensuring logical consistency in arguments and evidence.
 
 ### Completeness (Q & QA)
 
-- `Q_Completeness`: Evaluates whether the question provides sufficient information for a model to generate a complete answer.
-- `QA_Completeness`: Evaluates whether the answer fully addresses the user's question, covering all essential aspects.
+- `Q_Completeness`: Evaluate whether the question provides sufficient information for a model to generate a complete answer.
+- `QA_Completeness`: Evaluate whether the answer fully addresses the user's question, covering all essential aspects.
 
 ### Complexity (Q & QA)
 
-- `Q_Complexity`: Evaluates the inherent difficulty of the question, considering factors like multiple concepts, multi-step reasoning, or specialized domain knowledge.
-- `QA_Complexity`: Evaluates the depth of analysis and reasoning in the answer, as well as the complexity of the problem addressed.
+- `Q_Complexity`: Evaluate the inherent difficulty of the question, considering factors like multiple concepts, multi-step reasoning, or specialized domain knowledge.
+- `QA_Complexity`: Evaluate the depth of analysis and reasoning in the answer, as well as the complexity of the problem addressed.
 
 ### Correctness (Q & QA)
 
-- `Q_Correctness`: Evaluates the accuracy of the facts or premises presented in the question.
-- `QA_Correctness`: Evaluates the accuracy of the information, facts, and logical reasoning in the answer.
+- `Q_Correctness`: Evaluate the accuracy of the facts or premises presented in the question.
+- `QA_Correctness`: Evaluate the accuracy of the information, facts, and logical reasoning in the answer.
 
 ### Meaningfulness (Q & QA)
 
-- `Q_Meaningfulness`: Evaluates whether the question is meaningful, offering practical value or thought-provoking content.
-- `QA_Meaningfulness`: Evaluates whether the answer provides valuable, in-depth insights that encourage further reflection.
+- `Q_Meaningfulness`: Evaluate whether the question is meaningful, offering practical value or thought-provoking content.
+- `QA_Meaningfulness`: Evaluate whether the answer provides valuable, in-depth insights that encourage further reflection.
 
 ### All
 
@@ -49,13 +51,13 @@ The LLM-as-Judge framework leverages the capabilities of a LLM to serve as an au
 
 ## Framework Architecture
 
-- `main.py`: Initiates the evaluation process, loads the configuration, and sets up the evaluator.
+- `main.py`: Initiate the evaluation process, loads the configuration, and sets up the evaluator.
 - **`config.yaml`**: A configuration file that defines API keys, model parameters, input/output paths, and evaluation metrics.
-- `config.py`: Uses Pydantic to load and validate the configuration file, ensuring its correctness.
+- `config.py`: Use Pydantic to load and validate the configuration file, ensuring its correctness.
 - `evaluator.py`: The core evaluator that processes data asynchronously and interacts with the LLM API to obtain scores.
-- **`prompts/`**: Stores the prompt templates required for evaluation, allowing flexible prompt management.
-- **`validators.py`**: Validates the responses from the LLM to ensure their format and content are correct.
-- `tools/process_scores.py`: Provides a post-processing tool to merge score results back into the original data file.
+- **`prompts/`**: Store the prompt templates required for evaluation, allowing flexible prompt management.
+- **`validators.py`**: Validate the responses from the LLM to ensure their format and content are correct.
+- `tools/process_scores.py`: Provide a post-processing tool to merge score results back into the original data file.
 - `output/`: A directory that stores evaluation results, error logs, and processed IDs.
 
 ## YAML Configuration
