@@ -36,14 +36,52 @@ Then, you can start to use the tools in ODA:
 * To score your own dataset, please refer to [Data Scoring](./data_scorer) for more details.
 * To train the models on the datasets in ODA, please refer to [Model Training](./model_train) for more details.
 * To evaluate the models on the benchmarks in ODA, please refer to [Benchmark Evaluation](./model_eval) for more details.
- 
-## Acknowledgments
-We thank the following projects for their contributions to ODA:
-* [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)
-* [OpenCompass](https://github.com/open-compass/opencompass)
-* [vllm](https://github.com/vllm-project/vllm)
-* [evalplus](https://github.com/evalplus/evalplus)
-* [xVerify](https://github.com/IAAR-Shanghai/xVerify)
+
+## Contributors
+We thank to these outstanding researchers and developers for their contributions to OpenDataArena project.
+<p align="center">
+  <a href="https://github.com/gavinwxy" title="Xiaoyang Wang">
+    <img src="https://github.com/gavinwxy.png" width="60" alt="Xiaoyang Wang" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/QizhiPei" title="Qizhi Pei">
+    <img src="https://github.com/QizhiPei.png" width="60" alt="Qizhi Pei" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/orangeadegit" title="Mengzhang Cai">
+    <img src="https://github.com/orangeadegit.png" width="60" alt="Mengzhang Cai" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/Word2VecT" title="Zinan Tang">
+    <img src="https://github.com/Word2VecT.png" width="60" alt="Zinan Tang" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/Leey21" title="Yu Li">
+    <img src="https://github.com/Leey21.png" width="60" alt="Yu Li" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/Bl404ue" title="Mengyuan Sun">
+    <img src="https://github.com/Bl404ue.png" width="60" alt="Mengyuan Sun" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/LHL3341" title="Honglin Lin">
+    <img src="https://github.com/LHL3341.png" width="60" alt="Honglin Lin" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/GX-XinGao" title="Xin Gao">
+    <img src="https://github.com/GX-XinGao.png" width="60" alt="Xin Gao" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/apeterswu" title="Lijun Wu">
+    <img src="https://github.com/apeterswu.png" width="60" alt="Lijun Wu" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/pzs19" title="Zhuoshi Pan">
+    <img src="https://github.com/pzs19.png" width="60" alt="Zhuoshi Pan" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/ming-bot" title="Chenlin Ming">
+    <img src="https://github.com/ming-bot.png" width="60" alt="Chenlin Ming" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/ChampionZhong" title="Zhanping Zhong">
+    <img src="https://github.com/ChampionZhong.png" width="60" alt="Zhanping Zhong" style="border-radius: 50%; margin: 4px;">
+  </a>
+  <a href="https://github.com/conghui" title="Conghui He">
+    <img src="https://github.com/conghui.png" width="60" alt="Conghui He" style="border-radius: 50%; margin: 4px;">
+  </a>
+</p>
+
+
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
