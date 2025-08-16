@@ -1,4 +1,4 @@
-# OpenDataArena-Tool
+# OpenDataArena 工具
 
 <p align="center">
   <img src="docs/imgs/OpenDataLab.png" width="300px" style="vertical-align:middle;">
