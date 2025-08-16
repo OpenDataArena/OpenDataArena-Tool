@@ -1,23 +1,23 @@
-# OpenDataArena Model Training with LLaMA-Factory
+# 使用 LLaMA-Factory 训练模型
 
 <p align="center">
-  English | <a href="./README_zh-CN.md">简体中文</a>
+  <a href="./README.md">English</a> | 简体中文
 </p>
 
-**[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)** is a unified and easy-to-use framework for LLM fine-tuning.
-We use LLaMA-Factory to fine-tune the base models, using datasets listed on [OpenDataArena](https://opendataarena.github.io).
+**[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)** 是一个统一且易于使用的框架，用于 LLM 微调。
+我们使用 LLaMA-Factory，在 [OpenDataArena](https://opendataarena.github.io) 提供的数据集上进行微调。
 
-## Installation
-We use version `v0.9.2` of LLaMA-Factory to conduct supervised fine-tuning (SFT):
+## 安装
+我们使用 LLaMA-Factory 的 `v0.9.2` 版本进行监督微调 (SFT):
 ```
 git clone https://github.com/OpenDataArena/LLaMA-Factory.git
 cd LLaMA-Factory
 pip install -e ".[torch,metrics]"
 ```
 
-## Data Preparation
+## 数据准备
 
-We use the Alpaca format for SFT:
+我们使用 Alpaca 格式进行 SFT:
 ```
 [
   {
@@ -32,13 +32,13 @@ We use the Alpaca format for SFT:
   }
 ]
 ```
-You can also refer to `LLaMA-Factory/data/alpaca_en_demo.json` for an example.
+您也可以参考 `LLaMA-Factory/data/alpaca_en_demo.json` 的示例。
 
-If you want to use your own dataset, you can update `LLaMA-Factory/data/dataset_info.json` accordingly. For more details, please refer to the [README](https://github.com/OpenDataArena/LLaMA-Factory/tree/main/data#supervised-fine-tuning-dataset).
+如果您想使用自己的数据集，您可以相应地更新 `LLaMA-Factory/data/dataset_info.json`。更多详细信息，请参阅 [README](https://github.com/OpenDataArena/LLaMA-Factory/tree/main/data#supervised-fine-tuning-dataset)。
 
-## Supervised Fine-tuning
-Use the following commands to run full parameter SFT of [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) and [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B), respectively.
-Take `Llama-3.1-8B` base model as an example:
+## 监督微调
+使用以下命令分别运行 [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) 和 [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B) 的全参数 SFT。
+以 `Llama-3.1-8B` 基础模型为例:
 
 ```bash
 export SEED=42
@@ -73,23 +73,23 @@ llamafactory-cli train \
   --bf16 \
   --ddp_timeout 180000000
 ```
-You can also modify the `SEED` and `DATASET` in the YAML config file, then run the following commands to train the model:
+您也可以修改 YAML 配置文件中的 `SEED` 和 `DATASET`，然后运行以下命令来训练模型:
 ```bash
 llamafactory-cli train train_config/llama_config.yaml
 llamafactory-cli train train_config/qwen_config.yaml
 ```
 
-### Long CoT SFT
-For data whose total length (including system, conversation history, instructions, input, and output) exceeds 4096 tokens, we use the long CoT (Chain-of-Thought) setting as follows:
+### 长 CoT SFT
+对于总长度（包括系统、对话历史、指令、输入和输出）超过 4096 个 token 的数据，我们使用长 CoT（Chain-of-Thought）SFT，设置如下:
 
 ```bash
 llamafactory-cli train train_config/llama_long_config.yaml
 llamafactory-cli train train_config/qwen_long_config.yaml
 ```
 
-The difference from the setting above is that we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumulation_steps`, `learning_rate`, and `packing`.
+与上述 SFT 设置的不同之处在于，我们调整了 `cutoff_len`、`per_device_train_batch_size`、`gradient_accumulation_steps`、`learning_rate` 和 `packing`。
 
-The datasets in the following table are trained using above long CoT setting.
+以下数据集使用上述长 CoT 设置进行训练。
 
 | Dataset | Affiliation | HF Link |
 |---|---|---|
@@ -112,5 +112,5 @@ The datasets in the following table are trained using above long CoT setting.
 | OpenMathReasoning-cot | Nvidia | [Link](https://huggingface.co/datasets/nvidia/OpenMathReasoning) |
 
 
-## About
-For more detailed usage of LLaMA-Factory, please refer to the [LLaMA-Factory documentation](https://llamafactory.readthedocs.io/en/latest/).
+## 关于
+更多关于 LLaMA-Factory 的详细使用方法，请参阅 [LLaMA-Factory 文档](https://llamafactory.readthedocs.io/en/latest/)。
