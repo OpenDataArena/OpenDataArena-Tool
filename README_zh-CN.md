@@ -14,34 +14,34 @@
   <a href="https://opendataarena-tool.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/opendataarena-tool/badge/?version=latest" /></a>
   <br />
   <br />
-  English | <a href="README_zh-CN.md">简体中文</a>
+  <a href="README.md">English</a> | 简体中文
 </p>
 
 
-## What's New
-- 2025-07-26: We release the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
+## 最新动态
+- 2025-07-26: 我们发布了 [OpenDataArena](https://opendataarena.github.io/) 平台和 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 仓库。
 
-## Overview
-[OpenDataArena (ODA)](https://opendataarena.github.io/) is an open, transparent, and extensible platform for evaluating the value of post-training datasets, aiming to make every dataset measurable, comparable, and verifiable.
+## 概览
+[OpenDataArena (ODA)](https://opendataarena.github.io/) 是一个开源、透明、可扩展的平台，用于评估后训练数据集的价值，旨在使每个数据集可衡量、可比较和可验证。
 
-This repository includes the tools for ODA platform:
-- [Data Scoring](./data_scorer): Assess datasets through diverse metrics and methods, including model-based methods, llm-as-judge, and heuristic methods.
-- [Model Training](./model_train): Use [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) to supervised fine-tuning (SFT) the model on the datasets. We provide the SFT scripts for reproducible experiments on mainstream models and benchmarks.
-- [Benchmark Evaluation](./model_eval): Use [OpenCompass](https://github.com/open-compass/opencompass) to evaluate the performance of the model on popular benchmarks from multiple domains (math, code, science, and general instruction). We also provide the evaluation scripts for the datasets in ODA.
+这个仓库包括了 ODA 平台的工具：
+- [Data Scoring](./data_scorer): 通过多种指标和方法评估数据集，包括基于模型的方法、llm-as-judge 和启发式方法。
+- [Model Training](./model_train): 使用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 在数据集上进行监督微调 (SFT)。我们提供了 SFT 脚本，用于在主流模型和基准上进行可重复实验。
+- [Benchmark Evaluation](./model_eval): 使用 [OpenCompass](https://github.com/open-compass/opencompass) 评估模型在多个领域（数学、代码、科学和通用）的流行基准上的性能。我们还提供了 ODA 中数据集的评估脚本。
 
-## Quick Start
-First, clone the repository and its submodules:
+## 快速开始
+首先，克隆仓库及其子模块：
 ```bash
 git clone https://github.com/OpenDataArena/OpenDataArena-Tool.git --recursive
 cd OpenDataArena-Tool
 ```
-Then, you can start to use the tools in ODA:
-* To score your own dataset, please refer to [Data Scoring](./data_scorer) for more details.
-* To train the models on the datasets in ODA, please refer to [Model Training](./model_train) for more details.
-* To evaluate the models on the benchmarks in ODA, please refer to [Benchmark Evaluation](./model_eval) for more details.
+然后，您可以开始使用 ODA 中的工具：
+* 要评估您自己的数据集，请参阅 [Data Scoring](./data_scorer) 了解更多详细信息。
+* 要在 ODA 中的数据集上训练模型，请参阅 [Model Training](./model_train) 了解更多详细信息。
+* 要在 ODA 中的基准上评估模型，请参阅 [Benchmark Evaluation](./model_eval) 了解更多详细信息。
 
 ## Contributors
-We thank to these outstanding researchers and developers for their contributions to OpenDataArena project. Welcome to collaborate and contribute to the project!
+我们感谢这些杰出的研究人员和开发人员对 OpenDataArena 项目的贡献。欢迎合作和贡献！
 <p align="center">
   <a href="https://github.com/gavinwxy" title="Xiaoyang Wang"><img src="docs/avatars_circle/gavinwxy.png" width="60" alt="Xiaoyang Wang" style="border-radius: 50%; margin: 4px;"></a>
   <a href="https://github.com/QizhiPei" title="Qizhi Pei"><img src="docs/avatars_circle/QizhiPei.png" width="60" alt="Qizhi Pei" style="border-radius: 50%; margin: 4px;"></a>
@@ -62,11 +62,11 @@ We thank to these outstanding researchers and developers for their contributions
 
 
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+## 许可证
+本项目采用 MIT 许可证 - 请参阅 [LICENSE](./LICENSE) 文件了解更多详细信息。
 
-## Citation
-If you find this project useful, please consider citing:
+## 引用
+如果您觉得这个项目有用，请考虑引用：
 
 ```bibtex
 @misc{opendataarena_tool_2025,
