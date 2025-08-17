@@ -1,5 +1,9 @@
 # Heuristic Evaluation Framework
 
+<p align="center">
+  English | <a href="./README_zh-CN.md">简体中文</a>
+</p>
+
 Heuristic evaluation methods leverage heuristic signals like response length to assess data.
 
 ## Features
