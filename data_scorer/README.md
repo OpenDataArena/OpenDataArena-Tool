@@ -1,5 +1,9 @@
 # OpenDataArena Data Scoring Toolkit
 
+<p align="center">
+  English | <a href="./README_zh-CN.md">简体中文</a>
+</p>
+
 ## Introduction
 
 The data scorer of [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) for [OpenDataArena](https://opendataarena.github.io/) offers multi-dimensional score assessments for datasets through a series of automated, multi-faceted scoring and processing methods.

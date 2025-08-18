@@ -1,20 +1,20 @@
-# OpenDataArena Model Evaluation with OpenCompass
+# 使用 OpenCompass 评估模型
 
 <p align="center">
-  English | <a href="./README_zh-CN.md">简体中文</a>
+  <a href="./README.md">English</a> | 简体中文
 </p>
 
-**[OpenCompass](https://github.com/OpenCompass/OpenCompass)** is an all-in-one platform designed for the comprehensive evaluation of LLMs, which provides a fair, transparent, and reproducible benchmarking framework.
-We use OpenCompass to evaluate the performance of our SFT models on the popular benchmarks.
+**[OpenCompass](https://github.com/OpenCompass/OpenCompass)** 是一个一站式平台，用于全面评估 LLM，提供公平、透明和可重复的基准测试框架。
+我们使用 OpenCompass 评估 SFT 模型在流行基准上的性能。
 
-## Installation
-We use version `v0.4.2` of OpenCompass to evaluate the performance of our SFT models.
+## 安装
+我们使用 OpenCompass 的版本 `v0.4.2` 来评估 SFT 模型的性能。
 
 ```bash
-# Create a virtual environment
+# 创建虚拟环境
 conda create --name opencompass python=3.10 -y
 conda activate opencompass
-# Install OpenCompass and its dependencies from source
+# 从源码安装 OpenCompass 及其依赖
 conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 conda install -c conda-forge pyarrow
 conda install -c conda-forge pyzmq
@@ -32,46 +32,46 @@ pip install lmdeploy
 pip install tree-sitter==0.21.3
 ```
 
-## Evaluation
-To evaluate the performance of the model on the benchmarks, run the following commands.
-You need to pass your model path, model name, and benchmark file (as shown in the table below) to the evaluation script.
+## 评估
+要评估模型在基准上的性能，请运行以下命令。
+您需要将模型路径、模型名称和基准文件（如表所示）传递给评估脚本。
 
-* `your_model_path`: The path to the model checkpoint.
-* `dataset_name`: The name of the dataset. It is used as a label to distinguish your evaluation results, which is for identification purposes only and does not affect the evaluation itself.
-* `benchmark_file`: The name of the benchmark file. For more details, please refer to the **Benchmarks** section below.
+* `your_model_path`: 模型检查点的路径。
+* `dataset_name`: 数据集的名称。它用于区分您的评估结果，仅用于标识目的，不影响评估本身。
+* `benchmark_file`: 基准文件的名称。更多详细信息，请参阅 **基准** 部分。
 
-### Evaluate on a Single Benchmark
+### 在单个基准上评估
 ```bash
-# evaluate sft model based on Llama-3.1-8B
+# 基于 Llama-3.1-8B 评估 SFT 模型
 bash eval_script/test_llama.sh your_model_path dataset_name benchmark_file
 
-# evaluate sft model based on Qwen-2.5-7B
+# 基于 Qwen-2.5-7B 评估 SFT 模型
 bash eval_script/test_qwen.sh your_model_path dataset_name benchmark_file
 ```
 
-### Evaluate on Benchmarks in a Specific Domain
+### 在特定领域基准上评估
 ```bash
-# evaluate sft model based on Llama-3.1-8B in math domain benchmarks
+# 基于 Llama-3.1-8B 在数学领域基准上评估 SFT 模型
 bash eval_script/test_llama_math.sh your_model_path dataset_name
 
-# evaluate sft model based on Qwen-2.5-7B in code domain benchmarks 
+# 基于 Qwen-2.5-7B 在代码领域基准上评估 SFT 模型
 bash eval_script/test_llama_code.sh your_model_path dataset_name
 ```
 
-### Evaluate on All Benchmarks
+### 在所有基准上评估
 
 ```bash
-# evaluate sft model based on Llama-3.1-8B
+# 基于 Llama-3.1-8B 评估 SFT 模型
 bash eval_script/test_llama_all_benchmarks.sh your_model_path dataset_name
 
-# evaluate sft model based on Qwen-2.5-7B
+# 基于 Qwen-2.5-7B 评估 SFT 模型
 bash eval_script/test_qwen_all_benchmarks.sh your_model_path dataset_name
 ```
 
-For more evaluation scripts, please refer to the `eval_script` folder.
+更多评估脚本，请参阅 `eval_script` 文件夹。
 
-## Benchmarks
-We evaluate the performance of our SFT models on the following benchmarks.
+## 基准
+我们评估 SFT 模型在以下基准上的性能。
 
 | Domain  | Benchmark  | Benchmark File | Evaluator |
 | :--- | :--- | :--- | :--- |
@@ -96,21 +96,21 @@ We evaluate the performance of our SFT models on the following benchmarks.
 | reasoning | GPQA | gpqa_xver_gen | IAAR-Shanghai/xVerify-9B-C |
 
 
-## Results Summary
-Run the following commands to summarize the evaluation scores of the model.
+## 结果总结
+运行以下命令来总结模型的评估分数。
 
 ```bash
-# summarize Llama-3.1-8B evaluation scores
+# 总结 Llama-3.1-8B 评估分数
 python summary_scores/run_summary.py -s opencompass/outputs -d res_llama -m llama-3_1-8b-instruct-vllm
-# summarize Qwen-2.5-7B evaluation scores
+# 总结 Qwen-2.5-7B 评估分数
 python summary_scores/run_summary.py -s opencompass/outputs -d res_qwen -m qwen2.5-7b-instruct-vllm
 ```
 
-* `opencompass/outputs`: The directory where the raw test results and logs are saved.
+* `opencompass/outputs`: 原始测试结果和日志保存的目录。
 
-* `res_llama` and `res_qwen`: The destination path for the final, summarized result file.
+* `res_llama` 和 `res_qwen`: 最终汇总结果文件的保存路径。
 
-* `llama-3_1-8b-instruct-vllm` and `qwen-2.5-7b-instruct-vllm`: The identifier for the model is accelerated by `vllm`. This is a required argument.
+* `llama-3_1-8b-instruct-vllm` 和 `qwen-2.5-7b-instruct-vllm`: 使用 `vllm` 加速的模型标识符。这是一个必需的参数。
 
-## About
-For more detailed usage of OpenCompass, please refer to the [OpenCompass documentation](https://opencompass.readthedocs.io/en/latest/).
+## 关于
+更多关于 OpenCompass 的详细使用方法，请参阅 [OpenCompass 文档](https://opencompass.readthedocs.io/en/latest/)。

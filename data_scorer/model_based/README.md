@@ -1,5 +1,9 @@
 # Model-based Evaluation Framework
 
+<p align="center">
+  English | <a href="./README_zh-CN.md">简体中文</a>
+</p>
+
 Model-based evaluation methods leverage internal signals from existing deep learning models to assess data.
 
 ## Features
@@ -38,9 +42,9 @@ The framework includes several evaluation dimensions, divided into two categorie
 
 3. **Run Evaluation**:
     - Take the `IFDScorer` as an example, run the following command:
-    ```bash
-    python main_para.py --config configs/IFDScorer.yaml
-    ```
+      ```bash
+      python main_para.py --config configs/IFDScorer.yaml
+      ```
       You can also use other scorers running commands in run.sh script.
     - The output will be saved in the `output_path` specified in YAML, which will contain the following files:
         - `temp/`: temporary files, including the splitted data and the scores of each scorer. The scores are formatted as follows:
