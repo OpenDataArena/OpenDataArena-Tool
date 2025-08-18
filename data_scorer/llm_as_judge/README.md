@@ -1,5 +1,9 @@
 # LLM-as-Judge Evaluation Framework
 
+<p align="center">
+  English | <a href="./README_zh-CN.md">简体中文</a>
+</p>
+
 This is a framework that uses a LLM as a judge to automatically evaluate the output of generative AI.
 
 ## Implemented Metrics
