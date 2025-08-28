@@ -7,7 +7,7 @@ The data scorer of [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDat
 conda create -n oda python=3.10
 conda activate oda
 git clone https://github.com/OpenDataArena/OpenDataArena-Tool.git
-cd OpenDataArena/data_evaluation
+cd OpenDataArena/data_scorer
 pip install -r requirements.txt
 pip install flash_attn==2.7.4.post1 --no-build-isolation
 # if you want to calculate fail rate, run the following command, which will install the lighteval package
