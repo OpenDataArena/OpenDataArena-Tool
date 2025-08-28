@@ -54,10 +54,13 @@ class SkyworkRewardScorer(BaseScorer):
             print(
                 f"Warnning: Specified Model Path Does not Work ({e}), Use Remote Model Instead.")
             self.rank_model = AutoModelForSequenceClassification.from_pretrained(
-                'OpenAssistant/reward-model-deberta-v3-large-v2', num_labels=1
+                "Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M",
+                torch_dtype=torch.bfloat16 if torch.cuda.is_available() else None,
+                attn_implementation="flash_attention_2",
+                num_labels=1
             )
             self.tokenizer = AutoTokenizer.from_pretrained(
-                'OpenAssistant/reward-model-deberta-v3-large-v2')
+                "Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M")
 
         self.rank_model.to(self.device)
         self.rank_model.eval()
