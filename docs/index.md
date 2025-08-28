@@ -6,7 +6,7 @@ The data scorer of [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDat
 ```bash
 conda create -n oda python=3.10
 conda activate oda
-git clone https://gitee.pjlab.org.cn/L2/gaoxin/OpenDataArena.git
+git clone https://github.com/OpenDataArena/OpenDataArena-Tool.git
 cd OpenDataArena/data_evaluation
 pip install -r requirements.txt
 pip install flash_attn==2.7.4.post1 --no-build-isolation
