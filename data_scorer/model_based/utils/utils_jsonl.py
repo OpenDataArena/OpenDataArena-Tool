@@ -6,7 +6,7 @@ import sys
 
 
 def save_jsonl(data, path):
-    if '/' in path:
+    if "/" in path:
         os.makedirs(os.path.dirname(path), exist_ok=True)
 
     with open(path, "w", encoding="utf-8") as f:
@@ -22,7 +22,7 @@ def load_jsonl(path, max_lines=None):
     sys.set_int_max_str_digits(0)
 
     try:
-        with open(path, "r", encoding="utf-8", errors='ignore') as f:
+        with open(path, "r", encoding="utf-8", errors="ignore") as f:
             for i, line in enumerate(tqdm(f), start=1):
                 if max_lines is not None and i > max_lines:
                     break
@@ -41,16 +41,18 @@ def load_jsonl(path, max_lines=None):
         print(f"Error: File not found at {path}")
         return []
     except Exception as e:
-        print(
-            f"An unexpected error occurred while opening/reading the file: {e}")
+        print(f"An unexpected error occurred while opening/reading the file: {e}")
         return []
 
     print(
-        f"Total lines processed: {len(data) + skip_count}, Successfully loaded: {len(data)}, Skipped: {skip_count}")
+        f"Total lines processed: {len(data) + skip_count}, Successfully loaded: {len(data)}, Skipped: {skip_count}"
+    )
     return data
 
 
-def merge_multiple_scores(file_a_path: str, b_file_paths: List[str], output_path: str, verbose=False):
+def merge_multiple_scores(
+    file_a_path: str, b_file_paths: List[str], output_path: str, verbose=False
+):
     """
     Merge multiple JSONL score files (B) into the main JSONL file (A), updating fields in Q_scores or QA_scores.
 
@@ -69,7 +71,7 @@ def merge_multiple_scores(file_a_path: str, b_file_paths: List[str], output_path
 
     for b_path in b_file_paths:
         print(f"  Reading {b_path}")
-        with open(b_path, 'r', encoding='utf-8') as fb:
+        with open(b_path, "r", encoding="utf-8") as fb:
             for line in fb:
                 data = json.loads(line)
                 entry_id = data.get("id")
@@ -87,9 +89,9 @@ def merge_multiple_scores(file_a_path: str, b_file_paths: List[str], output_path
     total = 0
     updated = 0
 
-    with open(file_a_path, 'r', encoding='utf-8') as fa, \
-            open(output_path, 'w', encoding='utf-8') as fout, \
-            tqdm(desc="Progress", unit=" lines") as pbar:
+    with open(file_a_path, "r", encoding="utf-8") as fa, open(
+        output_path, "w", encoding="utf-8"
+    ) as fout, tqdm(desc="Progress", unit=" lines") as pbar:
 
         for line in fa:
             total += 1
@@ -107,7 +109,8 @@ def merge_multiple_scores(file_a_path: str, b_file_paths: List[str], output_path
                         inserted = True
                     elif verbose:
                         print(
-                            f"[Warning] id={entry_id} — field '{score_key}' not found in Q_scores or QA_scores")
+                            f"[Warning] id={entry_id} — field '{score_key}' not found in Q_scores or QA_scores"
+                        )
 
                     if inserted:
                         updated += 1
@@ -124,9 +127,9 @@ def merge_jsonl_files(input_paths, output_path):
         input_paths (List[str]): List of paths to the .jsonl files to be merged.
         output_path (str): Path to the output .jsonl file after merging.
     """
-    with open(output_path, 'w', encoding='utf-8') as fout:
+    with open(output_path, "w", encoding="utf-8") as fout:
         for path in input_paths:
-            with open(path, 'r', encoding='utf-8') as fin:
+            with open(path, "r", encoding="utf-8") as fin:
                 for line in fin:
                     if line.strip():
                         fout.write(line)
@@ -142,57 +145,59 @@ def add_evaluation_keys_to_jsonl(input_path: str, output_path: str):
         assert "instruction" in item and "output" in item, f"item {idx} is not valid"
         if "Q_scores" not in item:
             item["Q_scores"] = {
-                'Clarity': None,
-                'Coherence': None,
-                'Completeness': None,
-                'Complexity': None,
-                'Correctness': None,
-                'Meaningfulness': None,
-                'Difficulty': None,
-                'Deita_Complexity': None,
-                'Thinking_Prob': None,
+                "Clarity": None,
+                "Coherence": None,
+                "Completeness": None,
+                "Complexity": None,
+                "Correctness": None,
+                "Meaningfulness": None,
+                "Difficulty": None,
+                "Deita_Complexity": None,
+                "Thinking_Prob": None,
+                "Model_Aware_Margin": None,
             }
         else:
             item["Q_scores"] = {
-                'Clarity': item["Q_scores"].get("Clarity",None),
-                'Coherence': item["Q_scores"].get("Coherence",None),
-                'Completeness': item["Q_scores"].get("Completeness",None),
-                'Complexity': item["Q_scores"].get("Complexity",None),
-                'Correctness': item["Q_scores"].get("Correctness",None),
-                'Meaningfulness': item["Q_scores"].get("Meaningfulness",None),
-                'Difficulty': item["Q_scores"].get("Difficulty",None),
-                'Deita_Complexity': item["Q_scores"].get("Deita_Complexity",None),
-                'Thinking_Prob': item["Q_scores"].get("Thinking_Prob",None),
-            }          
-        if "QA_scores" not in item:     
+                "Clarity": item["Q_scores"].get("Clarity", None),
+                "Coherence": item["Q_scores"].get("Coherence", None),
+                "Completeness": item["Q_scores"].get("Completeness", None),
+                "Complexity": item["Q_scores"].get("Complexity", None),
+                "Correctness": item["Q_scores"].get("Correctness", None),
+                "Meaningfulness": item["Q_scores"].get("Meaningfulness", None),
+                "Difficulty": item["Q_scores"].get("Difficulty", None),
+                "Deita_Complexity": item["Q_scores"].get("Deita_Complexity", None),
+                "Thinking_Prob": item["Q_scores"].get("Thinking_Prob", None),
+                "Model_Aware_Margin": item["Q_scores"].get("Model_Aware_Margin", None),
+            }
+        if "QA_scores" not in item:
             item["QA_scores"] = {
-                'Clarity': None,
-                'Coherence': None,
-                'Completeness': None,
-                'Complexity': None,
-                'Correctness': None,
-                'Meaningfulness': None,
-                'Relevance': None,
-                'IFD': None,
-                'Deita_Quality': None,
-                'Reward_Model': None,
-                'A_Length': None,
-                'Fail_Rate': None,
+                "Clarity": None,
+                "Coherence": None,
+                "Completeness": None,
+                "Complexity": None,
+                "Correctness": None,
+                "Meaningfulness": None,
+                "Relevance": None,
+                "IFD": None,
+                "Deita_Quality": None,
+                "Reward_Model": None,
+                "A_Length": None,
+                "Fail_Rate": None,
             }
         else:
             item["QA_scores"] = {
-                'Clarity': item["QA_scores"].get("Clarity",None),
-                'Coherence': item["QA_scores"].get("Coherence",None),
-                'Completeness': item["QA_scores"].get("Completeness",None),
-                'Complexity': item["QA_scores"].get("Complexity",None),
-                'Correctness': item["QA_scores"].get("Correctness",None),
-                'Meaningfulness': item["QA_scores"].get("Meaningfulness",None),
-                'Relevance': item["QA_scores"].get("Relevance",None),
-                'IFD': item["QA_scores"].get("IFD",None),
-                'Deita_Quality': item["QA_scores"].get("Deita_Quality",None),
-                'Reward_Model': item["QA_scores"].get("Reward_Model",None),
-                'A_Length': item["QA_scores"].get("A_Length",None),
-                'Fail_Rate': item["QA_scores"].get("Fail_Rate",None),
-            }          
+                "Clarity": item["QA_scores"].get("Clarity", None),
+                "Coherence": item["QA_scores"].get("Coherence", None),
+                "Completeness": item["QA_scores"].get("Completeness", None),
+                "Complexity": item["QA_scores"].get("Complexity", None),
+                "Correctness": item["QA_scores"].get("Correctness", None),
+                "Meaningfulness": item["QA_scores"].get("Meaningfulness", None),
+                "Relevance": item["QA_scores"].get("Relevance", None),
+                "IFD": item["QA_scores"].get("IFD", None),
+                "Deita_Quality": item["QA_scores"].get("Deita_Quality", None),
+                "Reward_Model": item["QA_scores"].get("Reward_Model", None),
+                "A_Length": item["QA_scores"].get("A_Length", None),
+                "Fail_Rate": item["QA_scores"].get("Fail_Rate", None),
+            }
         ds_add_key.append(item)
     save_jsonl(ds_add_key, output_path)

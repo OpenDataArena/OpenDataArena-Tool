@@ -1,28 +1,8 @@
 {
     "scorers": [
         {
-            "name": "DeitaCScorer",
-            "module": "scorers.DeitaCScorer"
-        },
-        {
-            "name": "DeitaQScorer",
-            "module": "scorers.DeitaQScorer"
-        },
-        {
-            "name": "IFDScorer",
-            "module": "scorers.IFDScorer"
-        },
-        {
-            "name": "SkyworkRewardScorer",
-            "module": "scorers.SkyworkRewardScorer"
-        },
-        {
-            "name": "ThinkingProbScorer",
-            "module": "scorers.ThinkingProbScorer"
-        },
-        {
-            "name": "FailRateScorer",
-            "module": "scorers.FailRateScorer"
+            "name": "ModelAwareMarginScorer",
+            "module": "scorers.ModelAwareMarginScorer"
         }
     ]
 }
