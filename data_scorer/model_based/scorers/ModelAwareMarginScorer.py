@@ -62,12 +62,22 @@ class ModelAwareMarginScorer(BaseScorer):
 
         model_id: str = self.config["model"]
         try:
-            self.model = SentenceTransformer(model_id)
+            # Prefer enabling flash attention v2 for acceleration and memory savings
+            self.model = SentenceTransformer(
+                model_id,
+                model_kwargs={"attn_implementation": "flash_attention_2"},
+            )
         except Exception as e:
             print(
-                f"Warning: Failed to load specified model '{model_id}' ({e}). Trying default Qwen/Qwen3-Embedding-8B"
+                f"Warning: Failed to enable flash_attention_2 for '{model_id}' ({e}). Retrying without it."
             )
-            self.model = SentenceTransformer("Qwen/Qwen3-Embedding-8B")
+            try:
+                self.model = SentenceTransformer(model_id)
+            except Exception as e2:
+                print(
+                    f"Warning: Failed to load specified model '{model_id}' without flash_attention_2 ({e2}). Trying default Qwen/Qwen3-Embedding-8B"
+                )
+                self.model = SentenceTransformer("Qwen/Qwen3-Embedding-8B")
 
         if "max_length" in self.config:
             try:
