@@ -1,7 +1,7 @@
 # OpenDataArena-Tool
 
 <p align="center">
-  <img src="docs/imgs/OpenDataLab.png" width="300px" style="vertical-align:middle;">
+  <img src="docs/imgs/OpenDataArena.svg" width="300px" style="vertical-align:middle;">
   <br />
   <br />
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="stars" src="https://img.shields.io/github/stars/OpenDataArena/OpenDataArena-Tool" /></a>
