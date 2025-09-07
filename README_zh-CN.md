@@ -1,7 +1,7 @@
 # OpenDataArena 工具
 
 <p align="center">
-  <img src="docs/imgs/OpenDataLab.png" width="300px" style="vertical-align:middle;">
+  <img src="docs/imgs/OpenDataArena.svg" width="300px" style="vertical-align:middle;">
   <br />
   <br />
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="stars" src="https://img.shields.io/github/stars/OpenDataArena/OpenDataArena-Tool" /></a>
@@ -43,21 +43,21 @@ cd OpenDataArena-Tool
 ## Contributors
 我们感谢这些杰出的研究人员和开发人员对 OpenDataArena 项目的贡献。欢迎合作和贡献！
 <p align="center">
-  <a href="https://github.com/gavinwxy" title="Xiaoyang Wang"><img src="docs/avatars_circle/gavinwxy.png" width="60" alt="Xiaoyang Wang" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/QizhiPei" title="Qizhi Pei"><img src="docs/avatars_circle/QizhiPei.png" width="60" alt="Qizhi Pei" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/orangeadegit" title="Mengzhang Cai"><img src="docs/avatars_circle/orangeadegit.png" width="60" alt="Mengzhang Cai" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/Word2VecT" title="Zinan Tang"><img src="docs/avatars_circle/Word2VecT.png" width="60" alt="Zinan Tang" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/Leey21" title="Yu Li"><img src="docs/avatars_circle/Leey21.png" width="60" alt="Yu Li" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/Bl404ue" title="Mengyuan Sun"><img src="docs/avatars_circle/Bl404ue.png" width="60" alt="Mengyuan Sun" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/LHL3341" title="Honglin Lin"><img src="docs/avatars_circle/LHL3341.png" width="60" alt="Honglin Lin" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/GX-XinGao" title="Xin Gao"><img src="docs/avatars_circle/GX-XinGao.png" width="60" alt="Xin Gao" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/gavinwxy" title="Xiaoyang Wang"><img src="docs/avatars_circle/gavinwxy.svg" width="60" alt="Xiaoyang Wang" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/QizhiPei" title="Qizhi Pei"><img src="docs/avatars_circle/QizhiPei.svg" width="60" alt="Qizhi Pei" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/orangeadegit" title="Mengzhang Cai"><img src="docs/avatars_circle/orangeadegit.svg" width="60" alt="Mengzhang Cai" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/Word2VecT" title="Zinan Tang"><img src="docs/avatars_circle/Word2VecT.svg" width="60" alt="Zinan Tang" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/Leey21" title="Yu Li"><img src="docs/avatars_circle/Leey21.svg" width="60" alt="Yu Li" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/MySunX" title="Mengyuan Sun"><img src="docs/avatars_circle/MySunX.svg" width="60" alt="Mengyuan Sun" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/LHL3341" title="Honglin Lin"><img src="docs/avatars_circle/LHL3341.svg" width="60" alt="Honglin Lin" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/GX-XinGao" title="Xin Gao"><img src="docs/avatars_circle/GX-XinGao.svg" width="60" alt="Xin Gao" style="border-radius: 50%; margin: 4px;"></a>
   <br />
   <br />
-  <a href="https://github.com/apeterswu" title="Lijun Wu"><img src="docs/avatars_circle/apeterswu.png" width="60" alt="Lijun Wu" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/pzs19" title="Zhuoshi Pan"><img src="docs/avatars_circle/pzs19.png" width="60" alt="Zhuoshi Pan" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/ming-bot" title="Chenlin Ming"><img src="docs/avatars_circle/ming-bot.png" width="60" alt="Chenlin Ming" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/ChampionZhong" title="Zhanping Zhong"><img src="docs/avatars_circle/ChampionZhong.png" width="60" alt="Zhanping Zhong" style="border-radius: 50%; margin: 4px;"></a>
-  <a href="https://github.com/conghui" title="Conghui He"><img src="docs/avatars_circle/conghui.png" width="60" alt="Conghui He" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/apeterswu" title="Lijun Wu"><img src="docs/avatars_circle/apeterswu.svg" width="60" alt="Lijun Wu" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/pzs19" title="Zhuoshi Pan"><img src="docs/avatars_circle/pzs19.svg" width="60" alt="Zhuoshi Pan" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/ming-bot" title="Chenlin Ming"><img src="docs/avatars_circle/ming-bot.svg" width="60" alt="Chenlin Ming" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/ChampionZhong" title="Zhanping Zhong"><img src="docs/avatars_circle/ChampionZhong.svg" width="60" alt="Zhanping Zhong" style="border-radius: 50%; margin: 4px;"></a>
+  <a href="https://github.com/conghui" title="Conghui He"><img src="docs/avatars_circle/conghui.svg" width="60" alt="Conghui He" style="border-radius: 50%; margin: 4px;"></a>
 </p>
 
 
