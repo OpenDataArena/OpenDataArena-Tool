@@ -23,7 +23,8 @@
 
 ## 概览
 [OpenDataArena (ODA)](https://opendataarena.github.io/) 是一个开源、透明、可扩展的平台，用于评估后训练数据集的价值，旨在使每个数据集可衡量、可比较和可验证。
-
+![](./docs/imgs/oda_overview_zh-CN.png)
+![](./docs/imgs/oda_comp_zh-CN.png)
 这个仓库包括了 ODA 平台的工具：
 - [Data Scoring](./data_scorer): 通过多种指标和方法评估数据集，包括基于模型的方法、llm-as-judge 和启发式方法。
 - [Model Training](./model_train): 使用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 在数据集上进行监督微调 (SFT)。我们提供了 SFT 脚本，用于在主流模型和基准上进行可重复实验。

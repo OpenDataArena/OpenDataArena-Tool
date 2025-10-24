@@ -23,7 +23,8 @@
 
 ## Overview
 [OpenDataArena (ODA)](https://opendataarena.github.io/) is an open, transparent, and extensible platform for evaluating the value of post-training datasets, aiming to make every dataset measurable, comparable, and verifiable.
-
+![](./docs/imgs/oda_overview.png)
+![](./docs/imgs/oda_comp.png)
 This repository includes the tools for ODA platform:
 - [Data Scoring](./data_scorer): Assess datasets through diverse metrics and methods, including model-based methods, llm-as-judge, and heuristic methods.
 - [Model Training](./model_train): Use [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) to supervised fine-tuning (SFT) the model on the datasets. We provide the SFT scripts for reproducible experiments on mainstream models and benchmarks.
