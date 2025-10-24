@@ -33,9 +33,9 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
 
 **Key features of the platform include:**
 
-* 🏟 **ODA Leaderboard:** A public, cross-domain, visual leaderboard for SFT (supervised fine-tuning) dataset value.
-* 📊 **Multi-dimensional Data Scoring:** Fine-grained evaluations across 20+ scoring dimensions, with open-source score data for easy reuse and comparison.
-* 🔁 **Train–Evaluate–Score Integration:** A fully open, reproducible pipeline for model training, benchmark evaluation, and dataset scoring.
+* **ODA Leaderboard:** A public, cross-domain, visual leaderboard for SFT (supervised fine-tuning) dataset value.
+* **Multi-dimensional Data Scoring:** Fine-grained evaluations across 20+ scoring dimensions, with open-source score data for easy reuse and comparison.
+* **Train–Evaluate–Score Integration:** A fully open, reproducible pipeline for model training, benchmark evaluation, and dataset scoring.
 
 ODA has already covered **4+ domains**, **20+ benchmarks**, **20+ scoring dimensions**, processed **100+ datasets**, evaluated **20M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
 
