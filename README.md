@@ -24,6 +24,7 @@
 ## Overview
 
 [OpenDataArena (ODA)](https://opendataarena.github.io/) is an open, transparent, and extensible platform designed to **transform dataset value assessment from guesswork to science**. In the era of large language models (LLMs), data is the critical fuel driving model performance — yet its value has long remained a "black box". ODA aims to make every post-training dataset **measurable, comparable, and verifiable**, enabling researchers to understand what data truly matters.
+
 ODA introduces an open "data arena" where datasets **compete under equal training and evaluation conditions**, allowing their contribution to downstream model performance to be measured objectively.
 
 ![](./docs/imgs/oda_overview.png)
