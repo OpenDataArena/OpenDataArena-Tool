@@ -14,7 +14,10 @@
   <a href="https://opendataarena-tool.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/opendataarena-tool/badge/?version=latest" /></a>
   <br />
   <br />
-  English | <a href="README_zh-CN.md">简体中文</a>
+  English | <a href="README_zh-CN.md">简体中文</a> 
+  <br />
+  <br />
+  <img src="./docs/imgs/ODA_first.png" style="vertical-align:middle;">
 </p>
 
 
