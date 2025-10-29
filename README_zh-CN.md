@@ -22,13 +22,28 @@
 - 2025-07-26: 我们发布了 [OpenDataArena](https://opendataarena.github.io/) 平台和 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 仓库。
 
 ## 概览
-[OpenDataArena (ODA)](https://opendataarena.github.io/) 是一个开源、透明、可扩展的平台，用于评估后训练数据集的价值，旨在使每个数据集可衡量、可比较和可验证。
-![](./docs/imgs/oda_overview_zh-CN.png)
-![](./docs/imgs/oda_comp_zh-CN.png)
+
+[OpenDataArena (ODA)](https://opendataarena.github.io/) 是一个开放、透明且可扩展的平台，旨在将**数据集价值评估从猜测转变为科学**。在大语言模型（LLM）时代，数据是驱动模型性能的关键燃料——然而，它的价值长期以来一直是一个“黑箱”。ODA 致力于让每一个后训练（post-training）数据集都**可度量、可比较、可验证**，帮助研究者真正理解哪些数据才是关键。
+
+ODA 引入了一个开放的“数据竞技场”，在其中数据集**在相同的训练与评估条件下公平竞争**，从而能够客观地衡量它们对下游模型性能的贡献。
+
+![](./docs/imgs/oda_overview.png)
+
+![](./docs/imgs/oda_comp.png)
+
+**该平台的主要特性包括：**
+
+* **ODA 排行榜：** 一个面向监督微调（SFT）数据集价值的公共、跨领域、可视化排行榜。
+* **多维度数据评分：** 在 20+ 个评分维度上进行细粒度评估，并开源评分数据以便复用与比较。
+* **训练–评估–评分一体化：** 一个完全开放、可复现的模型训练、基准评测与数据集评分流水线。
+
+ODA 已覆盖 **4+ 个领域**、**20+ 个基准测试**、**20+ 个评分维度**，处理了 **100+ 个数据集**，评估了 **2000 万+ 个样本**，完成了 **600+ 次训练运行** 和 **1 万+ 次评测** —— 各项指标仍在持续增长中。
+
+## OpenDataArena-工具
 这个仓库包括了 ODA 平台的工具：
-- [Data Scoring](./data_scorer): 通过多种指标和方法评估数据集，包括基于模型的方法、llm-as-judge 和启发式方法。
-- [Model Training](./model_train): 使用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 在数据集上进行监督微调 (SFT)。我们提供了 SFT 脚本，用于在主流模型和基准上进行可重复实验。
-- [Benchmark Evaluation](./model_eval): 使用 [OpenCompass](https://github.com/open-compass/opencompass) 评估模型在多个领域（数学、代码、科学和通用）的流行基准上的性能。我们还提供了 ODA 中数据集的评估脚本。
+* [Data Scoring](./data_scorer): 通过多种指标和方法评估数据集，包括基于模型的方法、llm-as-judge 和启发式方法。
+* [Model Training](./model_train): 使用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 在数据集上进行监督微调 (SFT)。我们提供了 SFT 脚本，用于在主流模型和基准上进行可重复实验。
+* [Benchmark Evaluation](./model_eval): 使用 [OpenCompass](https://github.com/open-compass/opencompass) 评估模型在多个领域（数学、代码、科学和通用）的流行基准上的性能。我们还提供了 ODA 中数据集的评估脚本。
 
 ## 快速开始
 首先，克隆仓库及其子模块：
