@@ -17,7 +17,7 @@
   English | <a href="README_zh-CN.md">简体中文</a> 
   <br />
   <br />
-  <img src="./docs/imgs/ODA_first.png" style="vertical-align:middle;">
+  <img src="./docs/imgs/oda_first.png" style="vertical-align:middle;">
 </p>
 
 
