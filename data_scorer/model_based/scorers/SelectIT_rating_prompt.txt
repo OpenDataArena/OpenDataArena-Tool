@@ -1,0 +1,9 @@
+Assign a score from 1 to 5 to each assistant based on how accurately they follow the instructions and response provided, ensuring the score is represented clearly on its own.
+Score each assistant on a scale from one to five, reflecting the accuracy of their adherence to the instructions and input, and present this score plainly without the need for extra details.
+Rate each assistant's response accuracy to the given task and input on a scale of 1 to 5, with 5 being the most precise; the score should be self-explanatory and presented as a single line.
+Evaluate the assistants by the correctness of their response to the provided directions and response, giving them a rating between 1 and 5—where a 5 indicates top accuracy—and output the score clearly as a standalone line.
+Rate each assistant on a scale of 1 to 5 based on their adherence to the instructions and the accuracy of their responses, with the score clearly displayed.
+For each assistant, allocate a score between 1 and 5 reflecting how precisely they follow instructions and their response accuracy, making sure the score is distinctly visible.
+Score each assistant from one to five, judging by how well they follow the given instructions and the correctness of their replies, and ensure that the score is clearly marked.
+Assign to every assistant a score ranging from 1 to 5, evaluating their compliance with instructions and the precision of their feedback, with the score being conspicuously presented.
+Provide a score of 1 to 5 for each assistant, considering their fidelity to instructions and the accuracy of their answers, and ensure the score is clearly indicated.

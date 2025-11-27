@@ -1,11 +1,10 @@
-input_path: ../data_process/example_input.jsonl
-output_path: results/DeitaQScorer
-num_gpu: 2
-
+input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
+output_path: results/demo_per_scorer_advanced/
+num_gpu: 4
+num_gpu_per_job: 1
 scorers:
-  - name: DeitaQScorer
-    model: hkust-nlp/deita-quality-scorer
-    max_length: 2048
-    batch_size: 2
-
-
+- name: DeitaQScorer
+  model: /share/wulijun/gaoxin/local_models/deita-quality-scorer
+  max_length: 2048
+  batch_size: 8
+  num_gpu_per_job: 1

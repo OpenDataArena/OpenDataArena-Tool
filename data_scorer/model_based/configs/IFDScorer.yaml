@@ -1,8 +1,10 @@
-input_path: ../data_process/example_input.jsonl
-output_path: results/example_output_IFDScorer
-num_gpu: 2
-
+input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
+output_path: results/demo_per_scorer_advanced/
+num_gpu: 4
+num_gpu_per_job: 1
 scorers:
-  - name: IFDScorer
-    model: Qwen/Qwen2.5-3B-Instruct
-    max_length: 2048
+- name: IFDScorer
+  model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+  max_length: 2048
+  batch_size: 4
+  num_gpu_per_job: 1

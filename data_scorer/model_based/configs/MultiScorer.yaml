@@ -1,28 +1,404 @@
-input_path: ../data_process/example_input_w_answer.jsonl
-output_path: results/example_output_MultiScorer
-num_gpu: 2
+input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
+output_path: results/test
 
-scorers:
-  - name: DeitaCScorer
-    model: hkust-nlp/deita-complexity-scorer
-    max_length: 2048
-    batch_size: 32
-  - name: DeitaQScorer
-    model: hkust-nlp/deita-quality-scorer
-    max_length: 2048
-    batch_size: 2
+num_gpu: 4
+num_gpu_per_job: 1
+
+scorers:  
   - name: FailRateScorer
-    model: Qwen/Qwen3-8B
-    metrics_sample_size: 4
+    model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+    output_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results/demo_per_scorer_advanced/master_temp/scorer_FailRateScorer/
+    metrics_sample_size: 2
     generation_size: 4096
-  - name: IFDScorer
-    model: Qwen/Qwen2.5-3B-Instruct
-    max_length: 2048
-  - name: ThinkingProbScorer
-    model: THU-KEG/AdaptThink-7B-delta0.05
-    batch_size: 128
-  - name: SkyworkRewardScorer
-    model: Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M
+    num_gpu_per_job: 1
+    dtype: "bfloat16"
+    max_num_batched_tokens: 4096
+    max_model_length: 4096
+    gpu_memory_utilization: 0.90
+    temperature: 0.6
+    top_p: 0.95  
+
+  - name: AnswerProbScorer    
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
     max_length: 4096
     batch_size: 2
+    num_gpu_per_job: 1
+    case_sensitive: true
+
+  - name: ApJsScorer
+    tokenization_method: gram
+    n: 1
+    similarity_method: direct
+    num_gpu_per_job: 0
+    max_workers: 128
+    sample_pairs: 1000
+
+  - name: ApsScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/KNNScorer/embedding.npy
+    similarity_metric: euclidean
+    max_workers: 128
+    num_gpu_per_job: 0
+    sample_pairs: 1000
+
+  - name: AskLlmScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
+    max_length: 2048
+    prompt: "Is the following data high quality? Please answer yes or no.\n\n"
+    yes_token: "yes"
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: AtheneScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Athene-RM-8B
+    batch_size: 8
+    max_length: 4096
+    num_gpu_per_job: 1
   
+  - name: CleanlinessScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/meta-rater-cleanliness-rating
+    batch_size: 16
+    max_model_len: 1024
+    num_gpu_per_job: 1
+
+  - name: ClusterInertiaScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/ClusterInertiaScorer/mock_embeddings.npy
+    cluster_centroids_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/ClusterInertiaScorer/mock_cluster_centroids.npy
+    cluster_labels_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/ClusterInertiaScorer/mock_cluster_labels.npy
+    distance_metric: cosine
+    num_gpu_per_job: 0
+
+  - name: DebertaScorer
+    model: /share/wulijun/gaoxin/local_models/quality-classifier-deberta
+    max_length: 512
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: DeitaCScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/deita-complexity-scorer
+    max_length: 2048
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: DeitaQScorer
+    model: /share/wulijun/gaoxin/local_models/deita-quality-scorer
+    max_length: 2048
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: EffectiveRankScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-1.7B
+    max_length: 2048
+    start_layer_index: 10
+    num_layers: 2
+    num_gpu_per_job: 1
+
+  - name: FinewebEduScorer
+    model: /share/wulijun/gaoxin/local_models/fineweb-edu-classifier/fineweb-edu-classifier 
+    max_length: 512
+    batch_size: 4
+    num_gpu_per_job: 1
+
+  - name: FacilityLocationScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/FacilityLocationScorer/wholeset_embeddings.npy
+    subset_embeddings_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/FacilityLocationScorer/subset_embeddings.npy
+    distance_metric: cosine
+    max_workers: 128
+    num_gpu_per_job: 0
+
+  - name: Gpt2HarmlessScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/gpt2-large-harmless-reward_model
+    batch_size: 8
+    max_length: 1024
+    num_gpu_per_job: 1
+  
+  - name: Gpt2HelpfulScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/gpt2-large-helpful-reward_model
+    batch_size: 8
+    max_length: 1024
+    num_gpu_per_job: 1
+
+  - name: GramEntropyScorer
+    max_workers: 256
+    num_gpu_per_job: 0
+
+  - name: InfOrmScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/INF-ORM-Llama3.1-70B
+    batch_size: 8
+    max_length: 2048
+    num_gpu_per_job: 4
+
+  - name: HddScorer
+    sample_size: 42.0
+    max_workers: 128
+    num_gpu_per_job: 0
+  
+  - name: HESScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
+    percentile_cutoff: 0.005
+    batch_size: 1
+    max_model_len: 4096
+    num_gpu_per_job: 1
+
+  - name: GraNdScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-1.7B
+    max_length: 2048
+    num_gpu_per_job: 1
+
+  - name: InstagScorer
+    model: /share/wulijun/gaoxin/local_models/InsTagger
+    max_new_tokens: 512
+    batch_size: 8 
+    num_gpu_per_job: 1
+
+  - name: KNNScorer
+    k: 10
+    distance_metric: cosine
+    max_workers: 128
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/KNNScorer/embedding.npy
+    num_gpu_per_job: 0
+
+  - name: LogDetDistanceScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/LogDetDistanceScorer/diverse_embeddings_128x1024.npy
+    ridge_alpha: 1e-10
+    num_gpu_per_job: 0
+    max_workers: 128
+
+  - name: NormLossScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
+    max_length: 2048
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: MtldScorer
+    ttr_threshold: 0.72
+    max_workers: 128
+    num_gpu_per_job: 0
+
+  - name: NuclearNormScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-1.7B
+    max_length: 512
+    start_layer_index: 10
+    num_layers: 2
+    num_gpu_per_job: 1
+
+  - name: NovelSumScorer
+    use_gpu_faiss: false
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/NovelSumScorer/mock_embeddings.npy
+    dense_ref_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/NovelSumScorer/
+    density_powers: [0, 0.25, 0.5]
+    neighbors: [5, 10]
+    distance_powers: [0, 1, 2]
+    num_gpu_per_job: 0
+
+  - name: MIWVScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/ClusterInertiaScorer/mock_embeddings.npy
+    batch_size: 8
+    max_length: 8192
+    distance_metric: cosine
+    model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+    num_gpu_per_job: 4
+
+  - name: ProfessionalismScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/meta-rater-professionalism-rating
+    batch_size: 16
+    max_length: 2048
+    num_gpu_per_job: 1
+  
+  - name: PartitionEntropyScorer
+    num_clusters: 22
+    num_gpu_per_job: 0
+
+  - name: PureThinkScorer
+    field: output
+    num_gpu_per_job: 0
+    max_workers: 128
+
+  - name: RadiusScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/ClusterInertiaScorer/mock_embeddings.npy
+    max_workers: 128
+    num_gpu_per_job: 0
+
+  - name: ReadabilityScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/meta-rater-readability-rating
+    batch_size: 16
+    max_model_len: 2048
+    num_gpu_per_job: 1
+
+  - name: ReasoningScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/meta-rater-reasoning-rating
+    batch_size: 16
+    max_model_len: 2048
+    num_gpu_per_job: 1
+
+  - name: QuRateScorer
+    model: /share/wulijun/gaoxin/local_models/QuRater-1.3B
+    labels: ["writing_style", "required_expertise", "facts_and_trivia", "educational_value"]
+    chunk_size: 512
+    batch_size: 8
+    device_batch_size: 16
+    num_gpu_per_job: 1
+
+
+  - name: RMDeBERTaScorer
+    model: /share/wulijun/gaoxin/local_models/reward-model-deberta-v3-large-v2
+    max_length: 4096
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: SelectitModelScorer
+    models:
+      - /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
+      - /share/wulijun/gaoxin/local_models/Qwen2.5-7B-Instruct
+    model_weights:
+      - 0.5
+      - 0.5
+    rp_file: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/scorers/SelectIT_rating_prompt.txt
+    k: 5
+    alpha: 0.2
+    max_length: 512
+    batch_size: 8
+    num_gpu_per_job: 1
+
+  - name: SelectitSentenceScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+    max_length: 512
+    batch_size: 8
+    rp_file: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/scorers/SelectIT_rating_prompt.txt
+    k: 5
+    alpha: 0.2
+    num_gpu_per_job: 1
+
+  - name: SelectitTokenScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+    max_length: 512
+    batch_size: 8
+    rp_file: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/scorers/SelectIT_rating_prompt.txt
+    k: 5
+    alpha: 0.2
+    num_gpu_per_job: 1
+
+  - name: SkyworkRewardScorer
+    model: /share/wulijun/gaoxin/local_models/Skywork-Reward-V2-Llama-3.1-8B-40M
+    batch_size: 8
+    max_length: 1024
+    num_gpu_per_job: 1
+
+  - name: TextbookScorer
+    model: /share/wulijun/gaoxin/local_models/llm-data-textbook-quality-fasttext-classifier-v2
+    max_length: 512
+    batch_size: 8
+    num_gpu_per_job: 1
+  
+  - name: StrLengthScorer
+    fields: ["instruction", "input", "output"]
+    max_workers: 256
+    num_gpu_per_job: 0
+
+  - name: ThinkOrNotScorer
+    field: output
+    max_workers: 128
+    num_gpu_per_job: 0
+
+  - name: Task2VecScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/gpt2
+    max_length: 512
+    num_gpu_per_job: 4
+    last_layer_only: true
+
+  - name: TokenEntropyScorer
+    max_workers: 256
+    encoder: o200k_base
+    num_gpu_per_job: 0
+
+  - name: TokenLengthScorer
+    encoder: o200k_base
+    fields: ["instruction", "input", "output"]
+    max_workers: 128
+    num_gpu_per_job: 0
+
+  - name: TreeInstructScorer
+    text_fields: ["instruction", "input", "output"]
+    max_workers: 128
+    model: "en_core_web_sm"
+    num_gpu_per_job: 0
+
+  - name: TsPythonScorer
+    field: output
+    max_workers: 256
+    num_gpu_per_job: 0
+
+  - name: UniqueNgramScorer
+    n: 2
+    max_workers: 256
+    num_gpu_per_job: 0
+
+  - name: UniqueNtokenScorer
+    encoder: o200k_base
+    n: 2
+    max_workers: 256
+    num_gpu_per_job: 0
+
+  - name: VocdDScorer
+    ntokens: 50
+    within_sample: 100
+    seed: 42
+    max_workers: 128
+    num_gpu_per_job: 0
+
+  - name: UPDScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
+    max_length: 2048
+    batch_size: 4
+    num_gpu_per_job: 1
+
+  - name: VendiScorer
+    embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/KNNScorer/embedding.npy
+    similarity_metric: euclidean
+    num_gpu_per_job: 0
+    max_workers: 128
+
+  - name: UniEvalD2tScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/unieval-sum
+    max_length: 1024
+    batch_size: 2
+    overall: true
+    num_gpu_per_job: 1
+
+  - name: UniEvalDialogScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/unieval-dialog
+    max_length: 1024
+    batch_size: 2
+    overall: true
+    num_gpu_per_job: 1
+
+  - name: UniEvalFactScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/unieval-fact
+    max_length: 1024
+    batch_size: 8
+    overall: true
+    num_gpu_per_job: 1
+
+  - name: UniEvalSumScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/unieval-sum
+    max_length: 1024
+    batch_size: 4
+    overall: true
+    num_gpu_per_job: 1
+
+  - name: ThinkingProbScorer
+    model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/AdaptThink-7B-delta0.05
+    batch_size: 128
+    num_gpu_per_job: 1
+
+  - name: IFDScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+    max_length: 2048
+    batch_size: 4
+    num_gpu_per_job: 1
+
+  - name: PPLScorer
+    model: /share/wulijun/gaoxin/local_models/Qwen3-8B
+    max_length: 2048
+    batch_size: 2
+    num_gpu_per_job: 1
+

@@ -38,16 +38,43 @@ class ThinkingProbScorer(BaseScorer):
 
     def _setup(self):
         try:
-
-            self.model = LLM(model=self.config['model'])
+            # 禁用 v1 引擎，使用 v0 引擎以避免多进程环境下的问题
+            import os
+            os.environ["VLLM_USE_V1"] = "0"
+            
+            # self.model = LLM(model=self.config['model'])
+            self.model = LLM(
+                model=self.config['model'],
+                enforce_eager=True,                      # 直接走 eager
+                disable_custom_all_reduce=True,          # 禁用自定义 all_reduce
+                trust_remote_code=True,                  # 信任远程代码
+                gpu_memory_utilization=0.9,              # GPU 内存利用率
+            )
             self.tokenizer = AutoTokenizer.from_pretrained(
-                self.config['model'], cache_dir='./cache')
-        except:
+                self.config['model'], 
+                cache_dir='./cache',
+                trust_remote_code=True
+            )
+        except Exception as e:
             print(
-                "Warning: Failed to load model from remote. Loading THU-KEG/AdaptThink-7B-delta0.05 model.")
-            self.model = LLM(model='THU-KEG/AdaptThink-7B-delta0.05')
+                f"Warning: Failed to load model from remote. Error: {e}")
+            print("Loading THU-KEG/AdaptThink-7B-delta0.05 model.")
+            
+            import os
+            os.environ["VLLM_USE_V1"] = "0"
+            
+            self.model = LLM(
+                model='THU-KEG/AdaptThink-7B-delta0.05',
+                enforce_eager=True,
+                disable_custom_all_reduce=True,
+                trust_remote_code=True,
+                gpu_memory_utilization=0.9,
+            )
             self.tokenizer = AutoTokenizer.from_pretrained(
-                'THU-KEG/AdaptThink-7B-delta0.05', cache_dir='./cache')
+                'THU-KEG/AdaptThink-7B-delta0.05', 
+                cache_dir='./cache',
+                trust_remote_code=True
+            )
 
         print("Setting up ThinkProbScorer successfully")
 
@@ -105,7 +132,7 @@ class ThinkingProbScorer(BaseScorer):
 
                 results.append({
                     "id": ds[i + j]['id'],
-                    "Thinking_Prob": difficulty
+                    "score": difficulty
                 })
 
         return results

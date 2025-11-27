@@ -12,20 +12,9 @@ class DeitaQScorer(BaseScorer):
     def _validate_config(self):
         if "model" not in self.config:
             print(
-                "Warning: No loacl model specified in config. Downloading the remote huggingface model.")
+                "Warning: No local model specified in config. Downloading the remote huggingface model.")
             self.config['model'] = 'hkust-nlp/deita-quality-scorer'
-        else:
-            if self.config['model'] == 'hkust-nlp/deita-quality-scorer':
-                print("Downloading and use the specific remote huggingface model.")
-            elif not os.path.exists(self.config["model"]):
-                print(
-                    f"Warning: Specified local model path '{self.config['model']}' does not exist. "
-                    "Downloading the remote huggingface model: hkust-nlp/deita-quality-scorer"
-                )
-                self.config['model'] = 'hkust-nlp/deita-quality-scorer'
-            else:
-                print(
-                    f"Using specified local model: '{self.config['model']}'. ")
+
 
         if ("max_length" in self.config and isinstance(self.config["max_length"], int)
                 and 0 < self.config["max_length"] <= 2048):
@@ -94,16 +83,12 @@ class DeitaQScorer(BaseScorer):
         valid_indices = []
         prompts = []
         for idx, item in enumerate(data_items):
-            instr = item.get("instruction", "").strip()
-            outp = item.get("output", "").strip()
-            if not instr:
-                print("Warning: 'instruction' is missing or empty. Skipping this item.")
-                prompts.append(None)
-                continue
-            if not outp:
-                print("Warning: 'output' is missing or empty. Skipping this item.")
-                prompts.append(None)
-                continue
+            instr = item["instruction"].strip()
+            input_text = item.get("input", "").strip()
+            outp = item["output"].strip()
+            if input_text:
+                instr = instr + "\n" + input_text
+
             prompts.append(quality_template.format(
                 instruction=instr, output=outp))
             valid_indices.append(idx)
@@ -112,8 +97,22 @@ class DeitaQScorer(BaseScorer):
         if len(valid_indices) == 0:
             return scores
 
+        # Check for sequences exceeding max_length
+        valid_prompts = [prompts[i] for i in valid_indices]
+        tokenized_no_trunc = self.tokenizer(
+            valid_prompts,
+            padding=False,
+            truncation=False,
+            return_tensors=None
+        )
+        max_length = self.config["max_length"]
+        for idx, input_ids in enumerate(tokenized_no_trunc["input_ids"]):
+            if len(input_ids) > max_length:
+                original_idx = valid_indices[idx]
+                print(f"Warning: Data item at index {original_idx} has length {len(input_ids)} which exceeds max_length {max_length}. It will be truncated.")
+
         enc = self.tokenizer(
-            [prompts[i] for i in valid_indices],
+            valid_prompts,
             padding=True,
             truncation=True,
             max_length=self.config["max_length"],
@@ -165,7 +164,7 @@ class DeitaQScorer(BaseScorer):
                 if len(buf_items) == batch_size:
                     batch_scores = self.score_batch(buf_items)
                     results.extend(
-                        {"id": _id, "Deita_Quality": sc}
+                        {"id": _id, "score": sc}
                         for _id, sc in zip(buf_ids, batch_scores)
                     )
                     buf_items.clear()
@@ -175,7 +174,7 @@ class DeitaQScorer(BaseScorer):
             if buf_items:
                 batch_scores = self.score_batch(buf_items)
                 results.extend(
-                    {"id": _id, "Deita_Quality": sc}
+                    {"id": _id, "score": sc}
                     for _id, sc in zip(buf_ids, batch_scores)
                 )
                 buf_items.clear()

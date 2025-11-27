@@ -52,3 +52,41 @@ class ConfigLoader:
             start, end = map(int, gpu_field.split("-", 1))
             return end - start + 1
         return int(gpu_field)
+    
+    @staticmethod
+    def get_data_parallel(cfg: Dict[str, Any]) -> int:
+        """
+        Get data parallelism degree (how many splits to divide the data into)
+        Default is 1 (no data parallelism)
+        """
+        return cfg.get("data_parallel", 1)
+    
+    @staticmethod
+    def get_num_gpu_per_job(cfg: Dict[str, Any]) -> int:
+        """
+        Get the number of GPUs to use per sub-task
+        Default is 1
+        """
+        return cfg.get("num_gpu_per_job", 1)
+    
+    @staticmethod
+    def get_scorer_parallel_config(
+        scorer: Dict[str, Any], 
+        global_data_parallel: int = 1, 
+        global_num_gpu_per_job: int = 1
+    ) -> tuple:
+        """
+        Get parallelism configuration for a single scorer
+        Prioritize scorer's own configuration, otherwise use global defaults
+        
+        Args:
+            scorer: scorer configuration dictionary
+            global_data_parallel: global default data_parallel
+            global_num_gpu_per_job: global default num_gpu_per_job
+            
+        Returns:
+            (data_parallel, num_gpu_per_job) tuple
+        """
+        data_parallel = scorer.get("data_parallel", global_data_parallel)
+        num_gpu_per_job = scorer.get("num_gpu_per_job", global_num_gpu_per_job)
+        return (data_parallel, num_gpu_per_job)

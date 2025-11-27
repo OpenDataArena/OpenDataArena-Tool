@@ -12,20 +12,8 @@ class DeitaCScorer(BaseScorer):
     def _validate_config(self):
         if "model" not in self.config:
             print(
-                "Warning: No loacl model specified in config. Downloading the remote huggingface model.")
+                "Warning: No local model specified in config. Downloading the remote huggingface model.")
             self.config['model'] = 'hkust-nlp/deita-complexity-scorer'
-        else:
-            if self.config['model'] == 'hkust-nlp/deita-complexity-scorer':
-                print("Downloading and use the specific remote huggingface model.")
-            elif not os.path.exists(self.config["model"]):
-                print(
-                    f"Warning: Specified local model path '{self.config['model']}' does not exist. "
-                    "Downloading the remote huggingface model: hkust-nlp/deita-complexity-scorer"
-                )
-                self.config['model'] = 'hkust-nlp/deita-complexity-scorer'
-            else:
-                print(
-                    f"Using specified local model: '{self.config['model']}'. ")
 
         if "max_length" in self.config and isinstance(self.config["max_length"], int) and 0 < self.config["max_length"] <= 2048:
             print(f"Using specified max_length: {self.config['max_length']}.")
@@ -89,10 +77,26 @@ class DeitaCScorer(BaseScorer):
         complexity_template = (
             "You are a helpful assistant. Please identify the complexity score of the following user query. \n"
             "##Query: {instruction}  \n##Complexity: ")
-        user_inputs = [
-            complexity_template.format(instruction=item.get("instruction", ""))
-            for item in data_items
-        ]
+        user_inputs = []
+        for item in data_items:
+            instruction = item.get("instruction", "")
+            input_text = item.get("input", "")
+            if input_text:
+                instruction = instruction + "\n" + input_text
+            user_inputs.append(complexity_template.format(instruction=instruction))
+
+
+        # Check for sequences exceeding max_length
+        tokenized_no_trunc = self.tokenizer(
+            user_inputs,
+            padding=False,
+            truncation=False,
+            return_tensors=None
+        )
+        max_length = self.config["max_length"]
+        for idx, input_ids in enumerate(tokenized_no_trunc["input_ids"]):
+            if len(input_ids) > max_length:
+                print(f"Warning: Data item at index {idx} has length {len(input_ids)} which exceeds max_length {max_length}. It will be truncated.")
 
         enc = self.tokenizer(
             user_inputs,
@@ -120,10 +124,8 @@ class DeitaCScorer(BaseScorer):
 
                 return [3.0] * len(data_items)
 
-            probs = torch.softmax(selected_logits, dim=-
-                                  1)                # [batch, 6]
-            scores = (probs * self._score_values).sum(dim=-
-                                                      1).tolist()    # [batch]
+            probs = torch.softmax(selected_logits, dim=-1)                # [batch, 6]
+            scores = (probs * self._score_values).sum(dim=-1).tolist()    # [batch]
 
         return scores
 
@@ -146,7 +148,7 @@ class DeitaCScorer(BaseScorer):
                 if len(buffer_items) == batch_size:
                     batch_scores = self.score_batch(buffer_items)
                     results.extend([
-                        {"id": id_, "Deita_Complexity": sc}
+                        {"id": id_, "score": sc}
                         for id_, sc in zip(buffer_ids, batch_scores)
                     ])
                     buffer_items.clear()
@@ -156,7 +158,7 @@ class DeitaCScorer(BaseScorer):
             if buffer_items:
                 batch_scores = self.score_batch(buffer_items)
                 results.extend([
-                    {"id": id_, "Deita_Complexity": sc}
+                    {"id": id_, "score": sc}
                     for id_, sc in zip(buffer_ids, batch_scores)
                 ])
                 buffer_items.clear()

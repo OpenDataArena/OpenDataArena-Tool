@@ -1,0 +1,11 @@
+input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
+output_path: results/demo_per_scorer_advanced/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: HESScorer
+  model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Qwen3-8B
+  percentile_cutoff: 0.005
+  batch_size: 1
+  max_model_len: 4096
+  num_gpu_per_job: 1

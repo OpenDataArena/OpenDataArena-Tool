@@ -1,0 +1,21 @@
+input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
+output_path: results/demo_per_scorer_advanced/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: NovelSumScorer
+  use_gpu_faiss: false
+  embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/NovelSumScorer/mock_embeddings.npy
+  dense_ref_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/NovelSumScorer/
+  density_powers:
+  - 0
+  - 0.25
+  - 0.5
+  neighbors:
+  - 5
+  - 10
+  distance_powers:
+  - 0
+  - 1
+  - 2
+  num_gpu_per_job: 0
