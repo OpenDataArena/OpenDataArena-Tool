@@ -1,11 +1,11 @@
-input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
-output_path: results/demo_per_scorer_advanced/
+input_path: ../data_process/example_input_w_answer.jsonl
+output_path: results/FailRateScorer/
 num_gpu: 4
 num_gpu_per_job: 1
 scorers:
 - name: FailRateScorer
-  model: /share/wulijun/gaoxin/local_models/Qwen3-8B
-  output_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results/demo_per_scorer_advanced/master_temp/scorer_FailRateScorer/
+  model: Qwen/Qwen3-8B
+  output_path: results/demo_per_scorer_advanced/master_temp/scorer_FailRateScorer/
   metrics_sample_size: 2
   generation_size: 4096
   num_gpu_per_job: 1

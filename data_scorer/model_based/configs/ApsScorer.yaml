@@ -1,10 +1,10 @@
-input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
-output_path: results/demo_per_scorer_advanced/
+input_path: ../data_process/example_input.jsonl
+output_path: results/ApsScorer/
 num_gpu: 4
 num_gpu_per_job: 1
 scorers:
 - name: ApsScorer
-  embedding_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/results1/KNNScorer/embedding.npy
+  embedding_path: ../data_process/mock_embedding_128x512.npy
   similarity_metric: euclidean
   max_workers: 128
   num_gpu_per_job: 0

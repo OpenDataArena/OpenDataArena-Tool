@@ -28,10 +28,20 @@ class SelectitTokenScorer(BaseScorer):
             self.config['rp_file'] = 'scorers/SelectIT/rating_prompt.txt'
         
         if "k" in self.config and isinstance(self.config["k"], int) and self.config["k"] > 0:
-            print(f"Using specified k (number of rating prompts per sample): {self.config['k']}.")
+            print(
+                f"Using specified k (number of rating prompts per sample): {self.config['k']}."
+            )
+            if self.config["k"] > 1:
+                print(
+                    "Warning: k > 1 introduces prompt-driven uncertainty. "
+                    "Token score will be affected by prompt perturbation as well."
+                )
         else:
-            self.config['k'] = 5
-            print("Warning: No/invalid k specified, use default value of 5.")
+            self.config["k"] = 1
+            print(
+                "No/invalid k specified, use default value of 1. "
+                "(Only one rating prompt per sample; only token-level uncertainty is measured.)"
+            )
         
         # alpha: parameter for adjusting score based on standard deviation (score = avg / (1 + alpha * std))
         if "alpha" in self.config and isinstance(self.config["alpha"], (int, float)) and self.config["alpha"] >= 0:

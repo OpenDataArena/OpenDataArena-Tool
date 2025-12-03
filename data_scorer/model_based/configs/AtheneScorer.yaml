@@ -1,10 +1,10 @@
-input_path: /mnt/petrelfs/gaoxin/OpenDataArena-Tool/data_scorer/model_based/data/failratedemodata.jsonl
-output_path: results/demo_per_scorer_advanced/
+input_path: ../data_process/example_input.jsonl
+output_path: results/AtheneScorer/
 num_gpu: 4
 num_gpu_per_job: 1
 scorers:
 - name: AtheneScorer
-  model: /mnt/dhwfile/raise/data-leaderboard/model/gaoxin/Athene-RM-8B
+  model: Nexusflow/Athene-RM-8B
   batch_size: 8
   max_length: 4096
   num_gpu_per_job: 1

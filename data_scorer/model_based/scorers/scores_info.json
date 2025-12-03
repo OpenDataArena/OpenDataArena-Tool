@@ -185,8 +185,8 @@
             "module": "scorers.ApsScorer"
         },
         {
-            "name": "ApJsScorer",
-            "module": "scorers.ApJsScorer"
+            "name": "ApjsScorer",
+            "module": "scorers.ApjsScorer"
         },
         {
             "name": "ClusterInertiaScorer",
@@ -239,6 +239,10 @@
         {
             "name": "InfOrmScorer",
             "module": "scorers.InfOrmScorer"
+        },
+        {
+            "name": "GramEntropyScorer",
+            "module": "scorers.GramEntropyScorer"
         }
     ]
 }

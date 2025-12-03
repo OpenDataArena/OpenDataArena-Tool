@@ -38,17 +38,15 @@ class ThinkingProbScorer(BaseScorer):
 
     def _setup(self):
         try:
-            # 禁用 v1 引擎，使用 v0 引擎以避免多进程环境下的问题
             import os
             os.environ["VLLM_USE_V1"] = "0"
-            
-            # self.model = LLM(model=self.config['model'])
+
             self.model = LLM(
                 model=self.config['model'],
-                enforce_eager=True,                      # 直接走 eager
-                disable_custom_all_reduce=True,          # 禁用自定义 all_reduce
-                trust_remote_code=True,                  # 信任远程代码
-                gpu_memory_utilization=0.9,              # GPU 内存利用率
+                enforce_eager=True,
+                disable_custom_all_reduce=True,
+                trust_remote_code=True,
+                gpu_memory_utilization=0.9,
             )
             self.tokenizer = AutoTokenizer.from_pretrained(
                 self.config['model'], 

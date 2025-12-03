@@ -7,8 +7,8 @@ import json
 
 class PartitionEntropyScorer(BaseScorer):
     def _validate_config(self):
-        """验证配置参数"""
-        # 验证全局簇数
+        """Validate configuration parameters"""
+        # Validate global cluster number
         if "num_clusters" not in self.config:
             raise ValueError("num_clusters (number of global clusters) is required in config.")
         
@@ -18,42 +18,42 @@ class PartitionEntropyScorer(BaseScorer):
         print(f"Global number of clusters: {self.config['num_clusters']}")
 
     def _setup(self):
-        """初始化scorer"""
-        # 获取全局聚类数量
+        """Initialize scorer"""
+        # Get global cluster number
         self.num_clusters = self.config["num_clusters"]
         print(f"Number of global clusters: {self.num_clusters}")
         
         print("Setting up PartitionEntropyScorer successfully")
 
     def score_item(self, data_item: Dict) -> float:
-        """PartitionEntropyScorer 对整个数据集打分，不对单个样本打分"""
+        """PartitionEntropyScorer scores the entire dataset, not individual samples"""
         raise NotImplementedError(
             "PartitionEntropyScorer computes a single score for the entire dataset. "
             "Use evaluate() method instead."
         )
 
     def evaluate(self, dataset) -> Dict:
-        """评估整个数据集，计算分区熵（Partition Entropy）
+        """Evaluate the entire dataset and compute Partition Entropy
         
-        该方法计算子集数据在全局聚类簇中的分布熵。
+        This method calculates the distribution entropy of subset data across global clusters.
         
-        分区熵定义为：H = -Σ(p_i * log(p_i))
-        其中 p_i 是第 i 个簇在子集中样本的比例
+        Partition Entropy is defined as: H = -Σ(p_i * log(p_i))
+        where p_i is the proportion of samples in the i-th cluster within the subset
         
-        熵越高表示子集数据在全局簇中分布越均匀，多样性越高
-        熵越低表示子集数据在全局簇中分布越集中，多样性越低
+        Higher entropy indicates more uniform distribution across global clusters, higher diversity
+        Lower entropy indicates more concentrated distribution across global clusters, lower diversity
         
         Args:
-            dataset: 数据集文件路径（jsonl格式），每个数据项必须包含 cluster_id 字段
+            dataset: Dataset file path (jsonl format), each data item must contain cluster_id field
         
         Returns:
-            包含 Partition Entropy 分数的字典
+            Dictionary containing Partition Entropy score
         """
         num_lines = get_total_lines(dataset)
         print(f"Computing Partition Entropy for {num_lines} samples in subset...")
         print(f"Global number of clusters: {self.num_clusters}")
         
-        # 读取数据集，统计每个簇的样本数量
+        # Read dataset and count samples in each cluster
         cluster_counts = {}
         total_samples = 0
         missing_cluster_id_count = 0
@@ -62,15 +62,10 @@ class PartitionEntropyScorer(BaseScorer):
             for line_num, line in enumerate(f, 1):
                 try:
                     item = json.loads(line.strip())
-                    
-                    # 检查是否有 cluster_id 字段
-                    if "cluster_id" not in item:
-                        missing_cluster_id_count += 1
-                        continue
-                    
+                
                     cluster_id = int(item["cluster_id"])
                     
-                    # 统计簇计数
+                    # Count cluster occurrences
                     cluster_counts[cluster_id] = cluster_counts.get(cluster_id, 0) + 1
                     total_samples += 1
                     
@@ -100,21 +95,21 @@ class PartitionEntropyScorer(BaseScorer):
         print(f"Successfully loaded {total_samples} samples with cluster_id")
         print(f"Number of unique clusters in subset: {len(cluster_counts)}")
         
-        # 计算每个簇的概率分布
+        # Calculate probability distribution for each cluster
         cluster_probabilities = {}
         for cluster_id, count in cluster_counts.items():
             cluster_probabilities[cluster_id] = count / total_samples
         
-        # 计算分区熵
+        # Calculate partition entropy
         # H = -Σ(p_i * log(p_i))
-        # 注意：只对子集中实际出现的簇计算熵
+        # Note: Only calculate entropy for clusters that actually appear in the subset
         entropy = 0.0
         for cluster_id, prob in cluster_probabilities.items():
-            if prob > 0:  # 避免 log(0)
+            if prob > 0:  # Avoid log(0)
                 entropy -= prob * np.log(prob)
         
-        # 计算归一化熵（除以全局最大可能熵 log(num_clusters)）
-        # 使用全局簇数来计算最大熵，这样可以反映子集相对于全局的多样性
+        # Calculate normalized entropy (divided by global maximum possible entropy log(num_clusters))
+        # Use global cluster count to calculate maximum entropy, which reflects subset diversity relative to global clusters
         max_entropy = np.log(self.num_clusters) if self.num_clusters > 1 else 1.0
         normalized_entropy = entropy / max_entropy if max_entropy > 0 else 0.0
         
@@ -124,13 +119,13 @@ class PartitionEntropyScorer(BaseScorer):
         print(f"Cluster distribution in subset: {cluster_counts}")
         
         return {
-            "entropy": float(entropy),  # 分区熵
-            "normalized_entropy": float(normalized_entropy),  # 归一化分区熵（相对于全局簇数）
-            "max_entropy": float(max_entropy),  # 最大可能分区熵（基于全局簇数）
-            "num_samples": total_samples,  # 子集中的样本数量
-            "num_clusters_global": self.num_clusters,  # 全局聚类簇数量
-            "num_clusters_in_subset": len(cluster_counts),  # 子集中实际出现的簇数量
-            "cluster_counts": cluster_counts,  # 聚类计数
-            "cluster_probabilities": {int(k): float(v) for k, v in cluster_probabilities.items()}  # 聚类概率分布
+            "entropy": float(entropy),  # Partition entropy
+            "normalized_entropy": float(normalized_entropy),  # Normalized partition entropy (relative to global cluster count)
+            "max_entropy": float(max_entropy),  # Maximum possible partition entropy (based on global cluster count)
+            "num_samples": total_samples,  # Number of samples in subset
+            "num_clusters_global": self.num_clusters,  # Global cluster count
+            "num_clusters_in_subset": len(cluster_counts),  # Number of clusters actually appearing in subset
+            "cluster_counts": cluster_counts,  # Cluster counts
+            "cluster_probabilities": {int(k): float(v) for k, v in cluster_probabilities.items()}  # Cluster probability distribution
         }
 

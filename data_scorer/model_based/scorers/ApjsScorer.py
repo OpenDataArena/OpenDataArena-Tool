@@ -54,7 +54,7 @@ def _compute_jaccard_pair(args):
         return m1.jaccard(m2)
 
 
-class ApJsScorer(BaseScorer):
+class ApjsScorer(BaseScorer):
     def _validate_config(self):
         """Validate configuration parameters"""
         # Check tokenization method
@@ -153,7 +153,7 @@ class ApJsScorer(BaseScorer):
                 self.encoder = tiktoken.get_encoding("o200k_base")
                 self.config["encoder"] = "o200k_base"
         
-        print("Setting up ApJsScorer successfully")
+        print("Setting up ApjsScorer successfully")
 
     def _extract_text(self, data_item: Dict) -> str:
         """Extract text from data item"""
@@ -245,20 +245,20 @@ class ApJsScorer(BaseScorer):
             return self._jaccard_similarity_minhash(set1, set2)
 
     def score_item(self, data_item: Dict) -> float:
-        """ApJsScorer scores the entire dataset, not individual samples"""
+        """A p j sScorer scores the entire dataset, not individual samples"""
         raise NotImplementedError(
-            "ApJsScorer computes a single score for the entire dataset. "
+            "ApjsScorer computes a single score for the entire dataset. "
             "Use evaluate() method instead."
         )
 
     def evaluate(self, dataset) -> Dict:
-        """Evaluate the entire dataset and compute Average Pairwise Jaccard Similarity (ApJs)
+        """Evaluate the entire dataset and compute Average Pairwise Jaccard Similarity (Apjs)
         
         Args:
             dataset: Path to dataset file (jsonl format)
         
         Returns:
-            Dictionary containing ApJs score
+            Dictionary containing Apjs score
         """
         print(f"Loading dataset from: {dataset}")
         num_lines = get_total_lines(dataset)
@@ -274,11 +274,11 @@ class ApJsScorer(BaseScorer):
                 all_ngrams.append(ngrams_set)
         
         n = len(all_ngrams)
-        print(f"Computing ApJs for {n} samples...")
+        print(f"Computing Apjs for {n} samples...")
         
         # Handle edge case: less than 2 samples in dataset
         if n < 2:
-            print(f"Warning: Dataset has {n} samples. At least 2 samples are required to compute ApJs.")
+            print(f"Warning: Dataset has {n} samples. At least 2 samples are required to compute Apjs.")
             result = {
                 "score": 0.0 if n == 0 else None,  # Return 0.0 for 0 samples, None for 1 sample indicating cannot compute
                 "num_samples": n,
@@ -345,10 +345,10 @@ class ApJsScorer(BaseScorer):
         apjs_score = np.mean(pairwise_similarities).item()
         
         if is_sampled:
-            print(f"ApJs Score (sampled): {apjs_score}")
+            print(f"Apjs Score (sampled): {apjs_score}")
             print(f"Total pairs computed: {len(pairwise_similarities)} (sampled from {total_pairs} possible pairs)")
         else:
-            print(f"ApJs Score: {apjs_score}")
+            print(f"Apjs Score: {apjs_score}")
             print(f"Total pairs computed: {len(pairwise_similarities)}")
         
         result = {
