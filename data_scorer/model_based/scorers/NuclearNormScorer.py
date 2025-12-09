@@ -63,8 +63,8 @@ class NuclearNormScorer(BaseScorer):
         except Exception as e:
             print(
                 f"Warning: Specified Model Path Does not Work ({e}), Use Default Model Instead.")
-            self.model = AutoModelForCausalLM.from_pretrained('gpt2')
-            self.tokenizer = AutoTokenizer.from_pretrained('gpt2')
+            self.model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen3-8B')
+            self.tokenizer = AutoTokenizer.from_pretrained('Qwen/Qwen3-8B')
 
         # Ensure tokenizer has pad_token
         if self.tokenizer.pad_token is None:

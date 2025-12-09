@@ -1,0 +1,9 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/LogDetDistanceScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: LogDetDistanceScorer
+  embedding_path: ../data_process/mock_embedding_128x512.npy
+  ridge_alpha: 1e-10
+  max_workers: 128

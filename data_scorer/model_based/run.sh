@@ -18,3 +18,7 @@ python main_para.py --config configs/ThinkingProbScorer.yaml
 
 # Multi Scorers Togather
 python main_para.py --config configs/MultiScorer.yaml
+
+
+
+srun -p raise --gres=gpu:1 python main.py --config configs/DeitaCScorer.yaml

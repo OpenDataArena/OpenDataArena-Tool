@@ -1,10 +1,11 @@
 input_path: ../data_process/example_input.jsonl
 output_path: results/DeitaCScorer/
-num_gpu: 4
+num_gpu: 1
 num_gpu_per_job: 1
 scorers:
 - name: DeitaCScorer
-  model: hkust-nlp/deita-complexity-scorer
+  # model: hkust-nlp/deita-complexity-scorer
+  model: /share/wulijun/gaoxin/local_models/deita-complexity-scorer
   max_length: 2048
   batch_size: 8
   num_gpu_per_job: 1

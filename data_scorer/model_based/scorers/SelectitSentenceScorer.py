@@ -15,16 +15,16 @@ class SelectitSentenceScorer(BaseScorer):
         if "model" not in self.config:
             print(
                 "Warning: No local model specified in config. Downloading the remote huggingface model.")
-            self.config["model"] = "princeton-nlp/QuRater-1.3B"
+            self.config["model"] = "Qwen/Qwen3-8B"
         else:
-            if self.config['model'] == 'princeton-nlp/QuRater-1.3B':
+            if self.config['model'] == 'Qwen/Qwen3-8B':
                 print("Downloading and use the specific remote huggingface model.")
             elif not os.path.exists(self.config["model"]):
                 print(
                     f"Warning: Specified local model path '{self.config['model']}' does not exist. "
-                    "Downloading the remote huggingface model: princeton-nlp/QuRater-1.3B"
+                    "Downloading the remote huggingface model: Qwen/Qwen3-8B"
                 )
-                self.config["model"] = "princeton-nlp/QuRater-1.3B"
+                self.config["model"] = "Qwen/Qwen3-8B"
             else:
                 print(
                     f"Using specified local model: '{self.config['model']}'.")
@@ -83,14 +83,14 @@ class SelectitSentenceScorer(BaseScorer):
                 self.config["model"], use_fast=to_use_fast)
         except Exception as e:
             print(
-                f"Load specified model failed ({e}), fall back to princeton-nlp/QuRater-1.3B")
+                f"Load specified model failed ({e}), fall back to Qwen/Qwen3-8B")
             self.model = AutoModelForCausalLM.from_pretrained(
-                'princeton-nlp/QuRater-1.3B',
+                'Qwen/Qwen3-8B',
                 torch_dtype=torch.float16,
             )
             to_use_fast = False
             self.tokenizer = AutoTokenizer.from_pretrained(
-                'princeton-nlp/QuRater-1.3B', use_fast=to_use_fast)
+                'Qwen/Qwen3-8B', use_fast=to_use_fast)
 
         self.tokenizer.padding_side = "left"
         if self.tokenizer.pad_token is None:

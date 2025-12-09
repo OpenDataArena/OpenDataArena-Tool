@@ -1,8 +1,96 @@
 {
     "scorers": [
         {
-            "name": "OutputTokenLengthScorer",
-            "module": "scorers.LengthScorer"
+            "name": "MtldScorer",
+            "module": "scorers.MtldScorer"
+        },
+        {
+            "name": "HddScorer",
+            "module": "scorers.HddScorer"
+        },
+        {
+            "name": "TokenLengthScorer",
+            "module": "scorers.TokenLengthScorer"
+        },
+        {
+            "name": "StrLengthScorer",
+            "module": "scorers.StrLengthScorer"
+        },
+        {
+            "name": "UniqueNgramScorer",
+            "module": "scorers.UniqueNgramScorer"
+        },
+        {
+            "name": "UniqueNtokenScorer",
+            "module": "scorers.UniqueNtokenScorer"
+        },
+        {
+            "name": "KNNScorer",
+            "module": "scorers.KNNScorer"
+        },
+        {
+            "name": "TokenEntropyScorer",
+            "module": "scorers.TokenEntropyScorer"
+        },
+        {
+            "name": "TsPythonScorer",
+            "module": "scorers.TsPythonScorer"
+        },
+        {
+            "name": "ThinkOrNotScorer",
+            "module": "scorers.ThinkOrNotScorer"
+        },
+        {
+            "name": "PureThinkScorer",
+            "module": "scorers.PureThinkScorer"
+        },
+        {
+            "name": "VendiScorer",
+            "module": "scorers.VendiScorer"
+        },
+        {
+            "name": "ApsScorer",
+            "module": "scorers.ApsScorer"
+        },
+        {
+            "name": "ApjsScorer",
+            "module": "scorers.ApjsScorer"
+        },
+        {
+            "name": "ClusterInertiaScorer",
+            "module": "scorers.ClusterInertiaScorer"
+        },
+        {
+            "name": "RadiusScorer",
+            "module": "scorers.RadiusScorer"
+        },
+        {
+            "name": "LogDetDistanceScorer",
+            "module": "scorers.LogDetDistanceScorer"
+        },
+        {
+            "name": "PartitionEntropyScorer",
+            "module": "scorers.PartitionEntropyScorer"
+        },
+        {
+            "name": "NovelSumScorer",
+            "module": "scorers.NovelSumScorer"
+        },
+        {
+            "name": "VocdDScorer",
+            "module": "scorers.VocdDScorer"
+        },
+        {
+            "name": "TreeInstructScorer",
+            "module": "scorers.TreeInstructScorer"
+        },
+        {
+            "name": "FacilityLocationScorer",
+            "module": "scorers.FacilityLocationScorer"
+        },
+        {
+            "name": "GramEntropyScorer",
+            "module": "scorers.GramEntropyScorer"
         }
     ]
 }

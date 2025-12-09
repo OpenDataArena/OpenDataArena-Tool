@@ -15,8 +15,8 @@ class UPDScorer(BaseScorer):
     def _validate_config(self):
         """Validate configuration parameters"""
         if "model" not in self.config:
-            raise ValueError(
-                "model is required in config. Please specify a causal language model path.")
+            print("Warning: No model specified, use default model 'Qwen/Qwen3-8B'.")
+            self.config['model'] = 'Qwen/Qwen3-8B'
         else:
             if not os.path.exists(self.config["model"]):
                 # Possibly a Hugging Face model name

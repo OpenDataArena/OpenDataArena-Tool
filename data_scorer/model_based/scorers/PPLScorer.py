@@ -12,7 +12,8 @@ class PPLScorer(BaseScorer):
     def _validate_config(self):
         # Validate model path
         if "model" not in self.config:
-            raise ValueError("Error: 'model' must be specified in config.")
+            print("Warning: No model specified, use default model 'Qwen/Qwen3-8B'.")
+            self.config['model'] = 'Qwen/Qwen3-8B'
         else:
             print(f"Using specified model: '{self.config['model']}'.")
 

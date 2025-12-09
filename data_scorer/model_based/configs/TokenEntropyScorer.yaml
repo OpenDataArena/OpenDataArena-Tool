@@ -1,9 +1,0 @@
-input_path: ../data_process/example_input.jsonl
-output_path: results/TokenEntropyScorer/
-num_gpu: 4
-num_gpu_per_job: 1
-scorers:
-- name: TokenEntropyScorer
-  max_workers: 256
-  encoder: o200k_base
-  num_gpu_per_job: 0

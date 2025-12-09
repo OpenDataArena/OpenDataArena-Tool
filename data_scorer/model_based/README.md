@@ -4,7 +4,7 @@
   English | <a href="./README_zh-CN.md">简体中文</a>
 </p>
 
-This framework provides a complete data quality evaluation system that performs multi-dimensional assessment of datasets using deep learning models and statistical methods.
+This framework provides a complete data quality evaluation system that performs multi-dimensional assessment of datasets using deep learning models.
 
 ## ✨ Core Features
 
@@ -17,7 +17,7 @@ This framework provides a complete data quality evaluation system that performs 
 
 ## 📦 Supported Scorers
 
-This framework integrates **60+ scorers** with **80+ scoring metrics** covering quality, diversity, complexity, and more:
+This framework integrates nearly 40 model-based scorers covering quality, complexity, gradient analysis, and more:
 
 ### 🎯 Quality
 
@@ -54,29 +54,9 @@ Evaluate data difficulty, complexity, perplexity, and related dimensions:
 - **NormLossScorer**: Normalized loss scoring
 - **UPDScorer**: Uncertainty and Predictive Difficulty scoring
 
-### 📈 Diversity
-
-Evaluate dataset diversity, coverage, uniqueness, and related dimensions:
-
-- **VendiScorer**: Vendi Score diversity metric
-- **KNNScorer**: K-Nearest Neighbors diversity scoring
-- **ApsScorer**: Average Pairwise Similarity
-- **RadiusScorer**: Data radius scoring
-- **ClusterInertiaScorer**: Cluster inertia scoring
-- **PartitionEntropyScorer**: Partition entropy scoring
-- **NovelSumScorer**: Novelty and representativeness scoring
-- **FacilityLocationScorer**: Facility location function scoring
-- **ApJsScorer**: Average Jaccard similarity
-- **UniqueNgramScorer**: N-gram uniqueness scoring
-- **UniqueNtokenScorer**: N-token uniqueness scoring
-- **MtldScorer**: Lexical diversity metric
-- **VocdDScorer**: Vocabulary density D-value
-- **TokenEntropyScorer**: Token entropy scoring
-- **HddScorer**: HD-D diversity scoring
-
 ### 🔧 Others
 
-Including gradient analysis, data selection, statistical features, specific tasks, etc.:
+Including gradient analysis, data selection, specific tasks, etc.:
 
 - **GraNdScorer**: Gradient norm difference scoring
 - **NuclearNormScorer**: Nuclear norm scoring
@@ -87,17 +67,10 @@ Including gradient analysis, data selection, statistical features, specific task
 - **SelectitSentenceScorer**: SelectIT sentence-level scoring
 - **SelectitModelScorer**: SelectIT model ensemble scoring
 - **HESScorer**: High Entropy Sample scoring
-- **LogDetDistanceScorer**: Log-determinant distance scoring
-- **TokenLengthScorer**: Token length statistics
-- **StrLengthScorer**: String length statistics
-- **TreeInstructScorer**: Syntax tree statistics
 - **AnswerProbScorer**: Answer probability scoring
 - **AskLlmScorer**: LLM-based quality inquiry
 - **FailRateScorer**: Failure rate evaluation
 - **InstagScorer**: Instruction tag classification
-- **ThinkOrNotScorer**: Thinking content detection
-- **PureThinkScorer**: Pure thinking content detection
-- **TsPythonScorer**: Python code detection
 
 ## 🚀 Quick Start
 
@@ -130,12 +103,12 @@ scorers:
     max_length: 2048
     num_gpu_per_job: 4
   
-  # Example 3: CPU task (no GPU required)
-  - name: TokenLengthScorer
-    encoder: o200k_base
-    fields: ["instruction", "input", "output"]
-    max_workers: 128
-    num_gpu_per_job: 0
+  # Example 3: Multiple scorers
+  - name: PPLScorer
+    model: /path/to/language-model
+    batch_size: 16
+    max_length: 2048
+    num_gpu_per_job: 1
 ```
 
 **Configuration Details**:
@@ -168,7 +141,6 @@ python main_para.py --config configs/my_scorer.yaml
 
 **Parameter Description**:
 - `--config`: Path to YAML configuration file
-- `--data_ready`: Use this flag to skip preprocessing if data is already preprocessed (with id field added)
 
 ## 🔧 Data Parallelism Mechanism
 
@@ -184,7 +156,7 @@ data_parallel = num_gpu ÷ num_gpu_per_job
 - 8 GPUs available globally
 - Scorer A needs 1 GPU → data_parallel = 8 (data split into 8 parts for parallel processing)
 - Scorer B needs 4 GPUs → data_parallel = 2 (data split into 2 parts for parallel processing)
-- Scorer C needs no GPU → data_parallel = 1 (single process processing)
+- Scorer C needs 2 GPUs → data_parallel = 4 (data split into 4 parts for parallel processing)
 
 ### GPU Allocation Strategy
 
@@ -220,9 +192,8 @@ Per-sample scoring results, each line corresponds to one record in the input dat
     "PPLScorer": {
       "score": 12.34
     },
-    "TokenLengthScorer": {
-      "instruction_tokens": 15,
-      "score": 120
+    "UPDScorer": {
+      "score": 0.79
     }
   }
 }
@@ -230,23 +201,18 @@ Per-sample scoring results, each line corresponds to one record in the input dat
 
 ### Setwise Scoring Results (`setwise_scores.jsonl`)
 
-Scoring results for the entire dataset:
+Scoring results for the entire dataset (if any scorer returns overall scores):
 
 ```json
 {
-  "VendiScorer": {
-    "vendi_score": 45.67,
-    "num_samples": 128,
-    "similarity_metric": "euclidean"
-  },
-  "ApsScorer": {
-    "score": 0.45395749064657004,
-    "num_samples": 30,
-    "num_pairs": 435,
-    "total_possible_pairs": 435,
-    "is_sampled": false,
-    "similarity_metric": "euclidean",
-    "max_workers": 128
+  "Task2VecScorer": {
+    "score": 0.024327838269528,
+    "num_samples": 32,
+    "num_anomalous": 0,
+    "num_truncated": 31,
+    "truncation_rate": 0.96875,
+    "last_layer_only": true,
+    "embedding_dim": 768
   }
 }
 ```
@@ -286,20 +252,12 @@ Most deep learning model-based scorers support:
 | `model` | string | Model path or HuggingFace model name | - |
 | `batch_size` | int | Batch size | 8 |
 | `max_length` | int | Maximum sequence length | 2048 |
-
-### CPU Scorer Parameters
-
-Scorers that don't require GPUs typically support:
-
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|---------|
-| `max_workers` | int | Maximum number of parallel worker processes | 128 |
-| `num_gpu_per_job` | int | Set to 0 to indicate no GPU usage | 0 |
+| `num_gpu_per_job` | int | Number of GPUs this scorer requires | 1 |
 
 ### Specific Scorer Parameters
 
 For detailed scorer configurations, please refer to:
-- **Configuration Examples**: `configs/MultiScorer.yaml` (contains complete configurations for all 60+ scorers)
+- **Configuration Examples**: `configs/MultiScorer.yaml` (contains complete configurations for all model-based scorers)
 - **Online Documentation**: [Wiki Page](https://opendataarena-tool.readthedocs.io/en/latest/model-based-evaluation/)
 
 ## 🎯 Usage Scenario Examples
@@ -325,10 +283,8 @@ num_gpu: 8
 scorers:
   - name: SkyworkRewardScorer      # Quality
   - name: IFDScorer                # Difficulty
-  - name: VendiScorer              # Diversity
-    num_gpu_per_job: 0
-  - name: TokenLengthScorer        # Statistical features
-    num_gpu_per_job: 0
+  - name: PPLScorer                # Perplexity
+  - name: UPDScorer                # Uncertainty difficulty
 ```
 
 ### Scenario 3: Large Model Evaluation
@@ -346,17 +302,15 @@ scorers:
 
 ### Scenario 4: Data Selection Optimization
 
-For data selection and deduplication:
+For data selection and filtering:
 
 ```yaml
 num_gpu: 8
 scorers:
   - name: HESScorer                # High entropy samples
-  - name: SelectitTokenScorer      # SelectIT scoring
-  - name: KNNScorer                # KNN diversity
-    num_gpu_per_job: 0
-  - name: VendiScorer              # Vendi diversity
-    num_gpu_per_job: 0
+  - name: SelectitTokenScorer      # SelectIT token scoring
+  - name: SelectitSentenceScorer   # SelectIT sentence scoring
+  - name: GraNdScorer              # Gradient norm difference
 ```
 
 ## ⚙️ Advanced Features
@@ -416,11 +370,13 @@ scorers:
     batch_size: 8
 ```
 
+
 ## 📚 References
 
-- **Configuration Examples**: `configs/MultiScorer.yaml` - Complete configurations for all scorers
+- **Configuration Examples**: `configs/MultiScorer.yaml` - Complete configurations for all model-based scorers
 - **Online Documentation**: [https://opendataarena-tool.readthedocs.io](https://opendataarena-tool.readthedocs.io)
 - **Scorer Details**: Visit the Wiki page to learn detailed descriptions and paper references for each scorer
+
 
 ## 🤝 Contributing
 

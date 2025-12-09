@@ -1,0 +1,11 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/StrLengthScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: StrLengthScorer
+  fields:
+  - instruction
+  - input
+  - output
+  max_workers: 128

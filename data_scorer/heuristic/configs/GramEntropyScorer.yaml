@@ -1,0 +1,8 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/GramEntropyScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: GramEntropyScorer
+  max_workers: 128
+  num_gpu_per_job: 0

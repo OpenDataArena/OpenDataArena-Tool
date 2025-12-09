@@ -1,9 +1,0 @@
-input_path: ../data_process/example_input.jsonl
-output_path: results/MtldScorer/
-num_gpu: 4
-num_gpu_per_job: 1
-scorers:
-- name: MtldScorer
-  ttr_threshold: 0.72
-  max_workers: 128
-  num_gpu_per_job: 0

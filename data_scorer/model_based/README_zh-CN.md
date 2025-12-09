@@ -4,7 +4,7 @@
   <a href="./README.md">English</a> | 简体中文
 </p>
 
-本框架提供了一套完整的数据质量评估系统，利用深度学习模型和统计方法对数据集进行多维度评估。
+本框架提供了一套完整的数据质量评估系统，利用深度学习模型对数据集进行多维度评估。
 
 ## ✨ 核心特性
 
@@ -17,7 +17,7 @@
 
 ## 📦 支持的评分器
 
-本框架集成了 **60+ 种评分器**，**80+ 种评分指标**涵盖质量、多样性、复杂度等多个维度：
+本框架集成了近 40 种基于模型的评分器，涵盖质量、复杂度、梯度分析等多个维度：
 
 ### 🎯 质量类
 
@@ -54,29 +54,9 @@
 - **NormLossScorer**: 归一化损失评分
 - **UPDScorer**: 不确定性与预测性难度评分
 
-### 📈 多样性类
-
-评估数据集的多样性、覆盖度、独特性等维度：
-
-- **VendiScorer**: Vendi Score 多样性度量
-- **KNNScorer**: K 近邻多样性评分
-- **ApsScorer**: 平均成对相似度
-- **RadiusScorer**: 数据半径评分
-- **ClusterInertiaScorer**: 聚类惯性评分
-- **PartitionEntropyScorer**: 分区熵评分
-- **NovelSumScorer**: 新颖性与代表性评分
-- **FacilityLocationScorer**: 设施位置函数评分
-- **ApJsScorer**: 平均 Jaccard 相似度
-- **UniqueNgramScorer**: N-gram 唯一性评分
-- **UniqueNtokenScorer**: N-token 唯一性评分
-- **MtldScorer**: 词汇多样性度量
-- **VocdDScorer**: 词汇密度 D 值
-- **TokenEntropyScorer**: Token 熵评分
-- **HddScorer**: HD-D 多样性评分
-
 ### 🔧 其他类
 
-包括梯度分析、数据选择、统计特征、特定任务等：
+包括梯度分析、数据选择、特定任务等：
 
 - **GraNdScorer**: 梯度范数差异评分
 - **NuclearNormScorer**: 核范数评分
@@ -87,17 +67,10 @@
 - **SelectitSentenceScorer**: SelectIT 句子级别评分
 - **SelectitModelScorer**: SelectIT 模型集成评分
 - **HESScorer**: 高熵样本评分
-- **LogDetDistanceScorer**: 对数行列式距离评分
-- **TokenLengthScorer**: Token 长度统计
-- **StrLengthScorer**: 字符串长度统计
-- **TreeInstructScorer**: 语法树统计
 - **AnswerProbScorer**: 答案概率评分
 - **AskLlmScorer**: 基于 LLM 的质量询问
 - **FailRateScorer**: 失败率评估
 - **InstagScorer**: 指令标签分类
-- **ThinkOrNotScorer**: 是否包含思考检测
-- **PureThinkScorer**: 纯思考内容检测
-- **TsPythonScorer**: Python 代码检测
 
 ## 🚀 快速开始
 
@@ -130,12 +103,12 @@ scorers:
     max_length: 2048
     num_gpu_per_job: 4
   
-  # 示例 3: CPU 任务（不使用 GPU）
-  - name: TokenLengthScorer
-    encoder: o200k_base
-    fields: ["instruction", "input", "output"]
-    max_workers: 128
-    num_gpu_per_job: 0
+  # 示例 3: 多个评分器
+  - name: PPLScorer
+    model: /path/to/language-model
+    batch_size: 16
+    max_length: 2048
+    num_gpu_per_job: 1
 ```
 
 **配置说明**:
@@ -168,7 +141,6 @@ python main_para.py --config configs/my_scorer.yaml
 
 **参数说明**:
 - `--config`: YAML 配置文件路径
-- `--data_ready`: 如果数据已预处理（添加了 id 字段），使用此标志跳过预处理
 
 ## 🔧 数据并行机制
 
@@ -184,7 +156,7 @@ data_parallel = num_gpu ÷ num_gpu_per_job
 - 全局有 8 个 GPU
 - 评分器 A 需要 1 个 GPU → data_parallel = 8（数据分 8 份并行处理）
 - 评分器 B 需要 4 个 GPU → data_parallel = 2（数据分 2 份并行处理）
-- 评分器 C 不需要 GPU → data_parallel = 1（单进程处理）
+- 评分器 C 需要 2 个 GPU → data_parallel = 4（数据分 4 份并行处理）
 
 ### GPU 分配策略
 
@@ -220,9 +192,8 @@ Job 3: GPU [6, 7] → 处理数据分片 3
     "PPLScorer": {
       "score": 12.34
     },
-    "TokenLengthScorer": {
-      "instruction_tokens": 15,
-      "score": 120
+    "UPDScorer": {
+      "score": 0.79
     }
   }
 }
@@ -230,23 +201,18 @@ Job 3: GPU [6, 7] → 处理数据分片 3
 
 ### Setwise 评分结果 (`setwise_scores.jsonl`)
 
-对整个数据集的评分结果：
+对整个数据集的评分结果（如果有评分器返回整体评分）：
 
 ```json
 {
-  "VendiScorer": {
-    "vendi_score": 45.67,
-    "num_samples": 128,
-    "similarity_metric": "euclidean"
-  },
-  "ApsScorer": {
-    "score": 0.45395749064657004,
-    "num_samples": 30,
-    "num_pairs": 435,
-    "total_possible_pairs": 435,
-    "is_sampled": false,
-    "similarity_metric": "euclidean",
-    "max_workers": 128
+  "Task2VecScorer": {
+    "score": 0.024327838269528,
+    "num_samples": 32,
+    "num_anomalous": 0,
+    "num_truncated": 31,
+    "truncation_rate": 0.96875,
+    "last_layer_only": true,
+    "embedding_dim": 768
   }
 }
 ```
@@ -286,20 +252,12 @@ master_temp/
 | `model` | string | 模型路径或 HuggingFace 模型名称 | - |
 | `batch_size` | int | 批处理大小 | 8 |
 | `max_length` | int | 最大序列长度 | 2048 |
-
-### CPU 评分器参数
-
-不需要 GPU 的评分器通常支持：
-
-| 参数 | 类型 | 说明 | 默认值 |
-|------|------|------|--------|
-| `max_workers` | int | 最大并行工作进程数 | 128 |
-| `num_gpu_per_job` | int | 设为 0 表示不使用 GPU | 0 |
+| `num_gpu_per_job` | int | 此评分器需要的 GPU 数量 | 1 |
 
 ### 特定评分器参数
 
 详细的评分器配置请参考：
-- **配置示例**: `configs/MultiScorer.yaml`（包含所有 60+ 评分器的完整配置）
+- **配置示例**: `configs/MultiScorer.yaml`（包含所有基于模型的评分器的完整配置）
 - **在线文档**: [Wiki 页面](https://opendataarena-tool.readthedocs.io/en/latest/model-based-evaluation/)
 
 ## 🎯 使用场景示例
@@ -325,10 +283,8 @@ num_gpu: 8
 scorers:
   - name: SkyworkRewardScorer      # 质量
   - name: IFDScorer                # 难度
-  - name: VendiScorer              # 多样性
-    num_gpu_per_job: 0
-  - name: TokenLengthScorer        # 统计特征
-    num_gpu_per_job: 0
+  - name: PPLScorer                # 困惑度
+  - name: UPDScorer                # 不确定性难度
 ```
 
 ### 场景 3: 大模型评估
@@ -346,17 +302,15 @@ scorers:
 
 ### 场景 4: 数据选择优化
 
-用于数据选择和去重：
+用于数据选择和过滤：
 
 ```yaml
 num_gpu: 8
 scorers:
   - name: HESScorer                # 高熵样本
-  - name: SelectitTokenScorer      # SelectIT 评分
-  - name: KNNScorer                # KNN 多样性
-    num_gpu_per_job: 0
-  - name: VendiScorer              # Vendi 多样性
-    num_gpu_per_job: 0
+  - name: SelectitTokenScorer      # SelectIT Token 评分
+  - name: SelectitSentenceScorer   # SelectIT 句子评分
+  - name: GraNdScorer              # 梯度范数差异
 ```
 
 ## ⚙️ 高级功能
@@ -419,7 +373,7 @@ scorers:
 
 ## 📚 参考资料
 
-- **配置示例**: `configs/MultiScorer.yaml` - 包含所有评分器的完整配置
+- **配置示例**: `configs/MultiScorer.yaml` - 包含所有基于模型的评分器的完整配置
 - **在线文档**: [https://opendataarena-tool.readthedocs.io](https://opendataarena-tool.readthedocs.io)
 - **评分器详解**: 访问 Wiki 页面了解每个评分器的详细说明和论文引用
 

@@ -1,9 +1,0 @@
-input_path: ../data_process/example_input_code.jsonl
-output_path: results/ThinkOrNotScorer/
-num_gpu: 4
-num_gpu_per_job: 1
-scorers:
-- name: ThinkOrNotScorer
-  field: output
-  max_workers: 128
-  num_gpu_per_job: 0

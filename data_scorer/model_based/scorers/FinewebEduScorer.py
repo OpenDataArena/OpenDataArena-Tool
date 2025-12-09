@@ -13,16 +13,16 @@ class FinewebEduScorer(BaseScorer):
         if "model" not in self.config:
             print(
                 "Warning: No local model specified in config. Downloading the remote huggingface model.")
-            self.config['model'] = 'HuggingFaceTB/fineweb-edu-classifier'
+            self.config['model'] = 'HuggingFaceFW/fineweb-edu-classifier'
         else:
-            if self.config['model'] == 'HuggingFaceTB/fineweb-edu-classifier':
+            if self.config['model'] == 'HuggingFaceFW/fineweb-edu-classifier':
                 print("Downloading and use the specific remote huggingface model.")
             elif not os.path.exists(self.config["model"]):
                 print(
                     f"Warning: Specified local model path '{self.config['model']}' does not exist. "
-                    "Downloading the remote huggingface model: HuggingFaceTB/fineweb-edu-classifier"
+                    "Downloading the remote huggingface model: HuggingFaceFW/fineweb-edu-classifier"
                 )
-                self.config['model'] = 'HuggingFaceTB/fineweb-edu-classifier'
+                self.config['model'] = 'HuggingFaceFW/fineweb-edu-classifier'
             else:
                 print(
                     f"Using specified local model: '{self.config['model']}'. ")
@@ -56,11 +56,11 @@ class FinewebEduScorer(BaseScorer):
                 self.config['model'])
         except Exception as e:
             print(
-                f"Load specified model failed ({e}), fall back to HuggingFaceTB/fineweb-edu-classifier")
+                f"Load specified model failed ({e}), fall back to HuggingFaceFW/fineweb-edu-classifier")
             self.model = AutoModelForSequenceClassification.from_pretrained(
-                'HuggingFaceTB/fineweb-edu-classifier')
+                'HuggingFaceFW/fineweb-edu-classifier')
             self.tokenizer = AutoTokenizer.from_pretrained(
-                'HuggingFaceTB/fineweb-edu-classifier')
+                'HuggingFaceFW/fineweb-edu-classifier')
 
         self.model.to(self.device)
         self.model.eval()

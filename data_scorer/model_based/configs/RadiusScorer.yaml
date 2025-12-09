@@ -1,9 +1,0 @@
-input_path: ../data_process/example_input.jsonl
-output_path: results/RadiusScorer/
-num_gpu: 4
-num_gpu_per_job: 1
-scorers:
-- name: RadiusScorer
-  embedding_path: ../data_process/mock_embedding_128x512.npy
-  max_workers: 128
-  num_gpu_per_job: 0

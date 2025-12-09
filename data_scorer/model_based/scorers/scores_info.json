@@ -65,48 +65,12 @@
             "module": "scorers.SelectitSentenceScorer"
         },
         {
-            "name": "MtldScorer",
-            "module": "scorers.MtldScorer"
-        },
-        {
-            "name": "HddScorer",
-            "module": "scorers.HddScorer"
-        },
-        {
             "name": "QuRateScorer",
             "module": "scorers.QuRateScorer"
         },
         {
-            "name": "TokenLengthScorer",
-            "module": "scorers.TokenLengthScorer"
-        },
-        {
-            "name": "StrLengthScorer",
-            "module": "scorers.StrLengthScorer"
-        },
-        {
             "name": "InstagScorer",
             "module": "scorers.InstagScorer"
-        },
-        {
-            "name": "UniqueNgramScorer",
-            "module": "scorers.UniqueNgramScorer"
-        },
-        {
-            "name": "UniqueNtokenScorer",
-            "module": "scorers.UniqueNtokenScorer"
-        },
-        {
-            "name": "KNNScorer",
-            "module": "scorers.KNNScorer"
-        },
-        {
-            "name": "TokenEntropyScorer",
-            "module": "scorers.TokenEntropyScorer"
-        },
-        {
-            "name": "TsPythonScorer",
-            "module": "scorers.TsPythonScorer"
         },
         {
             "name": "UniEvalD2tScorer",
@@ -157,14 +121,6 @@
             "module": "scorers.AskLlmScorer"
         },
         {
-            "name": "ThinkOrNotScorer",
-            "module": "scorers.ThinkOrNotScorer"
-        },
-        {
-            "name": "PureThinkScorer",
-            "module": "scorers.PureThinkScorer"
-        },
-        {
             "name": "AtheneScorer",
             "module": "scorers.AtheneScorer"
         },
@@ -177,52 +133,12 @@
             "module": "scorers.Gpt2HelpfulScorer"
         },
         {
-            "name": "VendiScorer",
-            "module": "scorers.VendiScorer"
-        },
-        {
-            "name": "ApsScorer",
-            "module": "scorers.ApsScorer"
-        },
-        {
-            "name": "ApjsScorer",
-            "module": "scorers.ApjsScorer"
-        },
-        {
-            "name": "ClusterInertiaScorer",
-            "module": "scorers.ClusterInertiaScorer"
-        },
-        {
-            "name": "RadiusScorer",
-            "module": "scorers.RadiusScorer"
-        },
-        {
-            "name": "LogDetDistanceScorer",
-            "module": "scorers.LogDetDistanceScorer"
-        },
-        {
-            "name": "PartitionEntropyScorer",
-            "module": "scorers.PartitionEntropyScorer"
-        },
-        {
-            "name": "NovelSumScorer",
-            "module": "scorers.NovelSumScorer"
-        },
-        {
             "name": "UPDScorer",
             "module": "scorers.UPDScorer"
         },
         {
-            "name": "VocdDScorer",
-            "module": "scorers.VocdDScorer"
-        },
-        {
             "name": "Task2VecScorer",
             "module": "scorers.Task2VecScorer"
-        },
-        {
-            "name": "TreeInstructScorer",
-            "module": "scorers.TreeInstructScorer"
         },
         {
             "name": "SelectitModelScorer",
@@ -233,16 +149,8 @@
             "module": "scorers.MIWVScorer"
         },
         {
-            "name": "FacilityLocationScorer",
-            "module": "scorers.FacilityLocationScorer"
-        },
-        {
             "name": "InfOrmScorer",
             "module": "scorers.InfOrmScorer"
-        },
-        {
-            "name": "GramEntropyScorer",
-            "module": "scorers.GramEntropyScorer"
         }
     ]
 }

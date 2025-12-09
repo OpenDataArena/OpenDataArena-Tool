@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/KNNScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: KNNScorer
+  k: 10
+  distance_metric: cosine
+  max_workers: 128
+  embedding_path: ../data_process/mock_embedding_128x512.npy
