@@ -80,13 +80,3 @@ Your original input data should primarily consist of two keys: `instruction` and
 ### Running Data Scoring Scripts
 
 This project adopts a modular structure, with each core module serving as an independent subdirectory. For detailed instructions on running specific scorers, **please refer to the `README.md` file within the corresponding subdirectory.**
-
-### Post-processing - Score Normalization
-
-In order to ensure fair comparison and aggregation across different scoring dimensions, normalization is performed to scale all scoring metrics to a common [0, 1] range. This is especially important when combining scores with different original ranges. Metrics already in `[0, 1]` range are **not** normalized.
-
-#### Usage
-
-```bash
-python data_process/normalize_scores.py --input_file <your_input_path> --output_file <your_output_path>
-```

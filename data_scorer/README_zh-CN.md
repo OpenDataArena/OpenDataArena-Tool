@@ -81,12 +81,3 @@ pip install -e .[dev]
 
 本项目采用模块化结构，每个核心模块作为独立的子目录。有关运行特定评分器的详细说明，**请参考相应子目录中的 `README.md` 文件。**
 
-### 后处理 - 评分归一化
-
-为了确保公平比较和跨不同评分维度的聚合，对所有评分指标进行归一化，将它们缩放到 [0, 1] 范围内。这在组合不同原始范围的评分时尤其重要。已经处于 `[0, 1]` 范围内的指标**不会**进行归一化。
-
-#### 使用方法
-
-```bash
-python data_process/normalize_scores.py --input_file <your_input_path> --output_file <your_output_path>
-```
