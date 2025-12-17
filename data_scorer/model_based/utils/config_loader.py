@@ -68,7 +68,15 @@ class ConfigLoader:
         Default is 1
         """
         return cfg.get("num_gpu_per_job", 1)
-    
+
+    @staticmethod
+    def get_data_with_id(cfg: Dict[str, Any]) -> bool:
+        """
+        Indicates whether the input dataset already contains 'id' fields.
+        Default is False.
+        """
+        return cfg.get("data_with_id", False)
+
     @staticmethod
     def get_scorer_parallel_config(
         scorer: Dict[str, Any], 

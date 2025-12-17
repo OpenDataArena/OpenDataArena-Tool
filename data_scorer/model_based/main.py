@@ -343,8 +343,7 @@ def main():
         description="Dataset Scoring System with Auto Data Parallelism")
     parser.add_argument("--config", default="configs/demo.yaml",
                         help="Path to master YAML config file")
-    parser.add_argument("--data_ready", action="store_true",
-                        help="If the dataset is already been processed")
+
     args = parser.parse_args()
 
     # Load main configuration file
@@ -359,11 +358,12 @@ def main():
     global_num_gpu_per_job = config.get("num_gpu_per_job", 1)
     
     dataset_path = ConfigLoader.get_dataset_path(config)
+    data_with_id = ConfigLoader.get_data_with_id(config)
     output_path = ConfigLoader.get_output_path(config)
     scorers_config = ConfigLoader.get_scorer_configs(config)
     
     print("\n" + "=" * 80)
-    print("Auto Data Parallel Scoring System V4")
+    print("Auto Data Parallel Scoring System")
     print("=" * 80)
     print(f"Main config file   : {args.config}")
     print(f"Dataset path       : {dataset_path}")
@@ -383,8 +383,7 @@ def main():
     ScorerFactory.load_scorers("./scorers/scores_info.json")
     
     # Preprocess data (if needed)
-    if not args.data_ready:
-        print('\n[Preprocessing] Adding evaluation keys to dataset...')
+    if not data_with_id:
         processed_data = os.path.join(master_temp_dir, "processed_data.jsonl")
         add_id_to_jsonl(dataset_path, processed_data)
         dataset_path = processed_data

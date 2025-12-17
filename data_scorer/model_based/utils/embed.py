@@ -117,12 +117,19 @@ def parse_args() -> argparse.Namespace:
         default=["instruction", "input", "output"],
         help="Field names to extract from JSONL and concatenate with newlines. Default: instruction input output"
     )
+    parser.add_argument(
+        "--tensor_parallel_size",
+        type=int,
+        default=1,
+        help="Number of GPUs to use for tensor parallelism. Default: 1"
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    embedder = LLM(model=args.embedder_model, task="embed", tensor_parallel_size=4)
+    print("the fields are:", args.fields)
+    embedder = LLM(model=args.embedder_model, task="embed", tensor_parallel_size=args.tensor_parallel_size)
     # ========== 1) Initialize tokenizer (using the embedder model for token counting) ==========
     tokenizer = embedder.get_tokenizer()
 
