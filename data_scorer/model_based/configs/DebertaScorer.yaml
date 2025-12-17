@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/DebertaScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: DebertaScorer
+  model: nvidia/quality-classifier-deberta
+  max_length: 512
+  batch_size: 8
+  num_gpu_per_job: 1

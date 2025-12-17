@@ -21,3 +21,6 @@ seaborn
 matplotlib
 orjson 
 pyarrow==20.0.0
+datasketch==1.7.0
+faiss-gpu==1.7.2
+lexicalrichness==0.5.1

@@ -1,0 +1,20 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/NovelSumScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: NovelSumScorer
+  embedding_path: ../data_process/mock_embedding_128x512.npy
+  dense_ref_path: ../data_process/mock_embedding_128x512.npy
+  max_workers: 128
+  density_powers:
+  - 0
+  - 0.25
+  - 0.5
+  neighbors:
+  - 5
+  - 10
+  distance_powers:
+  - 0
+  - 1
+  - 2

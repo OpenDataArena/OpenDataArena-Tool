@@ -1,0 +1,12 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/TreeInstructScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: TreeInstructScorer
+  text_fields:
+  - instruction
+  - input
+  - output
+  max_workers: 128
+  model: en_core_web_sm

@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/Task2VecScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: Task2VecScorer
+  model: openai-community/gpt2
+  max_length: 512
+  num_gpu_per_job: 4
+  last_layer_only: true

@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/FinewebEduScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: FinewebEduScorer
+  model: HuggingFaceTB/fineweb-edu-classifier
+  max_length: 512
+  batch_size: 4
+  num_gpu_per_job: 1

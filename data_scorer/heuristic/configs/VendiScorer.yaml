@@ -1,0 +1,9 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/VendiScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: VendiScorer
+  embedding_path: ../data_process/mock_embedding_128x512.npy
+  similarity_metric: euclidean
+  max_workers: 128

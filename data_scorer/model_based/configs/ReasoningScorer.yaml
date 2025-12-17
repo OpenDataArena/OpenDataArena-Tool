@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/ReasoningScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: ReasoningScorer
+  model: opendatalab/meta-rater-reasoning-rating
+  batch_size: 16
+  max_model_len: 2048
+  num_gpu_per_job: 1

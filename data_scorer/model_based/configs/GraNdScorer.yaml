@@ -1,0 +1,9 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/GraNdScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: GraNdScorer
+  model: Qwen/Qwen3-1.7B
+  max_length: 2048
+  num_gpu_per_job: 1

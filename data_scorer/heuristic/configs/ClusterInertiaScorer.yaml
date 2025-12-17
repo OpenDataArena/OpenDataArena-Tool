@@ -1,0 +1,11 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/ClusterInertiaScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: ClusterInertiaScorer
+  embedding_path: ../data_process/mock_embedding_128x512.npy
+  cluster_centroids_path: ../data_process/mock_cluster_centroids_16x512.npy
+  cluster_labels_path: ../data_process/mock_cluster_label_16x1.npy
+  distance_metric: cosine
+  max_workers: 128

@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/Gpt2HelpfulScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: Gpt2HelpfulScorer
+  model: Ray2333/gpt2-large-helpful-reward_model
+  batch_size: 8
+  max_length: 1024
+  num_gpu_per_job: 1

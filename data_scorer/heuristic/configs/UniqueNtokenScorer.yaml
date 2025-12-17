@@ -1,0 +1,9 @@
+input_path: ../data_process/example_input_UniEvalSumScorer.jsonl
+output_path: results/UniqueNtokenScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: UniqueNtokenScorer
+  encoder: o200k_base
+  n: 2
+  max_workers: 256

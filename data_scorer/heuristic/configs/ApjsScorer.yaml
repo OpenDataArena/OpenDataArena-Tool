@@ -1,0 +1,11 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/ApjsScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: ApjsScorer
+  tokenization_method: gram
+  n: 1
+  similarity_method: direct
+  max_workers: 128
+  sample_pairs: 1000

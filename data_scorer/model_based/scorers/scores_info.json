@@ -25,8 +25,132 @@
             "module": "scorers.FailRateScorer"
         },
         {
-            "name": "ModelAwareMarginScorer",
-            "module": "scorers.ModelAwareMarginScorer"
+            "name": "AnswerProbScorer",
+            "module": "scorers.AnswerProbScorer"
+        },
+        {
+            "name": "HESScorer",
+            "module": "scorers.HESScorer"
+        },
+        {
+            "name": "RMDeBERTaScorer",
+            "module": "scorers.RMDeBERTaScorer"
+        },
+        {
+            "name": "FinewebEduScorer",
+            "module": "scorers.FinewebEduScorer"
+        },
+        {
+            "name": "DebertaScorer",
+            "module": "scorers.DebertaScorer"
+        },
+        {
+            "name": "TextbookScorer",
+            "module": "scorers.TextbookScorer"
+        },
+        {
+            "name": "PPLScorer",
+            "module": "scorers.PPLScorer"
+        },
+        {
+            "name": "NormLossScorer",
+            "module": "scorers.NormLossScorer"
+        },
+        {
+            "name": "SelectitTokenScorer",
+            "module": "scorers.SelectitTokenScorer"
+        },
+        {
+            "name": "SelectitSentenceScorer",
+            "module": "scorers.SelectitSentenceScorer"
+        },
+        {
+            "name": "QuRateScorer",
+            "module": "scorers.QuRateScorer"
+        },
+        {
+            "name": "InstagScorer",
+            "module": "scorers.InstagScorer"
+        },
+        {
+            "name": "UniEvalD2tScorer",
+            "module": "scorers.UniEvalD2tScorer"
+        },
+        {
+            "name": "UniEvalDialogScorer",
+            "module": "scorers.UniEvalDialogScorer"
+        },
+        {
+            "name": "UniEvalFactScorer",
+            "module": "scorers.UniEvalFactScorer"
+        },
+        {
+            "name": "UniEvalSumScorer",
+            "module": "scorers.UniEvalSumScorer"
+        },
+        {
+            "name": "ProfessionalismScorer",
+            "module": "scorers.ProfessionalismScorer"
+        },
+        {
+            "name": "CleanlinessScorer",
+            "module": "scorers.CleanlinessScorer"
+        },
+        {
+            "name": "ReasoningScorer",
+            "module": "scorers.ReasoningScorer"
+        },
+        {
+            "name": "ReadabilityScorer",
+            "module": "scorers.ReadabilityScorer"
+        },
+        {
+            "name": "GraNdScorer",
+            "module": "scorers.GraNdScorer"
+        },
+        {
+            "name": "NuclearNormScorer",
+            "module": "scorers.NuclearNormScorer"
+        },
+        {
+            "name": "EffectiveRankScorer",
+            "module": "scorers.EffectiveRankScorer"
+        },
+        {
+            "name": "AskLlmScorer",
+            "module": "scorers.AskLlmScorer"
+        },
+        {
+            "name": "AtheneScorer",
+            "module": "scorers.AtheneScorer"
+        },
+        {
+            "name": "Gpt2HarmlessScorer",
+            "module": "scorers.Gpt2HarmlessScorer"
+        },
+        {
+            "name": "Gpt2HelpfulScorer",
+            "module": "scorers.Gpt2HelpfulScorer"
+        },
+        {
+            "name": "UPDScorer",
+            "module": "scorers.UPDScorer"
+        },
+        {
+            "name": "Task2VecScorer",
+            "module": "scorers.Task2VecScorer"
+        },
+        {
+            "name": "SelectitModelScorer",
+            "module": "scorers.SelectitModelScorer"
+        },
+        {
+            "name": "MIWVScorer",
+            "module": "scorers.MIWVScorer"
+        },
+        {
+            "name": "InfOrmScorer",
+            "module": "scorers.InfOrmScorer"
         }
     ]
 }

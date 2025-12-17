@@ -1,0 +1,12 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/MIWVScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: MIWVScorer
+  embedding_path: ../data_process/mock_embedding_128x512.npy
+  batch_size: 8
+  max_length: 8192
+  distance_metric: cosine
+  model: Qwen/Qwen3-8B
+  num_gpu_per_job: 4

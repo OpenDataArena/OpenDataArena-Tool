@@ -1,0 +1,18 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/SelectitModelScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: SelectitModelScorer
+  models:
+  - Qwen/Qwen3-8B
+  - Qwen/Qwen2.5-7B-Instruct
+  model_weights:
+  - 0.5
+  - 0.5
+  rp_file: ../model_based/scorers/SelectIT_rating_prompt.txt
+  k: 5
+  alpha: 0.2
+  max_length: 512
+  batch_size: 8
+  num_gpu_per_job: 1

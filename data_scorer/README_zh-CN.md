@@ -14,29 +14,33 @@
 
 ## 核心模块
 
-本项目集成了各种先进的数据处理和评分技术，主要包括以下三个核心模块。每个指标评估 Q（指令）、QA（指令 + 输出）或两者，具体如下。
+本项目集成了各种先进的数据处理和评分技术，主要包括以下三个核心模块：
 
-* 📊 **基于模型的评分器**: 利用模型的内部信号评估数据。
-  * Deita Complexity (Q)
-  * Thinking Probability (Q)
-  * Model Aware Margin (Q)
-  * Deita Quality (QA)
-  * Instruction Following Difficulty (IFD) (QA)
-  * Reward Model (QA)
-  * Fail Rate (QA)
+* 📊 **基于模型的评分器**: 利用模型的内部信号评估数据。本框架集成了近 40 种基于模型的评分器，涵盖质量、复杂度、梯度分析等多个维度：
+  * **质量类**: SkyworkRewardScorer, AtheneScorer, RMDeBERTaScorer, Gpt2HarmlessScorer, Gpt2HelpfulScorer, InfOrmScorer, DeitaQScorer, DebertaScorer, FinewebEduScorer, TextbookScorer, QuRateScorer, CleanlinessScorer, ProfessionalismScorer, ReadabilityScorer, ReasoningScorer, UniEvalD2tScorer, UniEvalDialogScorer, UniEvalFactScorer, UniEvalSumScorer
+  * **复杂度类**: DeitaCScorer, IFDScorer, ThinkingProbScorer, PPLScorer, NormLossScorer, UPDScorer
+  * **其他类**: GraNdScorer, NuclearNormScorer, EffectiveRankScorer, Task2VecScorer, MIWVScorer, SelectitTokenScorer, SelectitSentenceScorer, SelectitModelScorer, HESScorer, AnswerProbScorer, AskLlmScorer, FailRateScorer, InstagScorer
 
-* ⚖️ **LLM-as-a-Judge 评分器**: 利用强大的 LLM 作为 "法官" ，通过模拟人类的判断来评分数据。
-  * Difficulty (Q)
-  * Relevance (QA)
-  * Clarity (Q & QA)
-  * Coherence (Q & QA)
-  * Completeness (Q & QA)
-  * Complexity (Q & QA)
-  * Correctness (Q & QA)
-  * Meaningfulness (Q & QA)
+* ⚖️ **LLM-as-a-Judge 评分器**: 利用强大的 LLM 作为 "法官"，通过模拟人类的判断来评分数据。  
+  在此框架中，常用的维度有 Q、A 和 QA：
+  * **Q**：表示对“问题/指令”（Question/Instruction）本身进行评价。
+  * **A**：表示对“回答/生成内容”（Answer）本身进行评价。
+  * **QA**：表示评价“问答对”（Question-Answer Pair）的整体质量（如答案与问题的相关性）。
+  
+  当前内置指标包括：
+  * Difficulty（Q）：问题的难度
+  * Relevance（QA）：回答与问题的相关性
+  * Clarity（Q & QA）：表述清晰度
+  * Coherence（Q & QA）：内容连贯性
+  * Completeness（Q & QA）：信息完整性
+  * Complexity（Q & QA）：复杂程度
+  * Correctness（Q & QA）：内容正确性
+  * Meaningfulness（Q & QA）：意义/价值
 
-* 🧠 **启发式评分器**: 使用启发式方法评分数据。
-  * Response Length (QA)
+* 🧠 **启发式评分器**: 使用启发式方法评分数据。本框架集成了 23 种启发式评分器，涵盖多样性、统计特征、内容检测等多个维度：
+  * **多样性类**: VendiScorer, KNNScorer, ApsScorer, ApjsScorer, RadiusScorer, ClusterInertiaScorer, PartitionEntropyScorer, NovelSumScorer, FacilityLocationScorer, UniqueNgramScorer, UniqueNtokenScorer, MtldScorer, VocdDScorer, TokenEntropyScorer, GramEntropyScorer, HddScorer
+  * **统计特征类**: TokenLengthScorer, StrLengthScorer, TreeInstructScorer, LogDetDistanceScorer
+  * **内容检测类**: ThinkOrNotScorer, PureThinkScorer, TsPythonScorer
 
 ## 安装
 
@@ -71,19 +75,9 @@ pip install -e .[dev]
 **重要提示:**
 
 * 如果您的原始数据包含 `input` 键（在 Alpaca 格式中很常见），您必须将 `input` 值与 `instruction` 值连接起来，使用 `\n` 作为分隔符。
-* 如果您使用 `FailRateScorer`，您必须在数据中添加 `answer` 键，作为问题的正确答案。请参考 `data_process/example_input_w_answer.jsonl` 的示例。
-* 如果您只使用评分器评估 Q（指令），您可以将 `output` 的值设置为 `None`。请参考 `data_process/example_input_wo_output.jsonl` 的示例。
+* 部分 scorer 可能还需要额外的字段或特殊格式要求。请务必查阅对应 scorer 的 Wiki 或 README，获取所需字段/格式的具体说明。
 
 ### 运行数据评分脚本
 
 本项目采用模块化结构，每个核心模块作为独立的子目录。有关运行特定评分器的详细说明，**请参考相应子目录中的 `README.md` 文件。**
 
-### 后处理 - 评分归一化
-
-为了确保公平比较和跨不同评分维度的聚合，对所有评分指标进行归一化，将它们缩放到 [0, 1] 范围内。这在组合不同原始范围的评分时尤其重要。已经处于 `[0, 1]` 范围内的指标**不会**进行归一化。
-
-#### 使用方法
-
-```bash
-python data_process/normalize_scores.py --input_file <your_input_path> --output_file <your_output_path>
-```

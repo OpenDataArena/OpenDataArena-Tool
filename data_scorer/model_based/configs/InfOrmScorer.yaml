@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/InfOrmScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: InfOrmScorer
+  model: infly/INF-ORM-Llama3.1-70B
+  batch_size: 8
+  max_length: 2048
+  num_gpu_per_job: 4

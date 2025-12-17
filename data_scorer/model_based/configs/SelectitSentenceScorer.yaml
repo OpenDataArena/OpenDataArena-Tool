@@ -1,0 +1,13 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/SelectitSentenceScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: SelectitSentenceScorer
+  model: Qwen/Qwen3-8B
+  max_length: 512
+  batch_size: 8
+  rp_file: ../model_based/scorers/SelectIT_rating_prompt.txt
+  k: 5
+  alpha: 0.2
+  num_gpu_per_job: 1

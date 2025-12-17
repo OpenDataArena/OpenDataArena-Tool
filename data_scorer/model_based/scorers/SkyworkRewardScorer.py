@@ -12,7 +12,7 @@ class SkyworkRewardScorer(BaseScorer):
     def _validate_config(self):
         if "model" not in self.config:
             print(
-                "Warning: No loacl model specified in config. Downloading the remote huggingface model.")
+                "Warning: No local model specified in config. Downloading the remote huggingface model.")
             self.config['model'] = 'Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M'
         else:
             if self.config['model'] == 'Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M':
@@ -45,18 +45,16 @@ class SkyworkRewardScorer(BaseScorer):
             self.rank_model = AutoModelForSequenceClassification.from_pretrained(
                 self.config['model'],
                 torch_dtype=torch.bfloat16 if torch.cuda.is_available() else None,
-                attn_implementation="flash_attention_2",
                 num_labels=1
             )
             self.tokenizer = AutoTokenizer.from_pretrained(
                 self.config['model'])
         except Exception as e:
             print(
-                f"Warnning: Specified Model Path Does not Work ({e}), Use Remote Model Instead.")
+                f"Warning: Specified model path does not work ({e}), use remote model instead.")
             self.rank_model = AutoModelForSequenceClassification.from_pretrained(
                 "Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M",
                 torch_dtype=torch.bfloat16 if torch.cuda.is_available() else None,
-                attn_implementation="flash_attention_2",
                 num_labels=1
             )
             self.tokenizer = AutoTokenizer.from_pretrained(
@@ -70,9 +68,10 @@ class SkyworkRewardScorer(BaseScorer):
         return self.score_batch([data_item])[0]
 
     def score_batch(self, data_items: List[Dict]) -> List[float]:
-
-        input_ids_list, attention_masks_list = [], []
-
+        """
+        Score a batch of data items using the reward model.
+        """
+        conversations = []
         for item in data_items:
             prompt = item.get("instruction", "")
             output = item.get("output", "")
@@ -80,22 +79,42 @@ class SkyworkRewardScorer(BaseScorer):
                 {"role": "user", "content": prompt},
                 {"role": "assistant", "content": output}
             ]
+            conversations.append(conv)
 
+        # Tokenize all conversations with truncation
+        input_ids_list = []
+        truncated_indices = []
+        max_length_config = self.config["max_length"]
+        
+        for idx, conv in enumerate(conversations):
             encoded = self.tokenizer.apply_chat_template(
                 conv,
                 tokenize=True,
                 return_tensors="pt",
-                add_generation_prompt=False
+                add_generation_prompt=False,
+                truncation=True,
+                max_length=max_length_config
             )
-
-            if encoded.shape[1] > self.config["max_length"]:
-                encoded = encoded[:, -self.config["max_length"]:]
+            
+            # Check if truncation occurred by comparing actual length with max_length
+            actual_length = encoded.shape[1]
+            if actual_length >= max_length_config:
+                truncated_indices.append(idx)
+            
             input_ids_list.append(encoded[0])
 
+        # Warn if any items were truncated
+        if truncated_indices:
+            item_ids = [data_items[i].get("id", f"index_{i}") for i in truncated_indices]
+            print(f"Warning: {len(truncated_indices)} item(s) exceeded max_length ({max_length_config}) and were truncated. "
+                  f"Item IDs: {item_ids[:5]}{'...' if len(item_ids) > 5 else ''}")
+
+        # Pad sequences in batch
         batch = self.tokenizer.pad(
             {"input_ids": input_ids_list},
-            padding=True,
-            return_tensors="pt"
+            padding="longest",
+            return_tensors="pt",
+            max_length=max_length_config
         )
         input_ids = batch["input_ids"].to(self.device)
         attention_mask = batch["attention_mask"].to(self.device)
@@ -106,13 +125,6 @@ class SkyworkRewardScorer(BaseScorer):
             scores = logits.squeeze(-1).float().tolist()
 
         return [float(s) for s in scores]
-
-    def _process_line(self, line):
-        item = json.loads(line.strip())
-        return {
-            "id": item.get("id", ""),
-            "Reward_Model": self.score_item(item)
-        }
 
     def evaluate(self, dataset) -> List[Dict]:
         num_lines = get_total_lines(dataset)
@@ -132,7 +144,7 @@ class SkyworkRewardScorer(BaseScorer):
                 if len(buf_items) == batch_size:
                     batch_scores = self.score_batch(buf_items)
                     results.extend(
-                        {"id": _id, "Reward_Model": sc}
+                        {"id": _id, "score": sc}
                         for _id, sc in zip(buf_ids, batch_scores)
                     )
                     buf_items.clear()
@@ -142,7 +154,7 @@ class SkyworkRewardScorer(BaseScorer):
             if buf_items:
                 batch_scores = self.score_batch(buf_items)
                 results.extend(
-                    {"id": _id, "Reward_Model": sc}
+                    {"id": _id, "score": sc}
                     for _id, sc in zip(buf_ids, batch_scores)
                 )
                 buf_items.clear()

@@ -1,0 +1,7 @@
+input_path: ../data_process/example_input_w_cluster_id.jsonl
+output_path: results/PartitionEntropyScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: PartitionEntropyScorer
+  num_clusters: 22

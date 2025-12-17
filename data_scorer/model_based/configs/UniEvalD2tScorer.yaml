@@ -1,0 +1,11 @@
+input_path: ../data_process/example_input_UniEvalD2tScorer.jsonl
+output_path: results/UniEvalD2tScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: UniEvalD2tScorer
+  model: MingZhong/unieval-sum
+  max_length: 1024
+  batch_size: 2
+  overall: true
+  num_gpu_per_job: 1

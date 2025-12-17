@@ -1,0 +1,8 @@
+input_path: ../data_process/example_input_code.jsonl
+output_path: results/PureThinkScorer/
+num_gpu: 0
+num_gpu_per_job: 0
+scorers:
+- name: PureThinkScorer
+  field: output
+  max_workers: 128

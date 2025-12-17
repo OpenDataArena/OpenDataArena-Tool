@@ -14,29 +14,33 @@ More details about the data scoring can be found in [OpenDataArena-Tool Data Sco
 
 ## Core Modules
 
-This project integrates various advanced data processing and scoring technologies, primarily including the following three core modules. Each metric evaluates Q (instruction), QA (instruction + output), or both, as specified below.
+This project integrates various advanced data processing and scoring technologies, primarily including the following three core modules:
 
-* 📊 **Model-based Scorer**: leveraging internal model signals to assess data.
-  * Deita Complexity (Q)
-  * Thinking Probability (Q)
-  * Model Aware Margin (Q)
-  * Deita Quality (QA)
-  * Instruction Following Difficulty (IFD) (QA)
-  * Reward Model (QA)
-  * Fail Rate (QA)
+* 📊 **Model-based Scorer**: leveraging internal model signals to assess data. This framework integrates nearly 40 model-based scorers, covering multiple dimensions including quality, complexity, gradient analysis, and more:
+  * **Quality**: SkyworkRewardScorer, AtheneScorer, RMDeBERTaScorer, Gpt2HarmlessScorer, Gpt2HelpfulScorer, InfOrmScorer, DeitaQScorer, DebertaScorer, FinewebEduScorer, TextbookScorer, QuRateScorer, CleanlinessScorer, ProfessionalismScorer, ReadabilityScorer, ReasoningScorer, UniEvalD2tScorer, UniEvalDialogScorer, UniEvalFactScorer, UniEvalSumScorer
+  * **Complexity**: DeitaCScorer, IFDScorer, ThinkingProbScorer, PPLScorer, NormLossScorer, UPDScorer
+  * **Others**: GraNdScorer, NuclearNormScorer, EffectiveRankScorer, Task2VecScorer, MIWVScorer, SelectitTokenScorer, SelectitSentenceScorer, SelectitModelScorer, HESScorer, AnswerProbScorer, AskLlmScorer, FailRateScorer, InstagScorer
 
-* ⚖️ **LLM-as-a-Judge Scorer**: leveraging powerful LLMs as "judgers" to simulate human judgment in scoring the data.
-  * Difficulty (Q)
-  * Relevance (QA)
-  * Clarity (Q & QA)
-  * Coherence (Q & QA)
-  * Completeness (Q & QA)
-  * Complexity (Q & QA)
-  * Correctness (Q & QA)
-  * Meaningfulness (Q & QA)
+* ⚖️ **LLM-as-a-Judge Scorer**: leveraging powerful LLMs as "judges" to simulate human judgment in scoring the data.  
+  In this framework, commonly used dimensions include Q, A, and QA:
+  * **Q**: Evaluates the "Question/Instruction" itself.
+  * **A**: Evaluates the "Answer/Generated Content" itself.
+  * **QA**: Evaluates the overall quality of the "Question-Answer Pair" (such as the relevance of the answer to the question).
+  
+  Currently built-in metrics include:
+  * Difficulty (Q): The difficulty of the question
+  * Relevance (QA): The relevance of the answer to the question
+  * Clarity (Q & QA): Clarity of expression
+  * Coherence (Q & QA): Content coherence
+  * Completeness (Q & QA): Information completeness
+  * Complexity (Q & QA): Level of complexity
+  * Correctness (Q & QA): Content correctness
+  * Meaningfulness (Q & QA): Meaningfulness/Value
 
-* 🧠 **Heuristic Scorer**: heuristic methods to score the data.
-  * Response Length (QA)
+* 🧠 **Heuristic Scorer**: using heuristic methods to score the data. This framework integrates 23 heuristic scorers, covering multiple dimensions including diversity, statistical features, content detection, and more:
+  * **Diversity**: VendiScorer, KNNScorer, ApsScorer, ApjsScorer, RadiusScorer, ClusterInertiaScorer, PartitionEntropyScorer, NovelSumScorer, FacilityLocationScorer, UniqueNgramScorer, UniqueNtokenScorer, MtldScorer, VocdDScorer, TokenEntropyScorer, GramEntropyScorer, HddScorer
+  * **Statistical Features**: TokenLengthScorer, StrLengthScorer, TreeInstructScorer, LogDetDistanceScorer
+  * **Content Detection**: ThinkOrNotScorer, PureThinkScorer, TsPythonScorer
 
 ## Installation
 
@@ -71,19 +75,8 @@ Your original input data should primarily consist of two keys: `instruction` and
 **Important Note:**
 
 * If your original data contains an `input` key (common in formats like Alpaca), you must concatenate the `input` value with the `instruction` value, using a `\n` as a separator.
-* If you use `FailRateScorer`, you must add a `answer` key to your data, which is the correct answer to the problem. Please refer to `data_process/example_input_w_answer.jsonl` for an example.
-* If you use scorers only for Q (instruction), you can set the value of `output` to `None`. Please refer to `data_process/example_input_wo_output.jsonl` for an example.
+* Some scorers may require additional fields or special format requirements. Please be sure to consult the corresponding scorer's Wiki or README for specific descriptions of required fields/formats.
 
 ### Running Data Scoring Scripts
 
 This project adopts a modular structure, with each core module serving as an independent subdirectory. For detailed instructions on running specific scorers, **please refer to the `README.md` file within the corresponding subdirectory.**
-
-### Post-processing - Score Normalization
-
-In order to ensure fair comparison and aggregation across different scoring dimensions, normalization is performed to scale all scoring metrics to a common [0, 1] range. This is especially important when combining scores with different original ranges. Metrics already in `[0, 1]` range are **not** normalized.
-
-#### Usage
-
-```bash
-python data_process/normalize_scores.py --input_file <your_input_path> --output_file <your_output_path>
-```

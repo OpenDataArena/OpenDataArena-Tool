@@ -1,0 +1,10 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/PPLScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: PPLScorer
+  model: Qwen/Qwen3-8B
+  max_length: 2048
+  batch_size: 2
+  num_gpu_per_job: 1

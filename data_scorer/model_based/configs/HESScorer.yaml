@@ -1,0 +1,11 @@
+input_path: ../data_process/example_input.jsonl
+output_path: results/HESScorer/
+num_gpu: 4
+num_gpu_per_job: 1
+scorers:
+- name: HESScorer
+  model: Qwen/Qwen3-8B
+  percentile_cutoff: 0.005
+  batch_size: 1
+  max_model_len: 4096
+  num_gpu_per_job: 1
