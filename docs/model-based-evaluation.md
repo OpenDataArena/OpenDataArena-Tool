@@ -1222,16 +1222,19 @@ The scorer uses [**Ray2333/gpt2-large-helpful-reward_model**](https://huggingfac
 ### Scoring Process
 
 1. **Input Formatting**: For each data item containing `instruction`, `input` (optional), and `output` fields:
-   ```python
-   # If input field exists:
-   Q = "\n\nHuman: {instruction}\n{input}\n\nAssistant:"
-   
-   # If input field is empty:
-   Q = "\n\nHuman: {instruction}\n\nAssistant:"
-   
-   A = {output}
-   ```
+```python
+## If input field exists:
+Q = "\n\nHuman: {instruction}\n{input}\n\nAssistant:"
+
+## If input field is empty:
+Q = "\n\nHuman: {instruction}\n\nAssistant:"
+
+A = {output}
+```
    This formatting follows the Anthropic/hh-rlhf dataset convention, ensuring compatibility with the reward model's training format.
+
+
+
 
 2. **Tokenization**: The instruction `Q` and response `A` are tokenized together with truncation enabled (`max_length` parameter), padding applied to create uniform batch sizes, and warning system for samples exceeding `max_length`
 
