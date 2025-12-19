@@ -1223,10 +1223,10 @@ The scorer uses [**Ray2333/gpt2-large-helpful-reward_model**](https://huggingfac
 
 1. **Input Formatting**: For each data item containing `instruction`, `input` (optional), and `output` fields:
    ```python
-#   # If input field exists:
+   # If input field exists:
    Q = "\n\nHuman: {instruction}\n{input}\n\nAssistant:"
    
-#   # If input field is empty:
+   # If input field is empty:
    Q = "\n\nHuman: {instruction}\n\nAssistant:"
    
    A = {output}
