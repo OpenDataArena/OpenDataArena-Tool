@@ -4,6 +4,7 @@
   <img src="docs/imgs/OpenDataArena.svg" width="300px" style="vertical-align:middle;">
   <br />
   <br />
+  <a href="https://arxiv.org/abs/2512.14051"><img alt="Technical Report" src="https://img.shields.io/badge/Technical%20Report-Arxiv-red.svg" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="stars" src="https://img.shields.io/github/stars/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="forks" src="https://img.shields.io/github/forks/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/issues"><img alt="open issues" src="https://img.shields.io/github/issues-raw/OpenDataArena/OpenDataArena-Tool" /></a>
@@ -22,6 +23,7 @@
 
 
 ## What's New
+- 🔥 2025-12-17: We release the technical report for OpenDataArena. Please refer to [Technical Report](https://arxiv.org/abs/2512.14051)
 - 2025-07-26: We release the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
 
 ## Overview
@@ -39,8 +41,9 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
 * **ODA Leaderboard:** A public, cross-domain, visual leaderboard for SFT (supervised fine-tuning) dataset value.
 * **Multi-dimensional Data Scoring:** Fine-grained evaluations across 20+ scoring dimensions, with open-source score data for easy reuse and comparison.
 * **Train–Evaluate–Score Integration:** A fully open, reproducible pipeline for model training, benchmark evaluation, and dataset scoring.
+* **Data Lineage Analysis:** Explore the relationships and dependencies between datasets.
 
-ODA has already covered **4+ domains**, **20+ benchmarks**, **20+ scoring dimensions**, processed **100+ datasets**, evaluated **20M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
+ODA has already covered **4+ domains**, **20+ benchmarks**, **60+ scoring dimensions**, processed **100+ datasets**, evaluated **20M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
 
 ## OpenDataArena-Tool
 This repository includes the tools for ODA platform:
@@ -89,6 +92,13 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 If you find this project useful, please consider citing:
 
 ```bibtex
+@article{cai2025opendataarena,
+  title={OpenDataArena: A Fair and Open Arena for Benchmarking Post-Training Dataset Value},
+  author={Cai, Mengzhang and Gao, Xin and Li, Yu and Lin, Honglin and Liu, Zheng and Pan, Zhuoshi and Pei, Qizhi and Shang, Xiaoran and Sun, Mengyuan and Tang, Zinan and others},
+  journal={arXiv preprint arXiv:2512.14051},
+  year={2025}
+}
+
 @misc{opendataarena_tool_2025,
   author       = {OpenDataArena},
   title        = {{OpenDataArena-Tool}},
