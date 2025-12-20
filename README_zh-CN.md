@@ -4,6 +4,7 @@
   <img src="docs/imgs/OpenDataArena.svg" width="300px" style="vertical-align:middle;">
   <br />
   <br />
+  <a href="https://arxiv.org/abs/2512.14051"><img alt="Technical Report" src="https://img.shields.io/badge/Technical%20Report-Arxiv-red.svg" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="stars" src="https://img.shields.io/github/stars/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="forks" src="https://img.shields.io/github/forks/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/issues"><img alt="open issues" src="https://img.shields.io/github/issues-raw/OpenDataArena/OpenDataArena-Tool" /></a>
@@ -17,11 +18,13 @@
   <a href="README.md">English</a> | 简体中文
   <br />
   <br />
-  <img src="./docs/imgs/oda_first_zh-CN.png" style="vertical-align:middle;">
+  <img src="./docs/imgs/oda_first_zh-CN_v1.png" style="vertical-align:middle;">
 </p>
 
 
 ## 最新动态
+- 🔥 2025-12-17：我们发布了 OpenDataArena 的技术报告。请参阅 [Technical Report](https://arxiv.org/abs/2512.14051)
+
 - 2025-07-26: 我们发布了 [OpenDataArena](https://opendataarena.github.io/) 平台和 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 仓库。
 
 ## 概览
@@ -30,17 +33,18 @@
 
 ODA 引入了一个开放的“数据竞技场”，在其中数据集**在相同的训练与评估条件下公平竞争**，从而能够客观地衡量它们对下游模型性能的贡献。
 
-![](./docs/imgs/oda_overview.png)
-
-![](./docs/imgs/oda_comp.png)
+![](./docs/imgs/oda_overview_zh-CN_v1.png)
+![](./docs/imgs/oda_lineage_zh-CN_v1.png)
+![](./docs/imgs/oda_comp_zh-CN_v1.png)
 
 **该平台的主要特性包括：**
 
 * **ODA 排行榜：** 一个面向监督微调（SFT）数据集价值的公共、跨领域、可视化排行榜。
 * **多维度数据评分：** 在 20+ 个评分维度上进行细粒度评估，并开源评分数据以便复用与比较。
 * **训练–评估–评分一体化：** 一个完全开放、可复现的模型训练、基准评测与数据集评分流水线。
+* * **数据血缘分析：** 分析并刻画数据集之间的关联关系与依赖路径。
 
-ODA 已覆盖 **4+ 个领域**、**20+ 个基准测试**、**20+ 个评分维度**，处理了 **100+ 个数据集**，评估了 **2000 万+ 个样本**，完成了 **600+ 次训练运行** 和 **1 万+ 次评测** —— 各项指标仍在持续增长中。
+ODA 已覆盖 **4+ 个领域**、**20+ 个基准测试**、**60+ 个评分维度**，处理了 **100+ 个数据集**，评估了 **2000 万+ 个样本**，完成了 **600+ 次训练运行** 和 **1 万+ 次评测** —— 各项指标仍在持续增长中。
 
 ## OpenDataArena-工具
 这个仓库包括了 ODA 平台的工具：
@@ -88,6 +92,13 @@ cd OpenDataArena-Tool
 如果您觉得这个项目有用，请考虑引用：
 
 ```bibtex
+@article{cai2025opendataarena,
+  title={OpenDataArena: A Fair and Open Arena for Benchmarking Post-Training Dataset Value},
+  author={Cai, Mengzhang and Gao, Xin and Li, Yu and Lin, Honglin and Liu, Zheng and Pan, Zhuoshi and Pei, Qizhi and Shang, Xiaoran and Sun, Mengyuan and Tang, Zinan and others},
+  journal={arXiv preprint arXiv:2512.14051},
+  year={2025}
+}
+
 @misc{opendataarena_tool_2025,
   author       = {OpenDataArena},
   title        = {{OpenDataArena-Tool}},

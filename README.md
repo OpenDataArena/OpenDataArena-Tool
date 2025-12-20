@@ -18,7 +18,7 @@
   English | <a href="README_zh-CN.md">简体中文</a> 
   <br />
   <br />
-  <img src="./docs/imgs/oda_first.png" style="vertical-align:middle;">
+  <img src="./docs/imgs/oda_first_v1.png" style="vertical-align:middle;">
 </p>
 
 
@@ -32,9 +32,10 @@
 
 ODA introduces an open "data arena" where datasets **compete under equal training and evaluation conditions**, allowing their contribution to downstream model performance to be measured objectively.
 
-![](./docs/imgs/oda_overview.png)
+![](./docs/imgs/oda_overview_v1.png)
+![](./docs/imgs/oda_lineage_v1.png)
+![](./docs/imgs/oda_comp_v1.png)
 
-![](./docs/imgs/oda_comp.png)
 
 **Key features of the platform include:**
 
