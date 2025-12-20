@@ -23,7 +23,7 @@
 
 
 ## What's New
-- 🔥 2025-12-17: We release the technical report for OpenDataArena. Please refer to [Technical Report](https://arxiv.org/abs/2512.14051)
+- 🔥 2025-12-17: We release the technical report for OpenDataArena. Please refer to [Technical Report](https://arxiv.org/abs/2512.14051).
 - 2025-07-26: We release the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
 
 ## Overview

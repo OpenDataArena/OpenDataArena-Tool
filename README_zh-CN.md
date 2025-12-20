@@ -23,7 +23,7 @@
 
 
 ## 最新动态
-- 🔥 2025-12-17：我们发布了 OpenDataArena 的技术报告。请参阅 [Technical Report](https://arxiv.org/abs/2512.14051)
+- 🔥 2025-12-17：我们发布了 OpenDataArena 的技术报告。请参阅 [Technical Report](https://arxiv.org/abs/2512.14051)。
 
 - 2025-07-26: 我们发布了 [OpenDataArena](https://opendataarena.github.io/) 平台和 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 仓库。
 
