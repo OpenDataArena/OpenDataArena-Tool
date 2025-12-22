@@ -23,7 +23,8 @@
 
 
 ## 最新动态
-- 🔥 2025-12-17：我们发布了 OpenDataArena [技术报告](https://arxiv.org/abs/2512.14051)，并升级支持 Qwen3-VL 多模态评估及 80 多项新增评分维度。
+- 🔥 2025-12-22：我们升级了 [OpenDataArena]，支持 Qwen3-VL 多模态数据价值评估及 80 多项新增评分维度。
+- 🔥 2025-12-17：我们发布了 [OpenDataArena 技术报告](https://arxiv.org/abs/2512.14051)。
 - 2025-07-26: 我们发布了 [OpenDataArena](https://opendataarena.github.io/) 平台和 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 仓库。
 
 ## 概览

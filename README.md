@@ -23,7 +23,8 @@
 
 
 ## What's New
-- 🔥 2025-12-17: We released our [Technical Report](https://arxiv.org/abs/2512.14051) and upgraded ODA with Qwen3-VL for multimodal assessment and 80+ new scoring dimensions.
+- We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 80+ new scoring dimensions.
+- 🔥 2025-12-17: We released our [OpenDataArena Technical Report](https://arxiv.org/abs/2512.14051).
 - 2025-07-26: We released the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
 
 ## Overview
