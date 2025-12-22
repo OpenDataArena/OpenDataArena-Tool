@@ -23,8 +23,8 @@
 
 
 ## What's New
-- 🔥 2025-12-17: We release the technical report for OpenDataArena. Please refer to [Technical Report](https://arxiv.org/abs/2512.14051).
-- 2025-07-26: We release the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
+- 🔥 2025-12-17: We released our [Technical Report](https://arxiv.org/abs/2512.14051) and upgraded ODA with Qwen3-VL for multimodal assessment and 80+ new scoring dimensions.
+- 2025-07-26: We released the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
 
 ## Overview
 
@@ -38,10 +38,8 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
 1. **ODA Leaderboard** 
   The core philosophy of ODA is that data value must be verified through real-world training. By establishing a standardized "proving ground," ODA moves beyond subjective quality assessment to empirical performance tracking.
 
-  * **Unified Benchmarking**: Evaluates post-training data across multiple domains (General, Math, Code, Science, and Long-Chain Reasoning).
-  * **Standardized Environments**: Controls for variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 7-8B) and consistent training configurations.
-  *  **Multimodal Expansion**: Now supports quality assessment for multimodal datasets, utilizing the state-of-the-art Qwen3-VL as the base model for authentic training feedback.
-  ![](./docs/imgs/oda_overview_v1.png)
+  * **Unified Benchmarking**: Evaluates post-training data across multiple domains (General, Math, Code, Science, and Long-Chain Reasoning) and multiple modalities (Text, Image).
+  * **Standardized Environments**: Controls for variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7-8B) and consistent training configurations.
 
 2. **Data Lineage Analysis**
   Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first Data Lineage Analysis tool to visualize the "genealogy" of open-source data.
@@ -54,12 +52,12 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
   Beyond downstream performance, ODA provides a "physical examination" of the data itself. We offer a fine-grained scoring framework that analyzes the intrinsic properties of data samples.
   * **Diverse Methodology**: Combines model-based evaluation, LLM-as-a-Judge, and heuristic metrics to assess instruction complexity, response quality, and diversity.
   * **Massive Open-Source Insights**: We have open-sourced scores for over 10 million samples, allowing researchers to understand why a specific dataset is effective.
-  * **Extensive Metric Library**: Recently expanded to support 80+ scoring dimensions, enabling users to generate comprehensive quality reports with a single click.
+  * **Extensive Metric Library**: Support 80+ scoring dimensions, enabling users to generate comprehensive quality reports with a single click.
   ![](./docs/imgs/oda_scorer_v1.png)
 
 4. **Train–Evaluate–Score Integration**
   A fully open, reproducible pipeline for model training, benchmark evaluation, and dataset scoring to achieve a truly meaningful comparison.
-  ![](./docs/imgs/oda_comp_v1.png)
+  ![](./docs/imgs/oda_tool_v1.png)
 
 ODA has already covered **4+ domains**, **20+ benchmarks**, **60+ scoring dimensions**, processed **120+ datasets**, evaluated **40M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
 
