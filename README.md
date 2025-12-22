@@ -40,6 +40,7 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
 
   * **Unified Benchmarking**: Evaluates post-training data across multiple domains (General, Math, Code, Science, and Long-Chain Reasoning) and multiple modalities (Text, Image).
   * **Standardized Environments**: Controls for variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7-8B) and consistent training configurations.
+  ![](./docs/imgs/oda_overview_v1.png)
 
 2. **Data Lineage Analysis**
   Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first Data Lineage Analysis tool to visualize the "genealogy" of open-source data.
