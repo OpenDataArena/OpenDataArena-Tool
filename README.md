@@ -60,7 +60,7 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
   A fully open, reproducible pipeline for model training, benchmark evaluation, and dataset scoring to achieve a truly meaningful comparison.
   ![](./docs/imgs/oda_tool_v1.png)
 
-ODA has already covered **4+ domains**, **20+ benchmarks**, **60+ scoring dimensions**, processed **120+ datasets**, evaluated **40M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
+ODA has already covered **4+ domains**, **20+ benchmarks**, **80+ scoring dimensions**, processed **120+ datasets**, evaluated **40M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
 
 ## OpenDataArena-Tool
 This repository includes the tools for ODA platform:
