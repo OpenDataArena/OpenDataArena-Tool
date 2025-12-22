@@ -254,17 +254,29 @@ class EffectiveRankScorer(BaseScorer):
         if input:
             instr = instr + "\n" + input
         outp = data_item["output"].strip()
-        
-        # Build input text: instruction + output
-        text = instr + " " + outp
-        
+
+        # Build input text: instruction(+input) + output
+        # NOTE: We only compute loss/gradients on the output part (SFT-style) by masking the prompt tokens in labels.
+        # Use "\n" as the separator to be consistent with typical instruction-tuning formatting.
+        prompt_text = instr + "\n"
+        text = prompt_text + outp
+
         # Check original text length before truncation
         pre_tokenized = self.tokenizer(text, add_special_tokens=True)
         original_length = len(pre_tokenized["input_ids"])
         if original_length > self.config["max_length"]:
             print(f"Warning: Data exceeds max_length ({original_length} > {self.config['max_length']}). Text will be truncated.")
-        
-        # Encode input
+
+        # Encode prompt only (to get its length, including the separator) for label masking
+        prompt_encodings = self.tokenizer(
+            prompt_text,
+            padding=False,
+            truncation=True,
+            max_length=self.config["max_length"],
+            return_tensors="pt"
+        ).to(self.device)
+
+        # Encode full text (prompt + output)
         encodings = self.tokenizer(
             text,
             padding=True,
@@ -274,9 +286,15 @@ class EffectiveRankScorer(BaseScorer):
         ).to(self.device)
 
         input_ids = encodings["input_ids"]
+        attention_mask = encodings.get("attention_mask", None)
         
-        # Set labels as input_ids (for computing loss)
+        # Set labels: ignore prompt part, only compute loss on output part
         labels = input_ids.clone()
+        prompt_length = prompt_encodings["input_ids"].shape[1]
+        labels[:, :prompt_length] = -100  # -100 is ignored in loss computation
+        # Also ignore padding tokens if present (important for future batching)
+        if attention_mask is not None:
+            labels = labels.masked_fill(attention_mask == 0, -100)
 
         # Set model to training mode to compute gradients
         self.model.train()
