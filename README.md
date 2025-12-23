@@ -23,7 +23,7 @@
 
 
 ## What's New
-- 🔥 2025-12-22: We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 79 scoring dimensions.
+- 🔥 2025-12-22: We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 80+ scoring dimensions.
 - 🔥 2025-12-17: We released our [OpenDataArena Technical Report](https://arxiv.org/abs/2512.14051).
 - 2025-07-26: We released the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
 
@@ -54,14 +54,14 @@ ODA introduces an open "data arena" where datasets **compete under equal trainin
   Beyond downstream performance, ODA provides a "physical examination" of the data itself. We offer a fine-grained scoring framework that analyzes the intrinsic properties of data samples.
   * **Diverse Methodology**: Combines model-based evaluation, LLM-as-a-Judge, and heuristic metrics to assess instruction complexity, response quality, and diversity.
   * **Massive Open-Source Insights**: We have open-sourced scores for over 10 million samples, allowing researchers to understand why a specific dataset is effective.
-  * **Extensive Metric Library**: Support 79 scoring dimensions, enabling users to generate comprehensive quality reports with a single click.
+  * **Extensive Metric Library**: Support 80+ scoring dimensions, enabling users to generate comprehensive quality reports with a single click.
   ![](./docs/imgs/oda_scorer_v1.png)
 
 4. **Train–Evaluate–Score Integration**
   A fully open, reproducible pipeline for model training, benchmark evaluation, and dataset scoring to achieve a truly meaningful comparison.
   ![](./docs/imgs/oda_tool_v1.png)
 
-ODA has already covered **4+ domains**, **20+ benchmarks**, **79 scoring dimensions**, processed **120+ datasets**, evaluated **40M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
+ODA has already covered **4+ domains**, **20+ benchmarks**, **80+ scoring dimensions**, processed **120+ datasets**, evaluated **40M+ samples**, and completed over **600+ training runs** and **10K+ evaluations** — with all metrics continuing to grow.
 
 ## OpenDataArena-Tool
 This repository includes the tools for ODA platform:
