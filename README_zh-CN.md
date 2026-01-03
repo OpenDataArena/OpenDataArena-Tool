@@ -66,8 +66,9 @@ ODA 已覆盖 **4+ 个领域**、**20+ 个基准测试**、**80+ 个评分维度
 ## OpenDataArena-工具
 这个仓库包括了 ODA 平台的工具：
 * [Data Scoring](./data_scorer): 通过多种指标和方法评估数据集，包括基于模型的方法、llm-as-judge 和启发式方法。
-* [Model Training](./model_train): 使用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 在数据集上进行监督微调 (SFT)。我们提供了 SFT 脚本，用于在主流模型和基准上进行可重复实验。
-* [Benchmark Evaluation](./model_eval): 使用 [OpenCompass](https://github.com/open-compass/opencompass) 评估模型在多个领域（数学、代码、科学和通用）的流行基准上的性能。我们还提供了 ODA 中数据集的评估脚本。
+* [LLM Model Training](./model_train): 使用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 在数据集上进行监督微调 (SFT)。我们提供了 SFT 脚本，用于在主流模型和基准上进行可重复实验。
+* [LLM Benchmark Evaluation](./model_eval): 使用 [OpenCompass](https://github.com/open-compass/opencompass) 评估模型在多个领域（数学、代码、科学和通用）的流行基准上的性能。我们还提供了 ODA 中数据集的评估脚本。
+* [VLM Benchmark Evaluation](./VLM_eval): 使用 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) 评估视觉语言模型在多个领域（空间、推理、图表和通用）的流行基准上的性能。我们还提供了 ODA 中数据集的评估方法。
 
 ## 快速开始
 首先，克隆仓库及其子模块：

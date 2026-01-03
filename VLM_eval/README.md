@@ -1,5 +1,9 @@
 # Model Evaluation using VLMEvalKit
 
+<p align="center">
+  English | <a href="./README_zh-CN.md">简体中文</a>
+</p>
+
 **[VLMEvalKit](https://github.com/open-compass/VLMEvalKit)** is a one-stop platform for the comprehensive evaluation of VLMs (Vision-Language Models), providing a fair, transparent, and reproducible benchmarking framework.
 
 We use VLMEvalKit to evaluate the performance of VLM models on popular benchmarks.
@@ -10,7 +14,7 @@ We use VLMEvalKit version `95568f5` to evaluate VLM model performance.
 
 ```bash
 # Clone ODA evaluation tool
-git clone git@github.com:OpenDataArena/OpenDataArena-Tool.git
+git clone https://github.com/OpenDataArena/OpenDataArena-Tool.git
 cd VLM_eval
 
 # Create virtual environment
@@ -18,7 +22,7 @@ conda create -n vlmeval python=3.10 -y
 conda activate vlmeval
 
 # Clone and checkout specific version
-git clone [https://github.com/open-compass/VLMEvalKit.git](https://github.com/open-compass/VLMEvalKit.git)
+git clone https://github.com/open-compass/VLMEvalKit.git
 cd VLMEvalKit
 git checkout 95568f5
 pip install -e .

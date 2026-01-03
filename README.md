@@ -66,8 +66,9 @@ ODA has already covered **4+ domains**, **20+ benchmarks**, **80+ scoring dimens
 ## OpenDataArena-Tool
 This repository includes the tools for ODA platform:
 * [Data Scoring](./data_scorer): Assess datasets through diverse metrics and methods, including model-based methods, llm-as-judge, and heuristic methods.
-* [Model Training](./model_train): Use [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) to supervised fine-tuning (SFT) the model on the datasets. We provide the SFT scripts for reproducible experiments on mainstream models and benchmarks.
-* [Benchmark Evaluation](./model_eval): Use [OpenCompass](https://github.com/open-compass/opencompass) to evaluate the performance of the model on popular benchmarks from multiple domains (math, code, science, and general instruction). We also provide the evaluation scripts for the datasets in ODA.
+* [LLM Model Training](./model_train): Use [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) to supervised fine-tuning (SFT) the model on the datasets. We provide the SFT scripts for reproducible experiments on mainstream models and benchmarks.
+* [LLM Benchmark Evaluation](./model_eval): Use [OpenCompass](https://github.com/open-compass/opencompass) to evaluate the performance of the model on popular benchmarks from multiple domains (math, code, science, and general instruction). We also provide the evaluation scripts for the datasets in ODA.
+* [VLM Benchmark Evaluation](./VLM_eval): Evaluates the performance of Vision-Language Models on popular benchmarks across multiple domains (Spatial, Reasoning, Infographic, and General) using [VLMEvalKit](https://github.com/open-compass/VLMEvalKit). We also provide evaluation methods for ODA datasets.
 
 
 ## Quick Start
