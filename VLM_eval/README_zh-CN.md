@@ -24,7 +24,7 @@ conda activate vlmeval
 # 克隆并切换到指定版本
 git clone https://github.com/open-compass/VLMEvalKit.git
 cd VLMEvalKit
-git checkout 95568f5
+git checkout 8573857
 pip install -e .
 
 #安装推理后端 vLLM

@@ -24,7 +24,7 @@ conda activate vlmeval
 # Clone and checkout specific version
 git clone https://github.com/open-compass/VLMEvalKit.git
 cd VLMEvalKit
-git checkout 95568f5
+git checkout 8573857
 pip install -e .
 
 # Install inference backend vllm
