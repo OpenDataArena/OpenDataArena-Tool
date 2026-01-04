@@ -81,7 +81,7 @@ cd OpenDataArena-Tool
 * 要评估您自己的数据集，请参阅 [Data Scoring](./data_scorer) 了解更多详细信息。
 * 要在 ODA 中的数据集上训练模型，请参阅 [Model Training](./model_train) 了解更多详细信息。
 * 要在 ODA 中的文本基准数据集上评估大语言模型，请参阅 [LLM Benchmark Evaluation](./model_eval) 了解更多详细信息。
-* 要在 ODA 中的多模态基准数据集上评估多模态大模型，请参阅 [VLM Benchmark Evaluation](./vlm_eval) 了解更多详细信息。
+* 要在 ODA 中的多模态基准数据集上评估多模态大模型，请参阅 [VLM Benchmark Evaluation](./VLM_eval) 了解更多详细信息。
 
 ## Contributors
 我们感谢这些杰出的研究人员和开发人员对 OpenDataArena 项目的贡献。欢迎合作和贡献！
