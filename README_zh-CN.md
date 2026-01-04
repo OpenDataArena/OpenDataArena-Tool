@@ -23,7 +23,8 @@
 
 
 ## 最新动态
-- 🔥 2025-12-22：我们升级了 [OpenDataArena]，支持 Qwen3-VL 多模态数据价值评估及 80+ 项评分维度。
+- 🔥 2026-1-3：我们升级了 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 工具，支持多模态数据价值评估，请参阅 [VLM Benchmark Evaluation](./VLM_eval) 了解具体如何进行多模态大模型的训练和评测流程。
+- 🔥 2025-12-22：我们升级了 [OpenDataArena](https://opendataarena.github.io/)，支持 Qwen3-VL 多模态数据价值评估及 80+ 项评分维度。
 - 🔥 2025-12-17：我们发布了 [OpenDataArena 技术报告](https://arxiv.org/abs/2512.14051)。
 - 2025-07-26: 我们发布了 [OpenDataArena](https://opendataarena.github.io/) 平台和 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 仓库。
 
@@ -79,7 +80,8 @@ cd OpenDataArena-Tool
 然后，您可以开始使用 ODA 中的工具：
 * 要评估您自己的数据集，请参阅 [Data Scoring](./data_scorer) 了解更多详细信息。
 * 要在 ODA 中的数据集上训练模型，请参阅 [Model Training](./model_train) 了解更多详细信息。
-* 要在 ODA 中的基准上评估模型，请参阅 [Benchmark Evaluation](./model_eval) 了解更多详细信息。
+* 要在 ODA 中的文本基准数据集上评估大语言模型，请参阅 [LLM Benchmark Evaluation](./model_eval) 了解更多详细信息。
+* 要在 ODA 中的多模态基准数据集上评估多模态大模型，请参阅 [VLM Benchmark Evaluation](./vlm_eval) 了解更多详细信息。
 
 ## Contributors
 我们感谢这些杰出的研究人员和开发人员对 OpenDataArena 项目的贡献。欢迎合作和贡献！
