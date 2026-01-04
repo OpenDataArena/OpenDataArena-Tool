@@ -23,6 +23,7 @@
 
 
 ## What's New
+- 🔥 2026-1-3: We upgraded [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) for multimodal data training and evaluation, see [VLM Benchmark Evaluation](./VLM_eval) for details about how to train and eval VLMs.
 - 🔥 2025-12-22: We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 80+ scoring dimensions.
 - 🔥 2025-12-17: We released our [OpenDataArena Technical Report](https://arxiv.org/abs/2512.14051).
 - 2025-07-26: We released the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
@@ -80,7 +81,8 @@ cd OpenDataArena-Tool
 Then, you can start to use the tools in ODA:
 * To score your own dataset, please refer to [Data Scoring](./data_scorer) for more details.
 * To train the models on the datasets in ODA, please refer to [Model Training](./model_train) for more details.
-* To evaluate the models on the benchmarks in ODA, please refer to [Benchmark Evaluation](./model_eval) for more details.
+* To evaluate the LLM models on the language benchmarks in ODA, please refer to [LLM Benchmark Evaluation](./model_eval) for more details.
+* To evaluate the VLM models on the mutlimodal benchmarks in ODA, please refer to [VLM Benchmark Evaluation](./VLM_eval) for more details.
 
 ## Contributors
 We thank to these outstanding researchers and developers for their contributions to OpenDataArena project. Welcome to collaborate and contribute to the project!
