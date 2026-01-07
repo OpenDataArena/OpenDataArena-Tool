@@ -23,7 +23,7 @@
 
 
 ## What's New
-- 🔥 2026-1-3: We upgraded [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) for multimodal data training and evaluation, see [VLM Benchmark Evaluation](./VLM_eval) for details about how to train and eval VLMs.
+- 🔥 2026-1-3: We upgraded [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) for multimodal data training and evaluation, see [VLM Model Training](./VLM_train) and [VLM Benchmark Evaluation](./VLM_eval) for details about how to train and eval VLMs.
 - 🔥 2025-12-22: We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 80+ scoring dimensions.
 - 🔥 2025-12-17: We released our [OpenDataArena Technical Report](https://arxiv.org/abs/2512.14051).
 - 2025-07-26: We released the [OpenDataArena](https://opendataarena.github.io/) platform and the [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) repository.
