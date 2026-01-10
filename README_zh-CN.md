@@ -5,9 +5,10 @@
   <br />
   <br />
   <a href="https://arxiv.org/abs/2512.14051"><img alt="Technical Report" src="https://img.shields.io/badge/Technical%20Report-Arxiv-red.svg" /></a>
+  <a href="https://huggingface.co/OpenDataArena"><img src="https://img.shields.io/badge/🤗 HuggingFace-OpenDataArena-yellow"></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="stars" src="https://img.shields.io/github/stars/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="forks" src="https://img.shields.io/github/forks/OpenDataArena/OpenDataArena-Tool" /></a>
-  <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/issues"><img alt="open issues" src="https://img.shields.io/github/issues-raw/OpenDataArena/OpenDataArena-Tool" /></a>
+  <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/issues"><img alt="open issues" src="https://img.shields.io/github/issues-raw/OpenDataArena/OpenDataArena-Tool?color=orange" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <!-- <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/releases">
     <img alt="Latest Release" src="https://img.shields.io/github/release/OpenDataArena/OpenDataArena-Tool.svg" />
@@ -23,6 +24,7 @@
 
 
 ## 最新动态
+- 🔥 2026-1-10：我们升级了 [OpenDataArena-scored-data](https://huggingface.co/datasets/OpenDataArena/OpenDataArena-scored-data)，这是一个包含超过 47 个由 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 评分的原始数据集集合。
 - 🔥 2026-1-3：我们升级了 [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) 工具，支持多模态数据价值评估，请参阅 [VLM Model Training](./VLM_train) 以及 [VLM Benchmark Evaluation](./VLM_eval) 了解具体如何进行多模态大模型的训练和评测流程。
 - 🔥 2025-12-22：我们升级了 [OpenDataArena](https://opendataarena.github.io/)，支持 Qwen3-VL 多模态数据价值评估及 80+ 项评分维度。
 - 🔥 2025-12-17：我们发布了 [OpenDataArena 技术报告](https://arxiv.org/abs/2512.14051)。
