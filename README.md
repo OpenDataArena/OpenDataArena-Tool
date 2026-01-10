@@ -5,6 +5,7 @@
   <br />
   <br />
   <a href="https://arxiv.org/abs/2512.14051"><img alt="Technical Report" src="https://img.shields.io/badge/Technical%20Report-Arxiv-red.svg" /></a>
+  <a href="https://huggingface.co/collections/QizhiPei/mathfusion-67d92b8e505635db1baf20bb"><img src="https://img.shields.io/badge/🤗 HuggingFace-OpenDataArena-yellow"></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="stars" src="https://img.shields.io/github/stars/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool"><img alt="forks" src="https://img.shields.io/github/forks/OpenDataArena/OpenDataArena-Tool" /></a>
   <a href="https://github.com/OpenDataArena/OpenDataArena-Tool/issues"><img alt="open issues" src="https://img.shields.io/github/issues-raw/OpenDataArena/OpenDataArena-Tool" /></a>
@@ -23,6 +24,7 @@
 
 
 ## What's New
+- 🔥 2026-1-10: We upgraded [OpenDataArena-scored-data](https://huggingface.co/datasets/OpenDataArena/OpenDataArena-scored-data), a collection of over 47 original datasets score by [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool).
 - 🔥 2026-1-3: We upgraded [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) for multimodal data training and evaluation, see [VLM Model Training](./VLM_train) and [VLM Benchmark Evaluation](./VLM_eval) for details about how to train and eval VLMs.
 - 🔥 2025-12-22: We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 80+ scoring dimensions.
 - 🔥 2025-12-17: We released our [OpenDataArena Technical Report](https://arxiv.org/abs/2512.14051).
