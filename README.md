@@ -24,6 +24,7 @@
 
 
 ## What's New
+- 🔥 2026-01-18: We released the ODA SFT datasets and models: [ODA-Math](https://huggingface.co/collections/OpenDataArena/oda-math) (SOTA math reasoning), [ODA-Mixture](https://huggingface.co/collections/OpenDataArena/oda-mixture) (multi-domain instruction), and the corresponding [Technical Report](https://www.arxiv.org/abs/2601.09733).
 - 🔥 2026-1-10: We upgraded [OpenDataArena-scored-data](https://huggingface.co/datasets/OpenDataArena/OpenDataArena-scored-data), a collection of over 47 original datasets scored by [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool).
 - 🔥 2026-1-3: We upgraded [OpenDataArena-Tool](https://github.com/OpenDataArena/OpenDataArena-Tool) for multimodal data training and evaluation, see [VLM Model Training](./VLM_train) and [VLM Benchmark Evaluation](./VLM_eval) for details about how to train and eval VLMs.
 - 🔥 2025-12-22: We upgraded [OpenDataArena](https://opendataarena.github.io/) with Qwen3-VL for multimodal data value assessment and 80+ scoring dimensions.
