@@ -117,13 +117,15 @@ Run the following commands to summarize the evaluation scores of the model.
 python summary_scores/run_summary.py -s opencompass/outputs -d res_llama -m llama-3_1-8b-instruct-vllm
 # summarize Qwen-2.5-7B evaluation scores
 python summary_scores/run_summary.py -s opencompass/outputs -d res_qwen -m qwen2.5-7b-instruct-vllm
+# summarize Qwen-3-8B evaluation scores
+python summary_scores/run_summary.py -s opencompass/outputs -d res_qwen3 -m qwen3-8b-instruct-vllm
 ```
 
 * `opencompass/outputs`: The directory where the raw test results and logs are saved.
 
-* `res_llama` and `res_qwen`: The destination path for the final, summarized result file.
+* `res_llama` , `res_qwen` and `res_qwen3`: The destination path for the final, summarized result file.
 
-* `llama-3_1-8b-instruct-vllm` and `qwen-2.5-7b-instruct-vllm`: The identifier for the model is accelerated by `vllm`. This is a required argument.
+* `llama-3_1-8b-instruct-vllm` , `qwen-2.5-7b-instruct-vllm` and `qwen3-8b-instruct-vllm`: The identifier for the model is accelerated by `vllm`. This is a required argument.
 
 ## About
 For more detailed usage of OpenCompass, please refer to the [OpenCompass documentation](https://opencompass.readthedocs.io/en/latest/).
