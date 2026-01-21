@@ -2309,11 +2309,10 @@ For each input sample, the scorer returns:
 
 ```bibtex
 @article{zhao2023preliminary,
-  title={A Preliminary Study of the Intrinsic Relationship between Complexity and Alignment},
-  author={Yingxiu Zhao and Bowen Yu and Binyuan Hui and Haiyang Yu and Fei Huang and Yongbin Li and Nevin L. Zhang},
-  year={2023},
-  eprint={2308.05696},
-  archivePrefix={arXiv},
+  title={A preliminary study of the intrinsic relationship between complexity and alignment},
+  author={Zhao, Yingxiu and Yu, Bowen and Hui, Binyuan and Yu, Haiyang and Huang, Fei and Li, Yongbin and Zhang, Nevin L},
+  journal={arXiv preprint arXiv:2308.05696},
+  year={2023}
 }
 ```
 
