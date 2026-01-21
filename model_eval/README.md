@@ -47,6 +47,9 @@ bash eval_script/test_llama.sh your_model_path dataset_name benchmark_file
 
 # evaluate sft model based on Qwen-2.5-7B
 bash eval_script/test_qwen.sh your_model_path dataset_name benchmark_file
+
+# evaluate sft model based on Qwen-3-8B
+bash eval_script/test_qwen3.sh your_model_path dataset_name benchmark_file
 ```
 
 ### Evaluate on Benchmarks in a Specific Domain
@@ -55,7 +58,10 @@ bash eval_script/test_qwen.sh your_model_path dataset_name benchmark_file
 bash eval_script/test_llama_math.sh your_model_path dataset_name
 
 # evaluate sft model based on Qwen-2.5-7B in code domain benchmarks 
-bash eval_script/test_llama_code.sh your_model_path dataset_name
+bash eval_script/test_qwen_code.sh your_model_path dataset_name
+
+# evaluate sft model based on Qwen-3-8B in code domain benchmarks
+bash eval_script/test_qwen3_code.sh your_model_path dataset_name
 ```
 
 ### Evaluate on All Benchmarks
@@ -66,6 +72,9 @@ bash eval_script/test_llama_all_benchmarks.sh your_model_path dataset_name
 
 # evaluate sft model based on Qwen-2.5-7B
 bash eval_script/test_qwen_all_benchmarks.sh your_model_path dataset_name
+
+# evaluate sft model based on Qwen-3-8B
+bash eval_script/test_qwen3_all_benchmarks.sh your_model_path dataset_name
 ```
 
 For more evaluation scripts, please refer to the `eval_script` folder.
@@ -84,7 +93,11 @@ We evaluate the performance of our SFT models on the following benchmarks.
 | math | GSM8K | gsm8k_0shot_xver_gen | IAAR-Shanghai/xVerify-9B-C |
 | math | MATH | math_0shot_xver_gen | IAAR-Shanghai/xVerify-9B-C |
 | math | MATH-500 | math_prm800k_500_0shot_cot_xver_gen | IAAR-Shanghai/xVerify-9B-C |
-| math | AIME 2024 | aime2024_repeat8_xver_gen | IAAR-Shanghai/xVerify-9B-C |
+| math | AIME_2024 | aime2024_repeat8_cver_gen | CompassVerifier-7B |
+| math | AIME_2025 | aime2025_repeat8_cver_gen | CompassVerifier-7B |
+| math | HMMT_Feb_2025 | hmmt2025_repeat8_cver_gen | CompassVerifier-7B |
+| math | CMIMC_2025 | cmimc2025_repeat8_cver_gen | CompassVerifier-7B |
+| math | BRUMO_2025 | brumo2025_repeat8_cver_gen | CompassVerifier-7B |
 | code | HumanEval | humaneval_gen_8e312c | HumanEvalEvaluator |
 | code | HumanEval+ | humaneval_plus_gen_8e312c | HumanEvalPlusEvaluator |
 | code | MBPP | sanitized_mbpp_mdblock_gen_a447ff | MBPPEvaluator |

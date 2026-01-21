@@ -37,7 +37,7 @@ pip install -e ".[torch,metrics]"
 如果您想使用自己的数据集，您可以相应地更新 `LLaMA-Factory/data/dataset_info.json`。更多详细信息，请参阅 [README](https://github.com/OpenDataArena/LLaMA-Factory/tree/main/data#supervised-fine-tuning-dataset)。
 
 ## 监督微调
-使用以下命令分别运行 [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) 和 [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B) 的全参数 SFT。
+使用以下命令分别运行 [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B), [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B) 和 [Qwen3-8B-Base](https://huggingface.co/Qwen/Qwen3-8B-Base) 的全参数 SFT。
 以 `Llama-3.1-8B` 基础模型为例:
 
 ```bash
@@ -77,6 +77,7 @@ llamafactory-cli train \
 ```bash
 llamafactory-cli train train_config/llama_config.yaml
 llamafactory-cli train train_config/qwen_config.yaml
+llamafactory-cli train train_config/qwen3_config.yaml
 ```
 
 ### 长 CoT SFT
@@ -85,6 +86,7 @@ llamafactory-cli train train_config/qwen_config.yaml
 ```bash
 llamafactory-cli train train_config/llama_long_config.yaml
 llamafactory-cli train train_config/qwen_long_config.yaml
+llamafactory-cli train train_config/qwen3_config.yaml
 ```
 
 与上述 SFT 设置的不同之处在于，我们调整了 `cutoff_len`、`per_device_train_batch_size`、`gradient_accumulation_steps`、`learning_rate` 和 `packing`。

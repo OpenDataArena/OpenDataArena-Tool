@@ -12,6 +12,7 @@ fi
 START_TIME=`date +%Y%m%d-%H:%M:%S`
 MODEL_PATH=$1
 DATANAME=$2
+BENCHMARK=$3
 EXP_NAME=qwen_test
 output_file="opencompass/configs/models/qwen2_5/vllm_qwen2_5_7b_instruct_${START_TIME}.py"
 LOG_FILE=logs/${START_TIME}_${EXP_NAME}.log

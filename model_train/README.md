@@ -8,9 +8,9 @@
 We use LLaMA-Factory to fine-tune the base models, using datasets listed on [OpenDataArena](https://opendataarena.github.io).
 
 ## Installation
-We use version `v0.9.2` of LLaMA-Factory to conduct supervised fine-tuning (SFT):
+We use version `v0.9.3` of LLaMA-Factory to conduct supervised fine-tuning (SFT):
 ```
-git clone https://github.com/OpenDataArena/LLaMA-Factory.git
+git clone -b v0.9.3 https://github.com/hiyouga/LlamaFactory.git
 cd LLaMA-Factory
 pip install -e ".[torch,metrics]"
 ```
@@ -37,7 +37,7 @@ You can also refer to `LLaMA-Factory/data/alpaca_en_demo.json` for an example.
 If you want to use your own dataset, you can update `LLaMA-Factory/data/dataset_info.json` accordingly. For more details, please refer to the [README](https://github.com/OpenDataArena/LLaMA-Factory/tree/main/data#supervised-fine-tuning-dataset).
 
 ## Supervised Fine-tuning
-Use the following commands to run full parameter SFT of [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) and [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B), respectively.
+Use the following commands to run full parameter SFT of [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B), [Qwen-2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B) and [Qwen3-8B-Base](https://huggingface.co/Qwen/Qwen3-8B-Base), respectively.
 Take `Llama-3.1-8B` base model as an example:
 
 ```bash
@@ -77,6 +77,7 @@ You can also modify the `SEED` and `DATASET` in the YAML config file, then run t
 ```bash
 llamafactory-cli train train_config/llama_config.yaml
 llamafactory-cli train train_config/qwen_config.yaml
+llamafactory-cli train train_config/qwen3_config.yaml
 ```
 
 ### Long CoT SFT
@@ -85,6 +86,7 @@ For data whose total length (including system, conversation history, instruction
 ```bash
 llamafactory-cli train train_config/llama_long_config.yaml
 llamafactory-cli train train_config/qwen_long_config.yaml
+llamafactory-cli train train_config/qwen3_config.yaml
 ```
 
 The difference from the setting above is that we adapt the `cutoff_len`, `per_device_train_batch_size`, `gradient_accumulation_steps`, `learning_rate`, and `packing`.
