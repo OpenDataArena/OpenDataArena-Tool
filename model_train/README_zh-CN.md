@@ -8,9 +8,9 @@
 我们使用 LLaMA-Factory，在 [OpenDataArena](https://opendataarena.github.io) 提供的数据集上进行微调。
 
 ## 安装
-我们使用 LLaMA-Factory 的 `v0.9.2` 版本进行监督微调 (SFT):
+我们使用 LLaMA-Factory 的 `v0.9.4` 版本进行监督微调 (SFT):
 ```
-git clone https://github.com/OpenDataArena/LLaMA-Factory.git
+git clone -b v0.9.4 https://github.com/hiyouga/LlamaFactory.git
 cd LLaMA-Factory
 pip install -e ".[torch,metrics]"
 ```
