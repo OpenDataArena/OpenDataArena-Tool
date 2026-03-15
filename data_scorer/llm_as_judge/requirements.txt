@@ -1,8 +1,0 @@
-openai
-pydantic
-pyyaml
-rich
-typer
-aiofiles
-pandas
-orjson 

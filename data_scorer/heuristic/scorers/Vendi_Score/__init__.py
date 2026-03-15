@@ -1,1 +1,0 @@
-from .vendi_score import vendi

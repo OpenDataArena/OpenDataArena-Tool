@@ -13,3 +13,6 @@
 [submodule "opencompass"]
 	path = opencompass
 	url = https://github.com/OpenDataArena/opencompass.git
+[submodule "ODA-DataScorer"]
+	path = ODA-DataScorer
+	url = https://github.com/OpenDataArena/ODA-DataScorer.git
