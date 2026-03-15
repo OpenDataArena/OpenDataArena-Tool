@@ -463,6 +463,99 @@ The `evaluate()` method returns a dictionary containing the following keys:
 
 ---
 
+## CompressRatioScorer
+
+### Overview
+
+The **CompressRatioScorer** is a heuristic evaluation tool designed to measure the **compressibility** of text data using zlib compression. Introduced in [Cai et al., 2025](https://arxiv.org/abs/2512.14051) as part of the OpenDataArena benchmark framework, this scorer computes the ratio of compressed size to original size for each sample. Text with high redundancy or repetitive patterns compresses more effectively, yielding a lower ratio; conversely, diverse and information-dense text compresses less, yielding a higher ratio.
+
+This metric is particularly useful for assessing information density and redundancy in SFT data without requiring any pre-trained models. It supports parallel processing for efficient large-scale evaluation.
+
+### Metric Definition:
+
+* **Definition:**
+
+  For each sample, the scorer computes:
+  
+  ```
+  ratio = compressed_size / original_size
+  ```
+  
+  where:
+  - `original_size`: Byte length of the UTF-8 encoded concatenated text
+  - `compressed_size`: Byte length after zlib compression at the specified level (0-9)
+
+* **Explanation:** The compression ratio quantifies how much the text can be compressed:
+  
+  * A **lower ratio** (closer to 0) indicates **high redundancy** or **repetitive content**—the text compresses well, suggesting less unique information per byte.
+  * A **higher ratio** (closer to 1) indicates **low redundancy** or **information-dense content**—the text resists compression, suggesting more unique or diverse information.
+  * The ratio is always in the range [0, 1].
+
+### YAML Configuration
+
+```yaml
+name: CompressRatioScorer
+fields:
+  - instruction
+  - input
+  - output
+level: 9
+max_workers: 8
+```
+
+#### Configuration Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | string | `"CompressRatioScorer"` | Identifier for the scorer |
+| `fields` | list | `["instruction", "input", "output"]` | Data fields to concatenate (with newlines) for compression. Only non-empty fields are included |
+| `level` | integer | `9` | Zlib compression level (0-9). Higher values yield better compression but slower computation. 9 is maximum compression |
+| `max_workers` | integer | CPU count | Number of parallel worker processes for multiprocessing |
+
+### Underlying Model
+
+This scorer **does not require any model**. It uses Python's built-in `zlib` module for compression. The computation is purely algorithmic and operates on raw text bytes.
+
+### Scoring Process
+
+1. **Text Concatenation**: For each data sample, concatenate the configured `fields` (instruction, input, output) into a single text string, joined by newlines. Skip empty or missing fields.
+
+2. **Encoding**: Encode the text to UTF-8 bytes and compute `original_size = len(bytes)`.
+
+3. **Compression**: Compress the bytes using `zlib.compress(..., level=level)` and compute `compressed_size = len(compressed_bytes)`.
+
+4. **Ratio Calculation**: Compute `ratio = compressed_size / original_size`. Return 0.0 for empty text.
+
+5. **Parallel Processing**: Uses `ProcessPoolExecutor` to process samples in parallel. Supports resume via `evaluate_to_file()` by skipping already-completed sample IDs.
+
+### Output Format
+
+For each input sample, the scorer returns:
+
+```json
+{
+  "id": 1,
+  "score": 0.4523
+}
+```
+
+- `id`: Unique identifier for the sample (from input data's `id` field)
+- `score`: Compression ratio (0.0 to 1.0). Lower values indicate more redundant/repetitive content; higher values indicate more information-dense content
+
+### Citation
+
+```bibtex
+@article{cai2512opendataarena,
+  title={Opendataarena: A fair and open arena for benchmarking post-training dataset value, 2025},
+  author={Cai, Mengzhang and Gao, Xin and Li, Yu and Lin, Honglin and Liu, Zheng and Pan, Zhuoshi and Pei, Qizhi and Shang, Xiaoran and Sun, Mengyuan and Tang, Zinan and others},
+  journal={arXiv preprint arXiv:2512.14051},
+  year={2025}
+}
+```
+
+
+---
+
 ## FacilityLocationScorer
 
 ### Overview
@@ -1174,6 +1267,128 @@ The scorer returns a **list containing a single dictionary** (since Log-Det is a
 }
 ```
 
+
+
+---
+
+## LogicalWordCountScorer
+
+### Overview
+
+The **LogicalWordCountScorer** is a heuristic evaluation tool designed to count occurrences of a user-defined set of "logical words" (logical/domain-specific terms) in SFT data samples. Introduced in [Cai et al., 2025](https://arxiv.org/abs/2512.14051) as part of the OpenDataArena benchmark framework, this scorer helps assess the presence and density of specific vocabulary—such as reasoning-related terms (e.g., "therefore," "because," "thus") or domain keywords—without requiring any pre-trained models.
+
+The scorer supports two match modes: **substring** (count non-overlapping substring occurrences) and **token** (count exact token matches after punctuation normalization). It supports multiprocessing for efficient large-scale evaluation and optional per-word count output for analysis.
+
+### Metric Definition:
+
+* **Definition:**
+
+  For each sample, the scorer:
+  1. Concatenates the configured fields (instruction, input, output) into a single text
+  2. Counts occurrences of each logical word in the text (case-insensitive)
+  3. Sums all counts as the sample score
+
+  ```
+  score = Σ count(logical_word_i in text) for all logical_word_i
+  ```
+
+* **Explanation:** The score reflects the density of specified logical/domain vocabulary:
+  
+  * A **higher score** indicates **more occurrences** of the logical words, suggesting the sample contains richer use of the target vocabulary (e.g., reasoning terms, domain-specific concepts).
+  * A **lower score** indicates **fewer occurrences**, suggesting the sample may lack the target vocabulary or use different phrasing.
+  * Logical words can be provided via config list (`logical_words`) or a file path (`logical_words_path`), one word per line. For backward compatibility, `fine_words` and `fine_words_path` are also supported.
+
+* **Match Modes:**
+  
+  * **substring**: Uses `str.count()` for non-overlapping substring matches. A word like "the" will match within "therefore."
+  * **token**: Replaces punctuation with spaces, splits on whitespace, and counts exact token matches. Avoids substring false positives.
+
+### YAML Configuration
+
+```yaml
+name: LogicalWordCountScorer
+fields:
+  - instruction
+  - input
+  - output
+logical_words:
+  - therefore
+  - because
+  - thus
+  - hence
+logical_words_path: null
+match_mode: substring
+max_workers: 8
+chunk_size: 2000
+return_counts: false
+```
+
+#### Configuration Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | string | `"LogicalWordCountScorer"` | Identifier for the scorer |
+| `fields` | list | `["instruction", "input", "output"]` | Data fields to concatenate for counting. Only non-empty fields are included |
+| `logical_words` | list | `[]` | List of logical words to count. Combined with words from `logical_words_path` if specified. `fine_words` is also supported for backward compatibility |
+| `logical_words_path` | string | `null` | Path to a text file with one logical word per line. Lines starting with `#` are ignored. `fine_words_path` is also supported for backward compatibility |
+| `match_mode` | string | `"substring"` | Matching strategy: `"substring"` (non-overlapping substring) or `"token"` (exact token match after punctuation normalization) |
+| `max_workers` | integer | CPU count | Number of parallel worker processes for multiprocessing |
+| `chunk_size` | integer | `2000` | Number of lines to process per batch when using `evaluate_to_file` with resume |
+| `return_counts` | boolean | `false` | If true, include per-word counts in the output (for debugging/analysis) |
+
+### Underlying Model
+
+This scorer **does not require any model**. It uses pure string matching or simple tokenization (punctuation-to-space + split). The computation is fully deterministic and efficient.
+
+### Scoring Process
+
+1. **Logical Words Loading**: Load logical words from `logical_words` config and/or `logical_words_path` (or `fine_words`/`fine_words_path` for backward compatibility). De-duplicate while preserving order. Convert to lowercase for case-insensitive matching.
+
+2. **Text Concatenation**: For each data sample, concatenate the configured `fields` with newlines. Skip empty fields.
+
+3. **Counting**:
+   - **substring mode**: For each logical word, use `text.lower().count(word_lower)` and sum all counts.
+   - **token mode**: Replace punctuation (ASCII + CJK) with spaces, split on whitespace, and count tokens that exactly match any logical word in the set.
+
+4. **Parallel Processing**: Uses `ProcessPoolExecutor` with `_init_worker` to avoid pickling logical words on every task. Supports resume via `evaluate_to_file()`.
+
+5. **Optional Output**: If `return_counts=true`, include a `counts` dict mapping each logical word to its occurrence count.
+
+### Output Format
+
+For each input sample, the scorer returns:
+
+```json
+{
+  "id": 1,
+  "score": 12
+}
+```
+
+With `return_counts=true`:
+
+```json
+{
+  "id": 1,
+  "score": 12,
+  "counts": {"therefore": 3, "because": 5, "thus": 4}
+}
+```
+
+- `id`: Unique identifier for the sample (from input data's `id` field)
+- `score`: Total count of all logical word occurrences (integer)
+- `counts`: (Optional) Per-word occurrence counts, only present when `return_counts=true`
+
+### Citation
+
+```bibtex
+@article{cai2512opendataarena,
+  title={Opendataarena: A fair and open arena for benchmarking post-training dataset value, 2025},
+  author={Cai, Mengzhang and Gao, Xin and Li, Yu and Lin, Honglin and Liu, Zheng and Pan, Zhuoshi and Pei, Qizhi and Shang, Xiaoran and Sun, Mengyuan and Tang, Zinan and others},
+  journal={arXiv preprint arXiv:2512.14051},
+  year={2025}
+}
+```
 
 
 ---
