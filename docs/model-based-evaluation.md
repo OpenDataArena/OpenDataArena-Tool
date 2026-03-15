@@ -4,134 +4,6 @@ Model-based scorers leverage pre-trained neural networks, language models, and s
 
 ---
 
-## AnswerProbScorer
-
-### Overview
-
-The **Answer Probability Scorer** is a model-based evaluation tool designed to assess the quality and difficulty of instruction-answer pairs by computing the conditional probability of answers given instructions. This scorer leverages causal language models to measure how well an answer aligns with its corresponding instruction through probabilistic analysis.
-
-**Important Design Choice:** This scorer **focuses exclusively on the final answer tokens** (e.g., extracted from `\boxed{...}` notation or the `answer` field), rather than evaluating the entire output including reasoning steps and explanations. This design choice ensures:
-- **Precision**: Direct measurement of how well the instruction guides to the correct answer
-- **Fairness**: Avoids bias from varying output lengths and writing styles
-- **Clarity**: Scores directly reflect instruction-answer alignment, not intermediate reasoning quality
-
-Unlike simple perplexity-based metrics, the Answer Probability Scorer implements a **normalized scoring mechanism** that accounts for the intrinsic probability of the answer itself. By comparing the conditional probability P(Answer|Instruction) against the baseline probability P(Answer), this method provides a more robust measure of instruction-answer alignment that is less biased by answer length or common phrase frequencies.
-
-### Metric Definition:
-
-* **Definition:** 
-
-  Given an instruction Q and answer A (note: **only the final answer is evaluated, not the entire output**), the scorer computes:
-  
-  1. **Conditional Probability Score (P_A):** The average log probability of **answer tokens only** given the full instruction-answer context
-  2. **Baseline Probability Score (P_B):** The average log probability of **answer tokens only** without any instruction context
-  3. **Normalized Score:** `score = log(P_A) - log(P_B) = log(P_A / P_B)`
-
-* **Why Focus Only on Answer Tokens?**
-  
-  This scorer deliberately excludes intermediate reasoning steps and explanations from the output, focusing solely on the final answer because:
-  - The goal is to measure **how effectively the instruction guides to the correct answer**
-  - Including reasoning steps would introduce noise from varying writing styles and output lengths
-  - Answer-focused evaluation provides fairer comparison across samples with different output structures
-  - This aligns with practical scenarios where the correctness of the final answer is the primary concern
-
-* **Explanation:** This metric measures the **relative probability gain** when the instruction is provided:
-  
-  * A **higher normalized score** (positive value) indicates that the instruction **significantly increases** the likelihood of the answer, suggesting strong instruction-answer alignment and higher quality.
-  * A **lower normalized score** (negative value) indicates that the instruction provides **little guidance** or even **contradicts** the natural answer generation, suggesting poor alignment or lower quality.
-  * A **score close to zero** suggests that the instruction provides **marginal information** beyond what the model already knows.
-
-* **Key Advantages:**
-  
-  * **Length-invariant:** By using average log probabilities, the metric is not biased by answer length
-  * **Baseline normalization:** Subtracting the unconditional answer probability removes bias toward common phrases
-  * **Log-space computation:** Prevents numerical underflow and provides interpretable probability ratios
-
-### YAML Configuration
-
-```yaml
-name: AnswerProbScorer
-model: Qwen/Qwen2.5-7B
-case_sensitive: true
-batch_size: 16
-max_length: 2048
-```
-
-#### Configuration Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `name` | string | `"AnswerProbScorer"` | Identifier for the scorer |
-| `model` | string | `"Qwen/Qwen3-8B"` | HuggingFace model path for the causal language model used to compute probabilities |
-| `case_sensitive` | boolean | `true` | Whether to perform case-sensitive answer extraction and matching |
-| `batch_size` | integer | `1` | Number of samples to process in parallel per forward pass |
-| `max_length` | integer | `2048` | Maximum sequence length for tokenization |
-
-
-### Underlying Model
-
-The scorer uses causal language models from the HuggingFace ecosystem to compute token-level probabilities. By default, it uses **Qwen/Qwen3-8B**, but can be configured to use any autoregressive language model.
-
-### Scoring Process
-
-1. **Input Processing**: For each data sample, the scorer extracts:
-   - Instruction (from `instruction` and optional `input` fields)
-   - Answer (from `answer` field if present, otherwise extracted from `output` using `\boxed{...}` notation)
-
-2. **Tokenization**: The concatenated instruction-answer text is tokenized with offset mapping to track character-to-token alignment
-
-3. **Forward Pass A (Conditional)**: Compute log probabilities for all tokens in the instruction+answer sequence
-
-4. **Answer Token Identification**: Use offset mapping to identify which tokens correspond to the answer segment
-
-5. **Forward Pass B (Baseline)**: Compute log probabilities for the answer-only sequence without instruction
-
-6. **Score Computation**: Calculate normalized score as `log(P_A / P_B)` where:
-   - P_A = average log probability of answer tokens in full context
-   - P_B = average log probability of answer tokens without instruction
-
-### Output Format
-
-For each input sample, the scorer returns:
-
-```json
-{
-  "id": 1,
-  "mean_prob": -2.3456,
-  "token_count": 15,
-  "answers": ["42"],
-  "answer_str": "42",
-  "mean_prob_answer_only": -3.1234,
-  "score": 0.7778,
-  "answer_only_token_count": 15
-}
-```
-
-- `mean_prob`: Average log probability of answer tokens given instruction (P_A)
-- `token_count`: Number of answer tokens used in conditional probability calculation
-- `answers`: Extracted answer(s) from the output
-- `answer_str`: Comma-separated string of all answers
-- `mean_prob_answer_only`: Average log probability of answer tokens without instruction (P_B)
-- `score`: Normalized score = log(P_A / P_B)
-- `answer_only_token_count`: Number of tokens in answer-only sequence
-
-### Citation
-
-```bibtex
-@misc{opendataarena_tool_2025,
-  author       = {OpenDataArena},
-  title        = {{OpenDataArena-Tool}},
-  year         = {2025},
-  url          = {https://github.com/OpenDataArena/OpenDataArena-Tool},
-  note         = {GitHub repository},
-  howpublished = {\url{https://github.com/OpenDataArena/OpenDataArena-Tool}},
-}
-```
-
-
-
----
-
 ## AskLlmScorer
 
 ### Overview
@@ -448,6 +320,113 @@ For each input sample, the scorer returns:
   title={Meta-rater: A Multi-dimensional Data Selection Method for Pre-training Language Models},
   author={Zhuang, Xinlin and Peng, Jiahui and Ma, Ren and Wang, Yinfan and Bai, Tianyi and Wei, Xingjian and Qiu, Jiantao and Zhang, Chi and Qian, Ying and He, Conghui},
   journal={arXiv preprint arXiv:2504.14194},
+  year={2025}
+}
+```
+
+
+---
+
+## ComplexityScorer
+
+### Overview
+
+The **ComplexityScorer** is a model-based evaluation tool designed to assess the **instruction complexity** of SFT data using a local instruction-tuned LLM as a judge. Unlike specialized complexity models like DeitaCScorer, this scorer uses a general-purpose causal language model (e.g., Qwen3-8B) with a carefully designed prompt to evaluate how cognitively demanding an instruction is. The model generates a complexity score (1-10) along with a brief reasoning explanation, following the evaluation framework established in [Cai et al., 2025](https://arxiv.org/abs/2512.14051) for OpenDataArena.
+
+This scorer is suitable for benchmarking post-training dataset value and for understanding the difficulty distribution of instruction-tuning data.
+
+### Metric Definition:
+
+* **Definition:**
+
+  For each instruction (optionally combined with input), the scorer:
+  1. Constructs a complexity-evaluation prompt with explicit scoring rules (1-10 scale)
+  2. Uses the LLM to generate a response containing a score within `<bos>...</eos>` tags
+  3. Parses the integer score from the model output
+  4. Clamps the score to the configured `min_score` and `max_score` range
+
+* **Explanation:**
+
+  The complexity score reflects the depth of knowledge and reasoning required to understand and respond to the instruction:
+  
+  * **Score 9-10 (Excellent)**: Expert-level knowledge and deep, multi-step reasoning; synthesis of multiple complex concepts
+  * **Score 7-8 (Good)**: Challenging, requiring specialized knowledge and significant reasoning
+  * **Score 5-6 (Acceptable)**: Moderate reasoning beyond basic fact-finding
+  * **Score 3-4 (Poor)**: Simple and straightforward, minimal reasoning
+  * **Score 1-2 (Very Poor)**: Trivial, almost no cognitive effort required
+
+### YAML Configuration
+
+```yaml
+name: ComplexityScorer
+model: Qwen/Qwen3-8B
+batch_size: 4
+max_length: 4096
+max_new_tokens: 512
+temperature: 0.0
+min_score: 1
+max_score: 10
+```
+
+#### Configuration Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | string | `"ComplexityScorer"` | Identifier for the scorer |
+| `model` | string | (local path or HF ID) | HuggingFace model path or local directory for the instruction-tuned LLM used as complexity judge |
+| `batch_size` | integer | `4` | Number of samples to process in parallel per forward pass |
+| `max_length` | integer | `4096` | Maximum sequence length for tokenization |
+| `max_new_tokens` | integer | `512` | Maximum number of tokens to generate per sample |
+| `temperature` | float | `0.0` | Sampling temperature (0.0 for greedy decoding) |
+| `top_p` | float | `1.0` | Top-p (nucleus) sampling parameter |
+| `top_k` | integer | `None` | Top-k sampling parameter (None to disable) |
+| `min_score` | integer | `1` | Minimum valid score for clamping |
+| `max_score` | integer | `10` | Maximum valid score for clamping |
+| `enable_thinking` | boolean | `false` | Whether to enable thinking mode for models that support it |
+
+### Underlying Model
+
+The scorer uses **AutoModelForCausalLM** from HuggingFace Transformers to load an instruction-tuned language model. The model processes each instruction through a complexity-evaluation prompt and generates a response. The score is extracted by parsing the `<bos>...score...</eos>` pattern from the generated text. The default model path can be configured to point to a local Qwen3-8B or similar instruction-following model.
+
+### Scoring Process
+
+1. **Input Processing**: For each data sample, extract `instruction` and optionally `input`, concatenating them to form the full instruction text.
+
+2. **Prompt Construction**: Build the complexity-evaluation prompt using the predefined template with scoring rules (1-10 scale and criteria).
+
+3. **Chat Template**: Apply the model's chat template (e.g., Qwen format) to convert the user message into the expected input format. Optionally enable thinking mode if supported.
+
+4. **Batch Tokenization**: Tokenize prompts with left padding and truncation to `max_length`.
+
+5. **Generation**: Run `model.generate()` with the configured parameters (temperature, max_new_tokens, etc.). Use greedy decoding when temperature is 0.
+
+6. **Score Parsing**: Decode the generated tokens, extract the score from `<bos>...score...</eos>` using regex, and clamp to `[min_score, max_score]`.
+
+7. **Output**: Return a dict with `score` and `raw_output` for each sample.
+
+### Output Format
+
+For each input sample, the scorer returns:
+
+```json
+{
+  "id": 1,
+  "score": 7.0,
+  "raw_output": "7\n<bor>The instruction requires analyzing trade-offs...</eor>"
+}
+```
+
+- `id`: Unique identifier for the sample
+- `score`: Parsed complexity score (1-10). Higher values indicate more complex instructions
+- `raw_output`: Raw generated text from the model (for debugging)
+
+### Citation
+
+```bibtex
+@article{cai2512opendataarena,
+  title={Opendataarena: A fair and open arena for benchmarking post-training dataset value, 2025},
+  author={Cai, Mengzhang and Gao, Xin and Li, Yu and Lin, Honglin and Liu, Zheng and Pan, Zhuoshi and Pei, Qizhi and Shang, Xiaoran and Sun, Mengyuan and Tang, Zinan and others},
+  journal={arXiv preprint arXiv:2512.14051},
   year={2025}
 }
 ```
@@ -826,6 +805,112 @@ For each input sample, the scorer returns:
   title={How instruction and reasoning data shape post-training: Data quality through the lens of layer-wise gradients},
   author={Li, Ming and Li, Yanhong and Li, Ziyue and Zhou, Tianyi},
   journal={arXiv preprint arXiv:2504.10766},
+  year={2025}
+}
+```
+
+
+---
+
+## EmbedSVDEntropyScorer
+
+### Overview
+
+The **EmbedSVDEntropyScorer** is a model-based evaluation tool designed to quantify the **informativeness** of text data through spectral analysis of embedding representations. Proposed in [Yu et al., 2025](https://openaccess.thecvf.com/html/155/CVPR2025/CVPR2025-paper-Yu_et_al.html), this method leverages the SVD (Singular Value Decomposition) entropy of token-level hidden states from embedding models to measure the information richness and diversity of text samples. Higher entropy indicates more diverse semantic content and greater informativeness.
+
+This scorer is particularly useful for data selection in multi-modal and instruction-tuning scenarios, where informativeness, uniqueness, and representativeness are key criteria for curating high-value training data.
+
+### Metric Definition:
+
+* **Definition:**
+
+  Given the last hidden state matrix \(H \in \mathbb{R}^{L \times d}\) (sequence length \(L\), hidden dimension \(d\)) from an embedding model:
+  
+  1. Perform SVD: \(H = U \Sigma V^T\), obtaining singular values \(\sigma_j\)
+  2. Normalize: \(p_j = \sigma_j / \sum_k \sigma_k\)
+  3. Compute information entropy: \(V_{inf} = -\sum_j p_j \log(p_j + \epsilon)\)
+
+  ```
+  V_inf = -Σ p_j * log(p_j + eps)
+  where p_j = sigma_j / sum(sigma)
+  ```
+
+* **Explanation:**
+
+  The SVD entropy quantifies the spectral diversity of the embedding representation:
+  
+  * A **higher V_inf score** indicates that the singular values are more uniformly distributed, suggesting **richer semantic content** and **greater informativeness**—the text spans more diverse conceptual dimensions.
+  * A **lower V_inf score** suggests that the representation is concentrated in fewer dimensions, indicating **redundant or less informative** content.
+
+### YAML Configuration
+
+```yaml
+name: EmbedSVDEntropyScorer
+model: Qwen/Qwen3-Embedding-8B
+max_length: 8192
+batch_size: 8
+svd_max_tokens: 512
+svd_token_strategy: tail
+fields: ["instruction", "input", "output"]
+```
+
+#### Configuration Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | string | `"EmbedSVDEntropyScorer"` | Identifier for the scorer |
+| `model` | string | `"Qwen/Qwen3-Embedding-8B"` | HuggingFace model path or local path to the embedding model |
+| `max_length` | integer | `8192` | Maximum sequence length for tokenization |
+| `batch_size` | integer | `8` | Number of samples to process in parallel per forward pass |
+| `svd_max_tokens` | integer | `512` | Maximum number of token rows used for SVD computation (to prevent OOM on long sequences) |
+| `svd_token_strategy` | string | `"tail"` | Token selection strategy when sequence length > svd_max_tokens: `"tail"` (keep last tokens) or `"uniform"` (uniformly sample) |
+| `fields` | list | `["instruction", "input", "output"]` | Data fields to concatenate for scoring |
+| `trust_remote_code` | boolean | `true` | Whether to trust remote code when loading the model |
+| `padding_side` | string | `"left"` | Padding side for tokenizer: `"left"` or `"right"` |
+| `eps` | float | `1e-10` | Small constant for numerical stability in log computation |
+
+### Underlying Model
+
+The scorer uses embedding models from the HuggingFace ecosystem. By default, it uses **Qwen/Qwen3-Embedding-8B**, which provides high-quality token-level representations. The model outputs `last_hidden_state` for each token, which is then subjected to SVD for entropy computation. If the specified model fails to load, it falls back to the default Qwen3-Embedding-8B.
+
+### Scoring Process
+
+1. **Text Concatenation**: For each data sample, concatenate the configured `fields` (instruction, input, output) into a single text.
+
+2. **Tokenization**: Tokenize texts in batch with padding, truncation to `max_length`, and attention mask.
+
+3. **Embedding Extraction**: Forward pass through the embedding model to obtain `last_hidden_state` (shape: [batch, seq_len, hidden_dim]).
+
+4. **Padding Removal**: For each sample, retain only token positions where `attention_mask == 1`.
+
+5. **Token Subsampling**: If sequence length exceeds `svd_max_tokens`, apply the configured strategy (`tail` or `uniform`) to reduce rows for SVD.
+
+6. **SVD and Entropy**: Perform SVD on the token-hidden matrix (in float32), normalize singular values to form a probability distribution, and compute Shannon entropy \(V_{inf}\).
+
+7. **Score Assignment**: Return \(V_{inf}\) as the informativeness score. Empty or invalid samples receive 0.0.
+
+### Output Format
+
+For each input sample, the scorer returns:
+
+```json
+{
+  "id": 1,
+  "score": 4.23
+}
+```
+
+- `id`: Unique identifier for the sample (from input data's `id` field)
+- `score`: SVD entropy \(V_{inf}\) representing informativeness. Higher values indicate richer, more diverse semantic content
+
+### Citation
+
+```bibtex
+@inproceedings{yu2025mastering,
+  title={Mastering collaborative multi-modal data selection: A focus on informativeness, uniqueness, and representativeness},
+  author={Yu, Qifan and Shen, Zhebei and Yue, Zhongqi and Wu, Yang and Qin, Bosheng and Zhang, Wenqiao and Li, Yunfei and Li, Juncheng and Tang, Siliang and Zhuang, Yueting},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={155--165},
   year={2025}
 }
 ```
@@ -3413,32 +3498,30 @@ For each input sample, the scorer returns:
 }
 ```
 
-
-
 ---
 
-## SkyworkRewardScorer
+## SkyworkLlamaScorer
 
 ### Overview
 
-The **Skywork Reward Scorer** is a model-based evaluation tool that leverages the Skywork Reward Model, a large-scale reward model trained on 26 million high-quality preference pairs, designed to assess the alignment quality of supervised fine-tuning (SFT) data. Unlike heuristic or synthetic scoring strategies, the Skywork Reward Model is grounded in extensive human-LLM joint evaluations and sets a new standard for reward modeling. It is suitable for ranking, filtering, or curating SFT data for alignment training.
+The **Skywork Llama Scorer** is a model-based evaluation tool that leverages the Skywork Reward Model, a large-scale reward model trained on 26 million high-quality preference pairs, designed to assess the alignment quality of supervised fine-tuning (SFT) data. Unlike heuristic or synthetic scoring strategies, the Skywork Reward Model is grounded in extensive human-LLM joint evaluations and sets a new standard for reward modeling. It is suitable for ranking, filtering, or curating SFT data for alignment training.
 
 ### Metric Definition:
 
 * **Definition:** 
 
-  Given an instruction-response pair, the reward scorer assigns a scalar reward score, representing how preferable or aligned the response is in the context of the instruction.
+  Given an instruction-response pair, the scorer assigns a scalar reward score, representing how preferable or aligned the response is in the context of the instruction.
 
 * **Explanation:**
   
-  * A **higher Skywork Reward Score** indicates that the response is preferred by the reward model, demonstrating better quality, alignment, and task-following behavior.
+  * A **higher Skywork Llama Score** indicates that the response is preferred by the reward model, demonstrating better quality, alignment, and task-following behavior.
   * A **lower score** suggests deficiencies in quality, alignment, or task-following behavior.
   * The reward model provides a **unified preference signal** trained on extensive human feedback data, making it more reliable than heuristic metrics.
 
 ### YAML Configuration 
 
 ```yaml
-name: SkyworkRewardScorer
+name: SkyworkLlamaScorer
 model: Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M
 max_length: 4096
 batch_size: 16
@@ -3448,7 +3531,7 @@ batch_size: 16
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `name` | string | `"SkyworkRewardScorer"` | Identifier for the scorer |
+| `name` | string | `"SkyworkLlamaScorer"` | Identifier for the scorer |
 | `model` | string | `"Skywork/Skywork-Reward-V2-Llama-3.1-8B-40M"` | HuggingFace model path for the reward model |
 | `max_length` | integer | `4096` | Maximum sequence length for tokenization |
 | `batch_size` | integer | `16` | Number of samples to process in parallel per forward pass |
@@ -3483,6 +3566,98 @@ For each input sample, the scorer returns:
 
 - `id`: Unique identifier for the sample
 - `score`: Reward score assigned by the model (higher values indicate better alignment and quality)
+
+### Citation
+
+```bibtex
+@article{liu2025skywork,
+  title={Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy},
+  author = {Liu, Chris Yuhao and Zeng, Liang and Xiao, Yuzhen and He, Jujie and Liu, Jiacai and Wang, Chaojie and Yan, Rui and Shen, Wei and Zhang, Fuxiang and Xu, Jiacheng and Liu, Yang and Zhou, Yahui},
+  journal={arXiv preprint arXiv:2507.01352},
+  year={2025}
+}
+```
+
+
+---
+
+## SkyworkQwenScorer
+
+### Overview
+
+The **SkyworkQwenScorer** is a model-based evaluation tool that leverages the Skywork-Reward-V2-Qwen3-8B reward model to assess the alignment quality of supervised fine-tuning (SFT) data. As part of the Skywork-Reward-V2 series introduced in [Liu et al., 2025](https://arxiv.org/abs/2507.01352), this scorer uses a Qwen3-8B-based sequence classification model trained on large-scale human-AI preference data to provide reliable quality signals for instruction-response pairs.
+
+Unlike the SkyworkLlamaScorer which uses the Llama-based variant, SkyworkQwenScorer is built on the Qwen3 architecture, offering an alternative backbone for reward modeling. It is suitable for ranking, filtering, and curating SFT data for alignment training.
+
+### Metric Definition:
+
+* **Definition:**
+
+  Given an instruction-response pair (instruction + input as prompt, output as assistant response), the scorer assigns a scalar reward score through a sequence classification model. The model processes the conversation in chat format and outputs a single scalar value representing the preference strength for the response.
+
+  ```
+  Score = RewardModel(conversation)
+  ```
+
+  where the conversation is formatted as `[user: instruction+input, assistant: output]`.
+
+* **Explanation:**
+
+  * A **higher reward score** indicates that the response is **more preferred** by the reward model, demonstrating better quality, alignment, and task-following behavior.
+  * A **lower reward score** suggests deficiencies in quality, alignment, or appropriateness of the response.
+  * The score is unbounded; relative ranking across samples is more meaningful than absolute values.
+
+### YAML Configuration
+
+```yaml
+name: SkyworkQwenScorer
+model: Skywork/Skywork-Reward-V2-Qwen3-8B
+max_length: 4096
+batch_size: 32
+```
+
+#### Configuration Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | string | `"SkyworkQwenScorer"` | Identifier for the scorer |
+| `model` | string | `"Skywork/Skywork-Reward-V2-Qwen3-8B"` | HuggingFace model path or local path for the reward model. Falls back to remote model if local path does not exist |
+| `max_length` | integer | `4096` | Maximum sequence length for tokenization; longer sequences are truncated |
+| `batch_size` | integer | `32` | Number of samples to process in parallel per forward pass |
+
+### Underlying Model
+
+The scorer uses [Skywork/Skywork-Reward-V2-Qwen3-8B](https://huggingface.co/Skywork/Skywork-Reward-V2-Qwen3-8B), a reward model from the Skywork-Reward-V2 series built on the Qwen3-8B architecture. The model is trained via human-AI synergy for preference data curation and outputs a scalar reward score through a sequence classification head (`num_labels=1`). It uses bfloat16 precision on GPU for efficient inference.
+
+### Scoring Process
+
+1. **Conversation Construction**: For each data sample, build a conversation with:
+   - User role: `instruction` (and `input` if present, concatenated)
+   - Assistant role: `output`
+
+2. **Chat Template Application**: Apply the model's chat template via `tokenizer.apply_chat_template()` with `add_generation_prompt=False` to format the conversation for the reward model.
+
+3. **Tokenization and Truncation**: Tokenize each conversation with truncation at `max_length`. Log a warning for truncated samples.
+
+4. **Batch Padding**: Pad input_ids to the longest sequence in the batch for efficient GPU computation.
+
+5. **Forward Pass**: Pass the batch through `AutoModelForSequenceClassification` to obtain logits. Extract the scalar score from the `[B, 1]` logits by squeezing the last dimension.
+
+6. **Score Return**: Return the reward score as a float for each sample.
+
+### Output Format
+
+For each input sample, the scorer returns:
+
+```json
+{
+  "id": "sample_identifier",
+  "score": 2.34
+}
+```
+
+- `id`: Unique identifier for the sample (from input data's `id` field)
+- `score`: Reward score assigned by the Skywork-Reward-V2-Qwen3-8B model (higher values indicate better alignment and quality)
 
 ### Citation
 
